@@ -15,7 +15,7 @@ Our team consists of six members, each contributing to different aspects of the 
    - Designs and implements the user interface using modern web technologies.
    - Ensures that the application is responsive and user-friendly.
 
-3. **[Sofia and Arman]** - Backend Developers
+3. **[Sofia, Arman & Maria]** - Backend Developers
    - Collaborates on the backend, focusing on database and structure.
    - Bridge the frontend and backend, ensuring seamless integration.
 
