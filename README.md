@@ -35,7 +35,7 @@ We are following an adapted Agile methodology with 4 iterations (sprints) of 3 t
 - Set up the GitHub repository and project structure.
 - Implement the login system for both students and instructors.
 - Develop the functionality for instructors to create teams and assign students to groups.
-- Draft initial user stories and task breakdown.
+- Draft initial task breakdown.
 
 ## How to Contribute
 Each team member is responsible for pushing their code to the repository regularly. All contributions should be documented in the individual contribution logs, and pull requests must be reviewed by at least one other team member before merging.
