@@ -9,13 +9,13 @@ Our team consists of six members, each contributing to different aspects of the 
 
 1. **[Maria]** - Project Manager & Backend Developer
    - Manages project timelines, meetings, and ensures smooth communication among the team.
-   - Works on the backend, also focusing on design and development.
+   - Works on the backend, also focusing on design, development and the database.
 
 2. **[Lola and Ishika and Lilia]** - Frontend Developers
    - Designs and implements the user interface using modern web technologies.
    - Ensures that the application is responsive and user-friendly.
 
-3. **[Sofia, Arman & Maria]** - Backend Developers
+3. **[Sofia and Arman]** - Backend Developers
    - Collaborates on the backend, focusing on database and structure.
    - Bridge the frontend and backend, ensuring seamless integration.
 
