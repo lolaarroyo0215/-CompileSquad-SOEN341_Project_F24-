@@ -23,14 +23,15 @@ class InstructorSerializer(serializers.ModelSerializer):
         model = Instructor
         fields = ['first_name', 'last_name', 'email', 'password', 'instructor_id']
    
-def create(self, validated_data):
-    instructor = Instructor.objects.create(
-        first_name=validated_data.get('first_name', ''),
-            last_name=validated_data.get('last_name', ''),
-            email=validated_data.get('email'),
-            instructor_id=validated_data.get('student_id')
-    )
+    def create(self, validated_data):
+        instructor = Instructor.objects.create(
+            first_name=validated_data.get('first_name', ''),
+                last_name=validated_data.get('last_name', ''),
+                email=validated_data.get('email'),
+                instructor_id=validated_data.get('instructor_id')
+        )
 
-    instructor.set_password(validated_data['password'])
-    instructor.save()
-    return instructor
+        instructor.set_password(validated_data['password'])
+        instructor.save()
+        return instructor
+
