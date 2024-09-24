@@ -1,4 +1,3 @@
-User-Creation
 import Register from './Register';
 import CreateAccount from './CreateAccount';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
