@@ -77,12 +77,6 @@ export default function Register(){
                         type='number' placeholder='userId' 
                         required
                         className='block w-full rounded-sm p-2 mb-2 border'/> 
-
-                    <input value={email}
-                    onChange={ev => setEmail(ev.target.value)}
-                    type='email' placeholder='email' 
-                    required
-                    className='block w-full rounded-sm p-2 mb-2 border'/>   
    
                     <input value={password} 
                         onChange={ev => setPassword(ev.target.value)}
@@ -94,7 +88,7 @@ export default function Register(){
 
                     <p className='mt-10 text-center text-sm text-gray-500'>
                         Not a member yet?
-                        <a href='#' className='font-semibold leading-6 text-sky-800 hover:text-sky-950'> Create an account here</a>
+                        <a href='/create-account' className='font-semibold leading-6 text-sky-800 hover:text-sky-950'> Create an account here</a>
                     </p>
 
                     
