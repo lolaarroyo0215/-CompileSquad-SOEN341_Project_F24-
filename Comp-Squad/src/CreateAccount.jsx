@@ -102,9 +102,16 @@ export default function CreateAccount() {
                         required 
                         className='block w-full rounded-sm p-2 mb-2 border'/>
 
-                    <button className='bg-red-900 text-white block w-full rounded-sm p-2 hover:bg-red-950'>Register</button>      
+                    <button className='bg-red-900 text-white block w-full rounded-sm p-2 hover:bg-red-950'>Register</button>
+
+                    <p className='mt-10 text-center text-sm text-gray-500'>
+                        Not a member yet?
+                        <a href='#' className='font-semibold leading-6 text-sky-800 hover:text-sky-950'> Create an account here</a>
+                    </p>
+
+                    
                 </form>
             </div>
         </div>
     );
-};
+}
