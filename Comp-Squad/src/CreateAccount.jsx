@@ -106,7 +106,7 @@ export default function CreateAccount() {
 
                     <p className='mt-10 text-center text-sm text-gray-500'>
                         Not a member yet?
-                        <a href='#' className='font-semibold leading-6 text-sky-800 hover:text-sky-950'> Create an account here</a>
+                        <a href='/create-account' className='font-semibold leading-6 text-sky-800 hover:text-sky-950'> Create an account here</a>
                     </p>
 
                     
