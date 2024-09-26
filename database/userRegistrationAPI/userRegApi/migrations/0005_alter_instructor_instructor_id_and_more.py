@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='instructor',
             name='instructor_id',
-            field=models.IntegerField(unique=False),
+            field=models.IntegerField(unique=True),
         ),
         migrations.AlterField(
             model_name='student',

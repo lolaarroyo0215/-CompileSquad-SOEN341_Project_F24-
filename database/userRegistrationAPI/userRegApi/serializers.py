@@ -1,7 +1,10 @@
 from rest_framework import serializers
 from .models import Student, Instructor
+from django.contrib.auth import authenticate
+from django.contrib.auth.backends import ModelBackend
 
-class StudentSerializer(serializers.ModelSerializer):
+
+class StudentRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ['first_name', 'last_name', 'email', 'password', 'student_id']
@@ -18,7 +21,7 @@ class StudentSerializer(serializers.ModelSerializer):
         student.save()
         return student
 
-class InstructorSerializer(serializers.ModelSerializer):
+class InstructorRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instructor
         fields = ['first_name', 'last_name', 'email', 'password', 'instructor_id']
@@ -34,4 +37,24 @@ class InstructorSerializer(serializers.ModelSerializer):
         instructor.set_password(validated_data['password'])
         instructor.save()
         return instructor
+    
 
+class StudentLoginSerializer(serializers.Serializer):
+    student_id = serializers.IntegerField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        student_id = data.get('student_id')
+        password = data.get('password')
+
+        # user = StudentBackend.check(student_id=student_id, password=password)
+        try:
+            student = Student.objects.get(student_id=student_id)
+        except Student.DoesNotExist:
+            raise serializers.ValidationError("Student ID doesn't exist")
+
+        if student.check_password(password):
+            return student
+        raise serializers.ValidationError("Wrong password")
+
+    
