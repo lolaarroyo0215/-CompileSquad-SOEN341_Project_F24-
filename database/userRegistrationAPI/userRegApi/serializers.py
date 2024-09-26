@@ -17,7 +17,6 @@ class StudentRegistrationSerializer(serializers.ModelSerializer):
             student_id=validated_data.get('student_id')
         )
         student.set_password(validated_data['password'])
-        print(f"Hashed password: {student.password}")
         student.save()
         return student
 
@@ -47,7 +46,6 @@ class StudentLoginSerializer(serializers.Serializer):
         student_id = data.get('student_id')
         password = data.get('password')
 
-        # user = StudentBackend.check(student_id=student_id, password=password)
         try:
             student = Student.objects.get(student_id=student_id)
         except Student.DoesNotExist:

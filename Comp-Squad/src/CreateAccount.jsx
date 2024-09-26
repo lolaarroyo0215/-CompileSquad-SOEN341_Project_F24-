@@ -25,21 +25,42 @@ export default function CreateAccount() {
         }
 
         // Prep data to be sent to API
-        const userData = { studentId, firstName, lastName, email, password, userType };
+     //   const userData = { studentId, firstName, lastName, email, password};
+
+        
+   
 
         try {
             // Make a POST request to the registration API
             if(userType === 'student') {
-                const response = await axios.post(process.env.REACT_APP_STUDENT_API, userData);
+
+                const userData = {
+                    student_id: studentId,
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email,
+                    password: password
+                };
+                const response = await axios.post('http://localhost:8000/userRegApi/create-student/', userData);
                 console.log(response.data);
             } else {
-                response = await axios.post(process.env.REACT_APP_TEACHER_API, userData);
+                const userData = {
+                    instructor_id: studentId,
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email,
+                    password: password
+                };
+
+                response = await axios.post('http://localhost:8000/userRegApi/create-instructor/', userData);
                 console.log(response.data);
             }
 
             
             // Handle API response
-            if(response.status === 201) {
+
+            if(response.status === 200 || response.status === 201) {
+
                 alert('Account created successfully');
                 navigate('/main'); // Redirect to student/teacher main page when created
             } else {
