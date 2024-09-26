@@ -1,3 +1,4 @@
+
 # -CompileSquad-SOEN341_Project_F24-
 # Peer Assessment Application
 
@@ -39,4 +40,3 @@ We are following an adapted Agile methodology with 4 iterations (sprints) of 3 t
 
 ## How to Contribute
 Each team member is responsible for pushing their code to the repository regularly. All contributions should be documented in the individual contribution logs, and pull requests must be reviewed by at least one other team member before merging.
-

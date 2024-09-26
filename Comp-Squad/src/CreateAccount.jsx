@@ -28,11 +28,12 @@ export default function CreateAccount() {
      //   const userData = { studentId, firstName, lastName, email, password};
 
         
-    
+   
 
         try {
             // Make a POST request to the registration API
             if(userType === 'student') {
+
                 const userData = {
                     student_id: studentId,
                     first_name: firstName,
@@ -57,7 +58,9 @@ export default function CreateAccount() {
 
             
             // Handle API response
+
             if(response.status === 200 || response.status === 201) {
+
                 alert('Account created successfully');
                 navigate('/main'); // Redirect to student/teacher main page when created
             } else {
