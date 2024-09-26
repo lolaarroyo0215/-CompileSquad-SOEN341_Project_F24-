@@ -28,7 +28,6 @@ export default function CreateAccount() {
      //   const userData = { studentId, firstName, lastName, email, password};
 
         
-   
 
         try {
             // Make a POST request to the registration API
@@ -42,7 +41,6 @@ export default function CreateAccount() {
                     password: password
                 };
                 const response = await axios.post('http://localhost:8000/userRegApi/create-student/', userData);
-                console.log(response.data);
             } else {
                 const userData = {
                     instructor_id: studentId,
@@ -53,7 +51,6 @@ export default function CreateAccount() {
                 };
 
                 response = await axios.post('http://localhost:8000/userRegApi/create-instructor/', userData);
-                console.log(response.data);
             }
 
             
