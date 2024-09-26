@@ -77,7 +77,7 @@ export default function Register(){
                         type='number' placeholder='userId' 
                         required
                         className='block w-full rounded-sm p-2 mb-2 border'/> 
-
+   
                     <input value={password} 
                         onChange={ev => setPassword(ev.target.value)}
                         type='password' placeholder='password'
