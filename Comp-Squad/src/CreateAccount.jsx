@@ -28,11 +28,18 @@ export default function CreateAccount() {
      //   const userData = { studentId, firstName, lastName, email, password};
 
         
+<<<<<<< Updated upstream
+=======
+    
+>>>>>>> Stashed changes
 
         try {
             // Make a POST request to the registration API
             if(userType === 'student') {
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                 const userData = {
                     student_id: studentId,
                     first_name: firstName,
@@ -41,6 +48,10 @@ export default function CreateAccount() {
                     password: password
                 };
                 const response = await axios.post('http://localhost:8000/userRegApi/create-student/', userData);
+<<<<<<< Updated upstream
+=======
+                console.log(response.data);
+>>>>>>> Stashed changes
             } else {
                 const userData = {
                     instructor_id: studentId,
@@ -51,13 +62,21 @@ export default function CreateAccount() {
                 };
 
                 response = await axios.post('http://localhost:8000/userRegApi/create-instructor/', userData);
+<<<<<<< Updated upstream
+=======
+                console.log(response.data);
+>>>>>>> Stashed changes
             }
 
             
             // Handle API response
+<<<<<<< Updated upstream
 
             if(response.status === 200 || response.status === 201) {
 
+=======
+            if(response.status === 200 || response.status === 201) {
+>>>>>>> Stashed changes
                 alert('Account created successfully');
                 navigate('/main'); // Redirect to student/teacher main page when created
             } else {
