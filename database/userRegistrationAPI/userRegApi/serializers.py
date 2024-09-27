@@ -54,5 +54,24 @@ class StudentLoginSerializer(serializers.Serializer):
         if student.check_password(password):
             return student
         raise serializers.ValidationError("Wrong password")
+    
+
+class InstructorLoginSerializer(serializers.Serializer):
+    instructor_id = serializers.IntegerField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        instructor_id = data.get('instructor_id')
+        password = data.get('password')
+
+        try:
+            instructor = Instructor.objects.get(instructor_id=instructor_id)
+        except Instructor.DoesNotExist:
+            raise serializers.ValidationError("Instructor ID doesn't exist")
+
+        if instructor.check_password(password):
+            return instructor
+        raise serializers.ValidationError("Wrong password")
+
 
     

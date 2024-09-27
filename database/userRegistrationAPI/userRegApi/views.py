@@ -2,7 +2,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Student, Instructor
-from .serializers import StudentRegistrationSerializer, InstructorRegistrationSerializer, StudentLoginSerializer
+from .serializers import StudentRegistrationSerializer, InstructorRegistrationSerializer, StudentLoginSerializer, InstructorLoginSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
 
@@ -32,12 +32,28 @@ def student_login(request):
 
         refresh = RefreshToken.for_user(user)
         return Response({
+            'data': str("login succesful"),
             'refresh': str(refresh),
             'access': str(refresh.access_token),
         }, status=status.HTTP_200_OK)
     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['POST'])
+def instructor_login(request):
+    serializer = InstructorLoginSerializer(data=request.data)
+
+    if serializer.is_valid():
+        user = serializer.validated_data
+
+        refresh = RefreshToken.for_user(user)
+        return Response({
+            'data': str("login succesful"),
+            'refresh': str(refresh),
+            'access': str(refresh.access_token),
+        }, status=status.HTTP_200_OK)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
         
