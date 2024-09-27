@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 
@@ -14,41 +15,52 @@ export default function Register(){
 
         // Data Validation
         if(!studentId || !password || !userType) {
-            alert('All fiels are required');
+            alert('All fields are required');
             return;
         }
-
-        // Prep data to be sent to API
-        const loginData = { studentId, password, userType };
+       
 
         try {
-            // Make a POST request to the login API
-            const response = await fetch('api/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json'},
-                body: JSON.stringify(loginData)
-            });
-
-            // Handle API response
-            if (response.ok) {
-                const result = await response.json();
-                alert('Login successful: ' + result);
-
-                // Redirect based on userType
-                if (userType === 'student') {
+            if(userType == 'student'){
+                const userData = {
+                    student_id: studentId,
+                    password: password
+                };
+                const response = await axios.post('http://localhost:8000/userRegApi/student-login/', userData);
+                console.log(response);
+                if (response.data) {
+                    const result = response.data;
+                    console.log("success")
                     window.location.href = '/student-dashboard';
-                } else {
-                    window.location.href = '/teacher-dashboard';
                 }
-            } else {
-                const errorData = await response.json();
-                alert('Login failed: ' + errorData.detail);
+                else {
+                    const errorData = response.data;
+                    alert('Login failed: ' + errorData.detail);
+                }
             }
-        } catch (error) {
+            else{
+                const userData = {
+                    instructor_id: studentId,
+                    password: password
+                };
+                const response = await axios.post('http://localhost:8000/userRegApi/instructor-login/', userData);
+                if (response.data) {
+                    const result = response.data;
+                    console.log("success")
+                    window.location.href = '/instructor-dashboard';
+                }
+                else {
+                    const errorData = response.data;
+                    alert('Login failed: ' + errorData.detail);
+                }
+            }
+        }
+        catch (error) {
             // Handle network errors
             console.error('An error occurred: ', error);
             alert('Issue logging in');
         }
+        
     };
 
     return (
