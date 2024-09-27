@@ -1,0 +1,61 @@
+/* TeamCreation.css */
+.team-creation-container {
+    background-color: #ffffff; /* White background for the form */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 20px;
+    margin: 20px auto; /* Center the form */
+    max-width: 400px; /* Limit width for better readability */
+    text-align: left; /* Align text to the left */
+}
+
+h3 {
+    color: #8b1212; /* Blue color for the heading */
+    margin-bottom: 10px;
+}
+
+input {
+    width: 100%; /* Full width */
+    padding: 10px;
+    margin-bottom: 10px; /* Space between inputs */
+    border: 1px solid #ddd; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+}
+
+input:focus {
+    border-color: #000; /* Change border color on focus */
+}
+
+button {
+    background-color: #000000; /* Button color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+button:hover {
+    background-color: #6e0505; /* Darker blue on hover */
+}
+
+.instructions {
+    font-size: 16px; /* Size of the font */
+    color: #000; /* Change text color to blue for better visibility */
+    line-height: 1.6; /* Space between lines for better readability */
+    margin: 10px 0; /* Space above and below paragraphs */
+    font-family: 'Georgia', serif; /* Change font type for a more aesthetic look */
+    font-style: italic; /* Italicize the text for emphasis */
+    text-align: center; /* Center the text */
+    background-color: #f0f4f8; /* Light background color for better contrast */
+    padding: 10px; /* Add padding for a nicer appearance */
+    border-radius: 5px; /* Rounded corners for the background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    transition: box-shadow 0.3s ease; /* Smooth transition for shadow effect */
+}
+
+.instructions:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Increase shadow on hover */
+}

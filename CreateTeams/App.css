@@ -1,0 +1,53 @@
+/* App.css */
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f4f8; /* Light background color */
+  margin: 0;
+  padding: 0;
+}
+
+/* App.css */
+.App {
+  text-align: center;
+  padding: 20px;
+  background-color: #f0f4f8; /* Light background */
+  min-height: 100vh; /* Full height */
+  display: flex;
+  flex-direction: column; /* Arrange items in a column */
+  align-items: center; /* Center content horizontally */
+}
+
+h1 {
+  font-family: 'Lobster', cursive;
+  color: #000; /* Blue heading */
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.dashboard-container {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px; /* Space above the dashboard container */
+}
+
+button {
+  background-color: #8b1212; /* Button color */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #357ABD; /* Darker blue on hover */
+}
+h1 i {
+  font-size: 1.5em; /* Adjust size */
+  color: #8b1212; /* Same color as the heading */
+}

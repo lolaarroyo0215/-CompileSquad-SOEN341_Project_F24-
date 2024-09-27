@@ -1,0 +1,58 @@
+/* Dashboard.css */
+.dashboard-container {
+    background-color: #ffffff; /* White background for the dashboard */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    padding: 30px;
+    margin: 20px auto; /* Center horizontally with auto margins */
+    max-width: 800px; /* Limit width for better readability */
+    text-align: left; /* Align text to the left */
+  }
+  
+  h2 {
+    font-family: 'Lobster', cursive; /* Use Lobster font */
+    color: #000; /* Blue color for the heading */
+    margin-bottom: 20px;
+  }
+  
+  button {
+    background-color: #4a90e2; /* Button color */
+    color: #fff; /* White text color */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1.2em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+  }
+  
+  button:hover {
+    background-color: #357ABD; /* Darker blue on hover */
+  }
+  
+  /* Style for the ResultsTable */
+  .results-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* Space above the table */
+  }
+  
+  .results-table th, .results-table td {
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .results-table th {
+    background-color: #4a90e2; /* Blue background for headers */
+    color: white; /* White text */
+  }
+  
+  .results-table tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray for even rows */
+  }
+  
+  .results-table tr:hover {
+    background-color: #f1f1f1; /* Slightly darker on hover */
+  }
+  
