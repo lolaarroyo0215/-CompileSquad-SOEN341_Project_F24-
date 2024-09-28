@@ -27,3 +27,7 @@
 1. Due to some communication problems, we ended up with two versions of the database code, so we decided to use the one that works better. The front-end part is complete, and the back-end code is also ready. We plan to test our code during the lab period.
 2. Since we had two versions of the code, we decided to present both and demonstrate how they work. This helped us choose one version to better understand its functionality. Because some team members are unfamiliar with the back-end, we took the time to explain the back-end code so everyone could become more comfortable with it.
 
+---
+
+IMPORTANT: We will have a meeting on Discord to finalize the project on Friday evening and ensure that the code is working on all of our computers. In addition, people who are unfamiliar with Django need to learn it as soon as possible for the second part of the sprint.
+
