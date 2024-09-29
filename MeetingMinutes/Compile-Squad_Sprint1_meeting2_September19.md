@@ -28,11 +28,12 @@
 1. Everyone had some confusion about the project, so we needed to discuss how we will work on it as a team.
     - Are we going to assign a team leader?
     - Who is more comfortable working on the front-end/back-end or database?
-2. **FRONT-END**:  
+2.
+   **FRONT-END**:  
     - Lilia, Lola, and Ishika  
    **BACK-END/DATABASE**:  
     - Arman, Maria, and Sofia  
-3. The TA suggested that we start working on the project as soon as possible.
+4. The TA suggested that we start working on the project as soon as possible.
 
 ---
 
