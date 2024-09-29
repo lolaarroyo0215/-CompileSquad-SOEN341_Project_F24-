@@ -11,5 +11,7 @@
 | 09/23  | Organizing the Sprint Planning of the first and second week     | 45 mins  |
 | 09/24  | Creating the code for the CSV file with the team     | 30 mins  |
 | 09/26  | Working on the third meeting minute                  | 30 mins  |
+| 09/28  | Finalizing the sprint planning for the third week and adding missing descriptions to the issues.      | 1h  |
 | 09/29  | Reviewing the work and making adjustments (Making sure everything is well organized)           | 2 hours  |
+|--------|------------------------------------------------------|----------|
 
