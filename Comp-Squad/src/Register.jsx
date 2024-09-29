@@ -31,7 +31,7 @@ export default function Register(){
                 if (response.data) {
                     const result = response.data;
                     console.log("success")
-                    window.location.href = '/student-dashboard';
+                    window.location.href = '/student';
                 }
                 else {
                     const errorData = response.data;
@@ -47,7 +47,7 @@ export default function Register(){
                 if (response.data) {
                     const result = response.data;
                     console.log("success")
-                    window.location.href = '/instructor-dashboard';
+                    window.location.href = '/teacher';
                 }
                 else {
                     const errorData = response.data;
