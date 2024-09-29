@@ -1,0 +1,19 @@
+| Date   | Task                                                             | Time Spent |
+|--------|----------------------------------------------------------------- |------------|
+| 09-21  | Setting up MySQL for database, familiarizing myself with Django  | 3 hours    |
+|        | REST Framework and MySQL, setting up plan for API and            |            |
+|        | Database design.                                                 |            |
+| 09-22  | Creating `userRegApi_student` and `userRegApi_instructor`        | 3 hours    |
+|        | tables in mySQL, writing the models files to setup the databse.  |            |
+| 09-23  | Implementing user registration API by writing views and          | 3 hours    |
+|        | serializer files and linking the urls pages.                     |            |
+| 09-24  | Fixing models to handle password hashing. Troubleshooting user   | 2 hours    |
+|        | registrationm issues with POSTMAN.                               |            |
+| 09-25  | Writing Login serializers and views for teachers and students    | 3 hours    |
+|        | Continued debugging login issue, testing solutions, reviewing    |            |
+|        | API functionality.                                               |            |
+| 09-26  | Tied in front end with backend                                   | 2 hours    |
+| 09-27  | Fixed flow from user registration to login page, testing user    |            |
+|        | logins and registrations with console error logs                 | 2 hours    |
+------------------------------------------------------------------------------------------
+| Total                                                                     | 18 hours   |
