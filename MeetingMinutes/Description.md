@@ -3,8 +3,8 @@
 ## 1. Attendance
 - List of participants present.
 
-## 2. Agenda Items
-- Choosing sources for the project.
+## 2. What will be discussed?
+- Key points of the meeting
 - Determining roles.
 
 ## 3. Discussion Summary
@@ -13,6 +13,9 @@
 ## 4. Action Plan
 - Assigning tasks to the team.
 
+## 5. Important
+- After each meeting, we need to complete the assigned tasks.
+- Always review the important part; it will be the task of the week.
 ---
 
 _Minutes are important for accountability and ensuring everyone is aligned with what was discussed and agreed upon._
