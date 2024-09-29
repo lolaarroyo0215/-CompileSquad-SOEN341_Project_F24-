@@ -1,0 +1,16 @@
+**Meeting Title:** Sprint 1 Planning  
+**Attendees:** Lola, Maria, Sofia, Arman, Lilia.
+
+**What was done during the meeting**
+1. Review of Sprint 1 goals.
+2. Discussed The User Authentication & Team Management features.
+3. Discussed possible user stories.
+4. tentative division of the work based on goals and user stories.
+   
+
+**Key Decisions:**
+- Focus on login functionality for students and instructors.
+- Use React for the front End.
+- Sofia and Arman will take care of the DataBase.
+- Maria and Lilia will take care of Team managment for the Instructor part.
+- Lola will start working on the Login page.
