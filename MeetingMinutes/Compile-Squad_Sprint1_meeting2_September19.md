@@ -10,7 +10,7 @@
 - Lola Arroyo | 40277494
 - Maria-Christine Catiche | 40247670
 - Seyed Arman Emani | 40246774
-- Lilia Messouadi | 40252419
+- Lilia Messaoudi | 40252419
 - Ishika Patel | 40185588
 - Sofia Sanchez | 40247014
 
@@ -20,6 +20,7 @@
 1. Is everyone ok with the project?
 2. Who will be assigned to what?
 3. Talking to the TA
+4. Discussed Data base.
 
 ---
 

@@ -10,7 +10,7 @@
 - Lola Arroyo | 40277494
 - Maria-Christine Catiche | 40247670
 - Seyed Arman Emani | 40246774
-- Lilia Messouadi | 40252419
+- Lilia Messaoudi | 40252419
 - Sofia Sanchez | 40247014
 - Ishika Patel | 40188558
 
@@ -19,6 +19,7 @@
 ### What will be discussed?
 1. How’s the project doing?
 2. Explaining the back-end/database’s codes 
+3.
 
 
 ---
