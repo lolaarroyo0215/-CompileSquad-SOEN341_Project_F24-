@@ -50,7 +50,7 @@ export default function CreateAccount() {
             }
 
             if(response.status === 200 || response.status === 201) {
-                navigate('/'); // Redirect to student/teacher to login page once their account is created
+                navigate('/student'); // Redirect to student/teacher to login page once their account is created
             } else {
                 alert('Registration failed: ' + response.data.detail);
             }
