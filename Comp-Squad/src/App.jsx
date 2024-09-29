@@ -15,7 +15,10 @@ function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<MainStudentPage />} />
+                <Route path="/" element={<Register />} />
+                <Route path="/create-account" element={<CreateAccount />} />
+                <Route path="/student" element={<MainStudentPage />} />
+                <Route path="/teacher" element={<MainTeacherPage />} />
                 <Route path="/new-assessment" element={<NewAssessmentPage />} />
                 <Route path="/view-my-grades" element={<ViewMyGradesPage />} />
                 <Route path="/view-my-teams" element={<ViewMyTeamsPage />} />
