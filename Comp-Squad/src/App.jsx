@@ -1,4 +1,6 @@
 import React from 'react';
+import Register from './Register';
+import CreateAccount from './CreateAccount';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import MainTeacherPage from './mainTeacherPage';
 import CurrentTeamsPage from './currentTeamsPage';
