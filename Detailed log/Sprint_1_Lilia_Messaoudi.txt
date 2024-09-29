@@ -1,0 +1,16 @@
+
+Date of start		Description of Contribution				Hours Spent	
+
+2024-09-21		Created the dashboard for students			10 hours	
+2024-09-22		Created the dashboard for instructors			4 hours	
+2024-09-23		Commit changes into the Main-Page branch		-------
+2024-09-24		Create the "new assessment" page			3 hours
+2024-09-24		Create the "view my grades" page			4 hours	
+2024-09-25		Create the "view my teams" page				2 hours	
+2024-09-25		Create the "current teams" page				1:30 hours	
+2024-09-26		Create the "results" page				3 hours
+2024-09-26		Link all pages to the buttons on the dashboard		2 hours
+2024-09-26		Finalize the meeting minutes file			30 minutes
+2024-09-26		Commit changes into the Main-Page branch		-------
+2024-09-29		Push the final changes into the main branch		-------
+2024-09-29		Updates on the meeting minutes file			-------
