@@ -1,7 +1,10 @@
 from rest_framework import serializers
 from .models import Student, Instructor
+from django.contrib.auth import authenticate
+from django.contrib.auth.backends import ModelBackend
 
-class StudentSerializer(serializers.ModelSerializer):
+
+class StudentRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
         fields = ['first_name', 'last_name', 'email', 'password', 'student_id']
@@ -14,11 +17,10 @@ class StudentSerializer(serializers.ModelSerializer):
             student_id=validated_data.get('student_id')
         )
         student.set_password(validated_data['password'])
-        print(f"Hashed password: {student.password}")
         student.save()
         return student
 
-class InstructorSerializer(serializers.ModelSerializer):
+class InstructorRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Instructor
         fields = ['first_name', 'last_name', 'email', 'password', 'instructor_id']
@@ -34,4 +36,42 @@ class InstructorSerializer(serializers.ModelSerializer):
         instructor.set_password(validated_data['password'])
         instructor.save()
         return instructor
+    
 
+class StudentLoginSerializer(serializers.Serializer):
+    student_id = serializers.IntegerField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        student_id = data.get('student_id')
+        password = data.get('password')
+
+        try:
+            student = Student.objects.get(student_id=student_id)
+        except Student.DoesNotExist:
+            raise serializers.ValidationError("Student ID doesn't exist")
+
+        if student.check_password(password):
+            return student
+        raise serializers.ValidationError("Wrong password")
+    
+
+class InstructorLoginSerializer(serializers.Serializer):
+    instructor_id = serializers.IntegerField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        instructor_id = data.get('instructor_id')
+        password = data.get('password')
+
+        try:
+            instructor = Instructor.objects.get(instructor_id=instructor_id)
+        except Instructor.DoesNotExist:
+            raise serializers.ValidationError("Instructor ID doesn't exist")
+
+        if instructor.check_password(password):
+            return instructor
+        raise serializers.ValidationError("Wrong password")
+
+
+    

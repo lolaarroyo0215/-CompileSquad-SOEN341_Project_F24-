@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './index.css';
 
 // Function makes calls to API
@@ -12,6 +13,7 @@ export default function CreateAccount() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [userType, setUserType] = useState('student');  //set default to student
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -21,28 +23,36 @@ export default function CreateAccount() {
             alert('All fields are required');
             return;
         }
-
-        // Prep data to be sent to API
-        const userData = { 
-            studentId, firstName, lastName, 
-            email, password, userType };
-
         try {
+            let response;
             // Make a POST request to the registration API
-            const response = await fetch('api/link', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData)
-            });
+            if(userType === 'student') {
+                const userData = {
+                    student_id: studentId,
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email,
+                    password: password
+                };
 
-            // Handle API response
-            if(response.ok) {
-                const result = await response.json();
-                alert('Account created successfully' + result);
-                window.location.href = '/main'; // Redirect to student/teacher main page when created
+                response = await axios.post('http://localhost:8000/userRegApi/create-student/', userData);
             } else {
-                const errorData = await response.json();
-                alert('Registration failed: ' + errorData.detail);
+                const userData = {
+                    instructor_id: studentId,
+                    first_name: firstName,
+                    last_name: lastName,
+                    email: email,
+                    password: password
+                };
+
+                response = await axios.post('http://localhost:8000/userRegApi/create-instructor/', userData);
+
+            }
+
+            if(response.status === 200 || response.status === 201) {
+                navigate('/'); // Redirect to student/teacher to login page once their account is created
+            } else {
+                alert('Registration failed: ' + response.data.detail);
             }
         } catch (error) {
             // Handle network errors or other
