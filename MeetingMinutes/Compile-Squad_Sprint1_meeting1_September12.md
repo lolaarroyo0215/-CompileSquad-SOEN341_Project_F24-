@@ -10,7 +10,7 @@
 - Lola Arroyo | 40277494
 - Maria-Christine Catiche | 40247670
 - Seyed Arman Emani | 40246774
-- Lilia Messouadi | 40252419
+- Lilia Messaoudi | 40252419
 - Sofia Sanchez | 40247014
 
 ---
@@ -20,6 +20,8 @@
 2. Where are we going to communicate?
 3. What framework are we going to use for the back-end and front-end?
 4. Who will be doing what?
+5. Review of Sprint 1 goals.
+6. Discussed possible user stories.
 
 ---
 
