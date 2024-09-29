@@ -9,7 +9,7 @@
 ### Attendance:
 - Lola Arroyo | 40277494
 - Maria-Christine Catiche | 40247670
-- Seyed Arman Emani | 40246774
+- Seyed Arman Emami | 40246774
 - Lilia Messaoudi | 40252419
 - Sofia Sanchez | 40247014
 
