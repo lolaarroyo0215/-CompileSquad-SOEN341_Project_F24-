@@ -1,0 +1,28 @@
++------------------------------------------------------------+-------------------------------------------------------------------+----------------------+
+|                          Task                              |                        Description                                |  Time Estimate Spent |
++------------------------------------------------------------+-------------------------------------------------------------------+----------------------+
+| Initial Setup of Registration and Login Components         | - Created the `Register.jsx` and `CreateAccount.jsx` components.  |    4 hours           |     
+|                                                            | - Set up form inputs for user details and validation logic.       |                      |                     
+|                                                            | - Basic styling for a clean, responsive UI.                       |                      |                     
++------------------------------------------------------------+----------------------------------------------------------------  -+----------------------+
+| Implementing State Management for User Registration        | - Managed form data with `useState` for user inputs.              |    2 hours           |
+|                                                            | - Set up form submission event handlers.                          |                      |                     
++------------------------------------------------------------+-------------------------------------------------------------------+----------------------+
+| Creating User Context for Global State                     | - Created `UserContext` to manage `username`, `id`, and setters.  |    3 hours           |    
+|                                                            | - Wrapped the `App` component in `UserContext.Provider`.          |                      |                    
++------------------------------------------------------------+----------------------------------------------------------------  -+----------------------+
+| Integrating User Type Distinction (Student/Teacher)        | - Updated CreateAccount form to include a dropdown for user type. |    2 hours           |           
+|                                                            | - Managed state for student/teacher distinction.                  |                      |                     
++------------------------------------------------------------+-------------------------------------------------------------------+----------------------+
+| Handling API Requests for Registration/Login and           | - Connected the front end with backend API using Axios.           |    4 hours           |  
+| CreateAccount                                              | - Set up POST requests for registration and login credentials.    |                      |               
+|                                                            | - Debugged CORS and network issues.                               |                      |                     
++------------------------------------------------------------+-------------------------------------------------------------------+----------------------+
+| Implementing Error Handling and User Feedback              | - Added error handling for failed login/registration.             |    2.5 hours         |    
+|                                                            | - Displayed success and error messages for users.                 |                      |                     
++------------------------------------------------------------+-------------------------------------------------------------------+----------------------+
+| Testing and Refining the User Registration and Login       | - Performed manual and cross-browser testing.                     |    3 hours           |   
+| Features                                                   | - Refined validation logic.                                       |                      |                     
++------------------------------------------------------------+-------------------------------------------------------------------+----------------------+
+| Total Time Estimate: 21.5 hours                             | Total Actual Time Spent: 21 hours                                |                      |
++------------------------------------------------------------+-------------------------------------------------------------------+----------------------+
