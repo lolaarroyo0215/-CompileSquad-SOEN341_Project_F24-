@@ -21,7 +21,6 @@
 3. What framework are we going to use for the back-end and front-end?
 4. Who will be doing what?
 5. Review of Sprint 1 goals.
-6. Discussed possible user stories.
 
 ---
 
@@ -30,6 +29,7 @@
 2. We also decided to create a Discord server to facilitate communication.
 3. For the front-end, we chose **React**, and for the back-end, we decided to use **Django**.
 4. We decided to divide the tasks based on each person's familiarity with different programming languages and their comfort level with more complex tasks, such as database management and back-end development.
+5. As a team, we decided to focus on the login page functionality for Sprint 1. We did some brainstorming and found that everyone would be more comfortable working on the login page functionality. 
 
 ---
 
