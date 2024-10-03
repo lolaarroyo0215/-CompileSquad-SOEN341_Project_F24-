@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './index.css';
 
 export default function CurrentTeamsPage() {
@@ -41,6 +42,11 @@ export default function CurrentTeamsPage() {
     setOpenClass(openClass === className ? null : className);
   };
 
+  function handleLogout(){
+    const navigate = useNavigate();
+    navigate('/');
+  };
+
   return (
     <div className="bg-slate-200 min-h-screen flex flex-col">
       {/* Header */}
@@ -50,7 +56,7 @@ export default function CurrentTeamsPage() {
         </div>
         <div className="flex space-x-10">
           <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-          <span className="text-white hover:text-red-950 cursor-pointer">Log Out</span>
+          <span className="text-white hover:text-red-950 cursor-pointer"><button onClick={handleLogout()}>Log Out</button></span>
         </div>
       </nav>
 
