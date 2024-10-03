@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function NewAssessmentPage() {
     const [cooperationRating, setCooperationRating] = useState(0); // Cooperation rating
@@ -11,6 +12,12 @@ export default function NewAssessmentPage() {
         setRating(rating); // Set the clicked star as the rating
     };
 
+    function handleLogout(){
+        const navigate = useNavigate();
+        // Redirect to login page
+        navigate('/');
+      };
+
     return (
         <div className="bg-slate-200 min-h-screen flex flex-col">
             {/* Header */}
@@ -20,7 +27,7 @@ export default function NewAssessmentPage() {
                 </div>
                 <div className="flex space-x-10">
                     <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-                    <span className="text-white hover:text-red-950 cursor-pointer">Log Out</span>
+                    <span className="text-white hover:text-red-950 cursor-pointer"><button onClick={handleLogout()}>Log Out</button></span>
                 </div>
             </nav>
 

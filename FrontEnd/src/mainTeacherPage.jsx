@@ -1,6 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './index.css';
+
+function handleLogout(){
+  const navigate = useNavigate();
+  navigate('/');
+};
 
 export default function MainTeacherPage() {
   return (
@@ -12,7 +17,7 @@ export default function MainTeacherPage() {
         </div>
         <div className="flex space-x-10">
           <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-          <span className="text-white hover:text-red-950 cursor-pointer">Log Out</span>
+          <span className="text-white hover:text-red-950 cursor-pointer"><button onClick={handleLogout()}>Log Out</button></span>
         </div>
       </nav>
 
