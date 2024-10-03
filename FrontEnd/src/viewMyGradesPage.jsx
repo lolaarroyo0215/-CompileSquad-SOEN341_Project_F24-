@@ -2,14 +2,13 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 
+function handleLogout(){
+  const navigate = useNavigate();
+  // Redirect to login page
+  navigate('/');
+};
+
 export default function MainStudentPage() {
-
-  function handleLogout(){
-    const navigate = useNavigate();
-    // Redirect to login page
-    navigate('/');
-  };
-
 
   // Sample data for grades
   const classes = [

@@ -1,6 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
+function handleLogout(){
+    const navigate = useNavigate();
+    // Redirect to login page
+    navigate('/');
+  };
+
 export default function NewAssessmentPage() {
     const [cooperationRating, setCooperationRating] = useState(0); // Cooperation rating
     const [conceptualRating, setConceptualRating] = useState(0); // Conceptual Contribution rating
@@ -11,12 +18,6 @@ export default function NewAssessmentPage() {
     const handleStarClick = (setRating) => (rating) => {
         setRating(rating); // Set the clicked star as the rating
     };
-
-    function handleLogout(){
-        const navigate = useNavigate();
-        // Redirect to login page
-        navigate('/');
-      };
 
     return (
         <div className="bg-slate-200 min-h-screen flex flex-col">

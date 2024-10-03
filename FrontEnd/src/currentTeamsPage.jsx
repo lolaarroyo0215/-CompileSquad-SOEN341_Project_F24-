@@ -2,6 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 
+
+function handleLogout(){
+  const navigate = useNavigate();
+  navigate('/');
+};
+
 export default function CurrentTeamsPage() {
   // Sample data for teams before linking with database
   const classes = [
@@ -40,12 +46,6 @@ export default function CurrentTeamsPage() {
   // Function to toggle a class's dropdown
   const toggleClass = (className) => {
     setOpenClass(openClass === className ? null : className);
-  };
-
-  function handleLogout(){
-    const navigate = useNavigate();
-    // Redirect to login page
-    navigate('/');
   };
 
   return (
