@@ -1,5 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'
 import './index.css';
+
+function handleLogout(){
+    const navigate = useNavigate();
+    navigate('/');
+};
 
 export default function AssessmentResultsPage() {
     // Sample data for teams and assessment results before database link 
@@ -27,6 +33,7 @@ export default function AssessmentResultsPage() {
         setOpenTeam(openTeam === teamName ? null : teamName);
     };
 
+
     return (
 
         <div className="bg-slate-200 min-h-screen flex flex-col">
@@ -37,7 +44,7 @@ export default function AssessmentResultsPage() {
                 </div>
                 <div className="flex space-x-10">
                     <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-                    <span className="text-white hover:text-red-950 cursor-pointer">Log Out</span>
+                    <span className="text-white hover:text-red-950 cursor-pointer"><button onClick={handleLogout()}>Log Out</button></span>
                 </div>
             </nav>
 
