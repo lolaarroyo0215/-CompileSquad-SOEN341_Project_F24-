@@ -44,6 +44,7 @@ export default function CurrentTeamsPage() {
 
   function handleLogout(){
     const navigate = useNavigate();
+    // Redirect to login page
     navigate('/');
   };
 
