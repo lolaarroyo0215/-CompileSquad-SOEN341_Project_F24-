@@ -6,7 +6,7 @@
 
 **Start Time:** 1:30 PM  
 
-**End Time:**  
+**End Time:**  2:15 PM
 
 **Location:** Discord  
 
