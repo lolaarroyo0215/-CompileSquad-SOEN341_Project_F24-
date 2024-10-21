@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import './index.css';
 
-function handleLogout(){
+function handleLogout() {
     const navigate = useNavigate();
     navigate('/');
-};
+}
 
 export default function AssessmentResultsPage() {
     // Sample data for teams and assessment results before database link 
@@ -33,9 +33,29 @@ export default function AssessmentResultsPage() {
         setOpenTeam(openTeam === teamName ? null : teamName);
     };
 
+    // Function to export results as CSV
+    const exportToCSV = () => {
+        const csvRows = [];
+        const headers = ['Team Name', 'Member', 'Cooperation', 'Contribution', 'Practical', 'Work Ethic'];
+        csvRows.push(headers.join(','));
+
+        teams.forEach(team => {
+            team.members.forEach(member => {
+                const row = [team.teamName, member.name, member.cooperation, member.contribution, member.practical, member.workEthic];
+                csvRows.push(row.join(','));
+            });
+        });
+
+        const csvString = csvRows.join('\n');
+        const blob = new Blob([csvString], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.setAttribute('href', url);
+        a.setAttribute('download', 'assessment_results.csv');
+        a.click();
+    };
 
     return (
-
         <div className="bg-slate-200 min-h-screen flex flex-col">
             <nav className="bg-red-900 p-4 flex justify-between items-center">
                 <div className="text-white text-lg">
@@ -44,7 +64,9 @@ export default function AssessmentResultsPage() {
                 </div>
                 <div className="flex space-x-10">
                     <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-                    <span className="text-white hover:text-red-950 cursor-pointer"><button onClick={handleLogout()}>Log Out</button></span>
+                    <span className="text-white hover:text-red-950 cursor-pointer">
+                        <button onClick={handleLogout}>Log Out</button>
+                    </span>
                 </div>
             </nav>
 
@@ -91,10 +113,17 @@ export default function AssessmentResultsPage() {
                         )}
                     </div>
                 ))}
+
+                {/* Export button */}
+
+                <div className="flex justify-center mt-4">
+                <button 
+                    onClick={exportToCSV} 
+                    className="mt-4 bg-red-900 text-white p-2 rounded-md hover:bg-red-950">
+                    Export Results
+                </button>
+                </div>
             </div>
-
-
-
 
             {/* Footer */}
             <footer className="bg-red-900 text-white text-right py-4 px-4">

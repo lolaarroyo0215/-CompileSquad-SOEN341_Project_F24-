@@ -9,23 +9,26 @@ import MainStudentPage from './mainStudentPage';
 import NewAssessmentPage from './newAssessmentPage';
 import ViewMyGradesPage from './viewMyGradesPage';
 import ViewMyTeamsPage from './viewMyTeamsPage';
+import CreateTeams from './CreateTeams';
 
 
-{/* for student page */ }
 
 function App() {
     return (
         <Router>
             <Routes>
-                <Route path="/" element={<Register />} />
-                <Route path="/create-account" element={<CreateAccount />} />
-                <Route path="/student" element={<MainStudentPage />} />
-                <Route path="/teacher" element={<MainTeacherPage />} />
-                <Route path="/new-assessment" element={<NewAssessmentPage />} />
-                <Route path="/view-my-grades" element={<ViewMyGradesPage />} />
-                <Route path="/view-my-teams" element={<ViewMyTeamsPage />} />
+                 <Route path="/" element={<AssessmentResultsPage />} />
+                 {/*<Route path="/create-account" element={<CreateAccount />} />*/}
+                 {/*<Route path="/student" element={<MainStudentPage />} />*/}
+                 {/*<Route path="/teacher" element={<MainTeacherPage />} />*/}
+                 {/*<Route path="/new-assessment" element={<NewAssessmentPage />} />*/}
+                 {/*<Route path="/view-my-grades" element={<ViewMyGradesPage />} />*/}
+                 {/*<Route path="/view-my-teams" element={<ViewMyTeamsPage />} />*/}
 
+                
+                
 
+                
 
             </Routes>
         </Router>
