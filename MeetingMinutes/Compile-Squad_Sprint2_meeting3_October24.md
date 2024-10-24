@@ -15,7 +15,7 @@
 - Maria-Christine Catiche | 40247670  
 - Seyed Arman Emami | 40264774  
 - Lilia Messaoudi | 40252419  
-- Ishika Patel | 40188558 (due to some circumstances, she was unable to join)  
+- Ishika Patel | 40188558  
 - Sofia Sanchez | 40247014  
 
 ### Agenda 
