@@ -17,18 +17,14 @@ function App() {
     return (
         <Router>
             <Routes>
-                 <Route path="/" element={<AssessmentResultsPage />} />
-                 {/*<Route path="/create-account" element={<CreateAccount />} />*/}
-                 {/*<Route path="/student" element={<MainStudentPage />} />*/}
-                 {/*<Route path="/teacher" element={<MainTeacherPage />} />*/}
-                 {/*<Route path="/new-assessment" element={<NewAssessmentPage />} />*/}
-                 {/*<Route path="/view-my-grades" element={<ViewMyGradesPage />} />*/}
-                 {/*<Route path="/view-my-teams" element={<ViewMyTeamsPage />} />*/}
-
-                
-                
-
-                
+                 <Route path="/" element={<Register />} />
+                 <Route path="/create-account" element={<CreateAccount />} />
+                 <Route path="assessment-results" element={<AssessmentResultsPage />} />
+                 <Route path="/student" element={<MainStudentPage />} />
+                 <Route path="/teacher" element={<MainTeacherPage />} />
+                 <Route path="/new-assessment" element={<NewAssessmentPage />} />
+                 <Route path="/view-my-grades" element={<ViewMyGradesPage />} />
+                 <Route path="/view-my-teams" element={<ViewMyTeamsPage />} />
 
             </Routes>
         </Router>
