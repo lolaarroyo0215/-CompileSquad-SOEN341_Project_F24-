@@ -2,7 +2,7 @@
 
 ## Sprint 2
 
-**Date:** October 16, 2024  
+**Date:** October 24, 2024  
 
 **Start Time:** 4:15 PM  
 
