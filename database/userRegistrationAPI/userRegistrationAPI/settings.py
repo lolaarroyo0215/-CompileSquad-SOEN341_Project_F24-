@@ -27,6 +27,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#Send cookie only over HTTPS
+SESSION_COOKIE_SECURE = True
+
+#Prevent JavaScript access to the cookie
+SESSION_COOKIE_HTTPONLY = True
+
+#Prevent/mitigate CSRF attacks
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+#Send CSRF cookie only over HTTPS
+CSRF_COOKIE_SECURE = True
+
 
 # Application definition
 
