@@ -1,0 +1,13 @@
+name: Node.js CI
+
+# Trigger the workflow on pushes to the main branch or pull requests
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    # The virtual environment to run the job on
+    runs-on: windows or mac
