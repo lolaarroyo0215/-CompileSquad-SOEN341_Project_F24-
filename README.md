@@ -37,5 +37,11 @@ We are following an adapted Agile methodology with 4 iterations (sprints) of 3 t
 - Develop the functionality for instructors to create teams and assign students to groups.
 - Draft initial task breakdown.
 
+### Sprint 2 Goals:
+- Enable instructors to create teams and assign students, either by selecting them directly or by importing a CSV file. Ensure that both students and instructors can view team assignments.
+- Design an interface where students can select their teammates and provide peer assessments, establishing the foundation for team evaluation.
+- Allow students to rate teammates on the "Cooperation" dimension using a 5-point scale. Implement a submission confirmation step to finalize their assessments.
+- Begin work on adding additional assessment dimensions (e.g., Conceptual Contribution, Practical Contribution, Work Ethic), with optional comment boxes. This setup will be completed in Sprint 3.
+
 ## How to Contribute
 Each team member is responsible for pushing their code to the repository regularly. All contributions should be documented in the individual contribution logs, and pull requests must be reviewed by at least one other team member before merging.
