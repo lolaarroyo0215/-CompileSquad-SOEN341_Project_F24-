@@ -1,9 +1,6 @@
 name: Signup and Login Tests
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
     branches:
       - main
@@ -13,16 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check out the repository
-        uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v3  # Update to v3 to avoid deprecation issues
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v3  # Update to v3 for compatibility with Node 16/20
         with:
-          node-version: '16'
+          node-version: '16'  # Specify Node.js 16 to match the current version requirements
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run tests for Signup and Login
-        run: npm test -- --runTestsMatching='.*(Signup|Login).*'
+      - name: Run tests
+        run: npm test
