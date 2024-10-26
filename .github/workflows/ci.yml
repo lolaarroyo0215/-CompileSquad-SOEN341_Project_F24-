@@ -22,4 +22,5 @@ jobs:
 
       - name: 
         run: npm test # Run tests
+        working-directory: ./FrontEnd # Path to package.json
 
