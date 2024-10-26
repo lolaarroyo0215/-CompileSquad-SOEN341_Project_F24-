@@ -50,14 +50,14 @@ export default function CreateAccount() {
             }
 
             if(response.status === 200 || response.status === 201) {
-                navigate('/student'); // Redirect to student/teacher to login page once their account is created
+                navigate('/register'); // Redirect to register/login page once their account is created
             } else {
                 alert('Registration failed: ' + response.data.detail);
             }
         } catch (error) {
             // Handle network errors or other
             console.error('An error occured: ', error);
-            alert('There was an issue registering your accout');
+            alert('There was an issue registering your account');
         }   
     };
 

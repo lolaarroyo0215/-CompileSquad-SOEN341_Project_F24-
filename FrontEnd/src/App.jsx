@@ -9,13 +9,13 @@ import MainStudentPage from './mainStudentPage';
 import NewAssessmentPage from './newAssessmentPage';
 import ViewMyGradesPage from './viewMyGradesPage';
 import ViewMyTeamsPage from './viewMyTeamsPage';
+import CreateTeams from './CreateTeams';
 
 const ProtectedRoute = ({ element: Component, ...rest }) => {
     const token = localStorage.getItem('access_token');
     return token ? <Component {...rest} /> : <Navigate to="/" />
 }
 
-{/* for student page */ }
 
 function App() {
     return (
@@ -29,7 +29,6 @@ function App() {
                  <Route path="/new-assessment" element={<ProtectedRoute element={NewAssessmentPage} />} />
                  <Route path="/view-my-grades" element={<ProtectedRoute element ={ViewMyGradesPage} />} />
                  <Route path="/view-my-teams" element={<ProtectedRoute element ={ViewMyTeamsPage} />} />
-
             </Routes>
         </BrowserRouter>
     );
