@@ -10,6 +10,7 @@ import NewAssessmentPage from './newAssessmentPage';
 import ViewMyGradesPage from './viewMyGradesPage';
 import ViewMyTeamsPage from './viewMyTeamsPage';
 import CreateTeams from './CreateTeams';
+import Profile from './Profile';
 
 
 
@@ -25,6 +26,7 @@ function App() {
                  <Route path="/new-assessment" element={<NewAssessmentPage />} />
                  <Route path="/view-my-grades" element={<ViewMyGradesPage />} />
                  <Route path="/view-my-teams" element={<ViewMyTeamsPage />} />
+                 <Route path="/profile" element={<Profile />} />
 
             </Routes>
         </Router>
