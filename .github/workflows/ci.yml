@@ -18,7 +18,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install # Install project dependencies
-        working-directory: ./FrontEnd # Path to the package.json
+        working-directory: /home/runner/work/-CompileSquad-SOEN341_Project_F24-/-CompileSquad-SOEN341_Project_F24-/FrontEnd # Path to the package.json
 
       - name: 
         run: npm test # Run tests
