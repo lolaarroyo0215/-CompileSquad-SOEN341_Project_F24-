@@ -1,13 +1,40 @@
-name: Node.js CI
+name: CI Pipeline
 
-# Trigger the workflow on pushes to the main branch or pull requests
+# Run the workflow on every push and pull request to the main branch
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main
 
+# Define the jobs that this workflow will perform
 jobs:
   build:
-    # The virtual environment to run the job on
-    runs-on: windows or mac
+    # Use a Node.js environment for this job
+    runs-on: ubuntu-latest
+
+    # Define the steps to execute
+    steps:
+      # Step 1: Check out the repository
+      - name: Check out the repository
+        uses: actions/checkout@v2
+
+      # Step 2: Set up Node.js (replace with the correct Node version)
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run tests
+      - name: Run tests
+        run: npm test
+
+      # Step 5: Build the project (optional)
+      - name: Build project
+        run: npm run build
