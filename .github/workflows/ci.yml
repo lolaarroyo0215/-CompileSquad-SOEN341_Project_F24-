@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Check out the code
-        uses: actions/checkout@v2 # Checks out code so pipeline can access it
+        uses: actions/checkout@v3 # Checks out code so pipeline can access it
 
       - name: Install dependencies
         run: npm install # Install project dependencies
