@@ -1,7 +1,7 @@
 import React from 'react';
 import Register from './Register';
 import CreateAccount from './CreateAccount';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainTeacherPage from './mainTeacherPage';
 import CurrentTeamsPage from './currentTeamsPage';
 import AssessmentResultsPage from './assessmentResultsPage';
@@ -10,25 +10,28 @@ import NewAssessmentPage from './newAssessmentPage';
 import ViewMyGradesPage from './viewMyGradesPage';
 import ViewMyTeamsPage from './viewMyTeamsPage';
 
+const ProtectedRoute = ({ element: Component, ...rest }) => {
+    const token = localStorage.getItem('access_token');
+    return token ? <Component {...rest} /> : <Navigate to="/" />
+}
 
 {/* for student page */ }
 
 function App() {
     return (
-        <Router>
+        <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Register />} />
-                <Route path="/create-account" element={<CreateAccount />} />
-                <Route path="/student" element={<MainStudentPage />} />
-                <Route path="/teacher" element={<MainTeacherPage />} />
-                <Route path="/new-assessment" element={<NewAssessmentPage />} />
-                <Route path="/view-my-grades" element={<ViewMyGradesPage />} />
-                <Route path="/view-my-teams" element={<ViewMyTeamsPage />} />
-
-
+                 <Route path="/" element={<Register />} />
+                 <Route path="/create-account" element={<CreateAccount />} />
+                 <Route path="assessment-results" element={<ProtectedRoute element ={AssessmentResultsPage} />} />
+                 <Route path="/student" element={<ProtectedRoute element ={MainStudentPage} />} />
+                 <Route path="/teacher" element={<ProtectedRoute element={MainTeacherPage} />} />
+                 <Route path="/new-assessment" element={<ProtectedRoute element={NewAssessmentPage} />} />
+                 <Route path="/view-my-grades" element={<ProtectedRoute element ={ViewMyGradesPage} />} />
+                 <Route path="/view-my-teams" element={<ProtectedRoute element ={ViewMyTeamsPage} />} />
 
             </Routes>
-        </Router>
+        </BrowserRouter>
     );
 
 }
