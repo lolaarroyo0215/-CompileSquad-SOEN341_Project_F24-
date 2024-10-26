@@ -1,8 +1,18 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './index.css';
 
 export default function MainTeacherPage() {
+
+  const navigate = useNavigate();
+
+  function handleLogout(event) {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    navigate('/');
+  }
+
   return (
     <div className="bg-slate-200 min-h-screen flex flex-col">
       <nav className="bg-red-900 p-4 flex justify-between items-center">
@@ -12,7 +22,7 @@ export default function MainTeacherPage() {
         </div>
         <div className="flex space-x-10">
           <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-          <span className="text-white hover:text-red-950 cursor-pointer">Log Out</span>
+          <span className="text-white hover:text-red-950 cursor-pointer" onClick={handleLogout}>Log Out</span>
         </div>
       </nav>
 
