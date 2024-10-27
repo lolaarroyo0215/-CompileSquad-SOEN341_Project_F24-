@@ -13,5 +13,5 @@
 | 10/24  | Sprint planning 2 + making adjustments to Sprint planning 1                 | 2 hours  |
 | 10/25  | Finalizing the sprint planning and adding descriptions for tasks and user stories in Sprint 1      | 3 hours  |
 | 10/26  | Understanding/Working on the continuous integration pipeline yaml code   | 3 hours  |
-| 09/29  | Reviewing the work and making adjustments (Making sure everything is well organized)           | 2 hours  |
+| 10/27  | Reviewing the work and making adjustments (Making sure everything is well organized)           | 1 hour  |
 |TOTAL: |                                                        | 24:30 mins |
