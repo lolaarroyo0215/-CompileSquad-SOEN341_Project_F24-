@@ -1,0 +1,10 @@
+# Lola Arroyo – Detailed Log of Sprint 2
+
+| DATE   | TASK                                                 |    TIME     |
+|--------|------------------------------------------------------|-------------|
+| 10/23  | Setting up database environment on local machine     |   1.5hrs    |
+| 10/24  | Working on the ci.yml to configure the ci pipeline   |   2hrs      |
+| 10/26  | Create file with instructions required to clone our  |             | 
+|        | repo and install relevant dependencies               |   40 mins   |
+| 10/27  | Added logout functionality and created user profile  |   1hrs      |
+|TOTAL:  |                                                      | 5hrs 10mins |
