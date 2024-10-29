@@ -33,11 +33,14 @@ export default function MainTeacherPage() {
 
         <div className="mt-8 flex justify-center gap-4 flex-wrap">
 
-        
+          
+
+          <Link to="/create-teams">
           <button className="bg-red-900 text-white font-bold py-5 w-80 h-80 flex flex-col items-center justify-start rounded hover:bg-red-950">
             <img src="/img/CreateTeams.jpg" alt="Create Teams" className="h-40 w-45 object-cover rounded-lg mb-2" />
             <span className="text-xl mt-9">Create Teams</span>
           </button>
+          </Link>
           
 
           <Link to="/current-teams">

@@ -3,34 +3,34 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; // Make sure to import axios
 import './index.css';
 
-// Sample data for students
-const students = [
-    { id: 1, name: "Alice Johnson", class: "ENGR 213" },
-    { id: 2, name: "Bob Smith", class: "ENGR 213" },
-    { id: 3, name: "Charlie Brown", class: "ENGR 213" },
-    { id: 4, name: "Dana White", class: "ENGR 213" },
-    { id: 5, name: "Harry Styles", class: "SOEN 341" },
-    { id: 6, name: "Zayn Malik", class: "SOEN 341" },
-    { id: 7, name: "Liam Payne", class: "SOEN 341" },
-    { id: 8, name: "Louis Tomlinson", class: "SOEN 341" },
-    { id: 9, name: "Niall Horan", class: "SOEN 341" },
-    { id: 10, name: "Luke Hemmings", class: "SOEN 331" },
-    { id: 11, name: "Calum Hood", class: "SOEN 331" },
-    { id: 12, name: "Michael Clifford", class: "SOEN 331" },
-    { id: 13, name: "Ashton Irwin", class: "SOEN 331" },
-    { id: 14, name: "Carlos Sainz", class: "ENCS 282" },
-    { id: 15, name: "Lando Norris", class: "ENCS 282" },
-    { id: 16, name: "Lewis Hamilton", class: "ENCS 282" },
-    { id: 17, name: "Charles Leclerc", class: "ENCS 282" },
-    { id: 18, name: "Max Verstappen", class: "ENCS 282" },
-];
-
-export default function CreateTeams() {
+function CreateTeams() {
     const navigate = useNavigate();
+
+    // Sample data for students
+    const students = [
+        { id: 1, name: "Alice Johnson", class: "ENGR 213" },
+        { id: 2, name: "Bob Smith", class: "ENGR 213" },
+        { id: 3, name: "Charlie Brown", class: "ENGR 213" },
+        { id: 4, name: "Dana White", class: "ENGR 213" },
+        { id: 5, name: "Harry Styles", class: "SOEN 341" },
+        { id: 6, name: "Zayn Malik", class: "SOEN 341" },
+        { id: 7, name: "Liam Payne", class: "SOEN 341" },
+        { id: 8, name: "Louis Tomlinson", class: "SOEN 341" },
+        { id: 9, name: "Niall Horan", class: "SOEN 341" },
+        { id: 10, name: "Luke Hemmings", class: "SOEN 331" },
+        { id: 11, name: "Calum Hood", class: "SOEN 331" },
+        { id: 12, name: "Michael Clifford", class: "SOEN 331" },
+        { id: 13, name: "Ashton Irwin", class: "SOEN 331" },
+        { id: 14, name: "Carlos Sainz", class: "ENCS 282" },
+        { id: 15, name: "Lando Norris", class: "ENCS 282" },
+        { id: 16, name: "Lewis Hamilton", class: "ENCS 282" },
+        { id: 17, name: "Charles Leclerc", class: "ENCS 282" },
+        { id: 18, name: "Max Verstappen", class: "ENCS 282" },
+    ];
+
     const [teamName, setTeamName] = useState('');
     const [selectedMembers, setSelectedMembers] = useState([]);
     const [selectedClass, setSelectedClass] = useState('');
-    const [allTeams, setAllTeams] = useState([]);
 
     const handleLogout = (event) => {
         event.preventDefault();
@@ -53,50 +53,45 @@ export default function CreateTeams() {
         if (selectedMembers.length === 1) setSelectedClass('');
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const teamMembersNames = selectedMembers.map(member => member.name);
-
-        // Prepare the data to send to the API
-        const teamData = {
-            team_name: teamName,
-            members: teamMembersNames, // Send the names of the selected members
-        };
-
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+    
+        if (!teamName || selectedMembers.length === 0 || !selectedClass) {
+            alert('All fields are required');
+            return;
+        }
+    
         try {
-            const response = await axios.post('http://localhost:8000/teams/create/', teamData);
+            const userData = {
+                team_name: teamName,
+                selected_members: selectedMembers.map(member => member.name).join(', '), // Convert to a comma-separated string
+                selected_class: selectedClass
+            };
+    
+            const response = await axios.post('http://localhost:8000/userRegApi/create-team/', userData);
+    
             if (response.status === 200 || response.status === 201) {
-                alert('Team created successfully!');
-                // Optionally navigate to another page or clear the form
-                navigate('/teams'); // Example: redirect to the teams page
+                alert('Successful team creation');
             } else {
-                alert('Failed to create team: ' + response.data.detail);
+                alert('Registration failed: ' + response.data.detail);
             }
         } catch (error) {
             console.error('An error occurred: ', error);
-            alert('There was an issue creating your team');
+            alert('There was an issue registering your team');
         }
-
-        setAllTeams([...allTeams, { teamName, members: selectedMembers }]);
+    
+        // Clear team state after creation attempt
         setTeamName('');
         setSelectedMembers([]);
         setSelectedClass('');
     };
+    
 
-    // Group students by class for display
     const groupedStudents = students.reduce((acc, student) => {
         if (!acc[student.class]) {
             acc[student.class] = [];
         }
         acc[student.class].push(student);
-        return acc;
-    }, {});
-
-    const availableMembers = Object.keys(groupedStudents).reduce((acc, className) => {
-        acc[className] = groupedStudents[className].filter(student => 
-            !selectedMembers.some(selected => selected.id === student.id) &&
-            !allTeams.some(team => team.members.some(member => member.id === student.id))
-        );
         return acc;
     }, {});
 
@@ -131,10 +126,7 @@ export default function CreateTeams() {
                         <label className="block text-sm font-medium">Selected Members</label>
                         <ul className="space-y-2">
                             {selectedMembers.map(member => (
-                                <li
-                                    key={member.id}
-                                    className="flex justify-between p-2 bg-blue-100 rounded-md"
-                                >
+                                <li key={member.id} className="flex justify-between p-2 bg-blue-100 rounded-md">
                                     {member.name} - {member.class}
                                     <button
                                         className="text-red-500"
@@ -152,11 +144,11 @@ export default function CreateTeams() {
                     <div>
                         <label className="block text-sm font-medium">Available Members</label>
                         <div className="space-y-4">
-                            {Object.keys(availableMembers).map(className => (
+                            {Object.keys(groupedStudents).map(className => (
                                 <div key={className}>
                                     <h3 className="font-bold">{className}</h3>
                                     <ul className="space-y-2">
-                                        {availableMembers[className].map(student => (
+                                        {groupedStudents[className].map(student => (
                                             <li
                                                 key={student.id}
                                                 className="cursor-pointer p-2 bg-gray-100 rounded-md hover:bg-gray-200"
@@ -180,3 +172,5 @@ export default function CreateTeams() {
         </div>
     );
 }
+
+export default CreateTeams;
