@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Make sure to import axios
 import './index.css';
-
 
 // Sample data for students
 const students = [
@@ -26,53 +26,58 @@ const students = [
 ];
 
 export default function CreateTeams() {
-
     const navigate = useNavigate();
+    const [teamName, setTeamName] = useState('');
+    const [selectedMembers, setSelectedMembers] = useState([]);
+    const [selectedClass, setSelectedClass] = useState('');
+    const [allTeams, setAllTeams] = useState([]);
 
-    // State variables to manage team creation
-    const [teamName, setTeamName] = useState(''); // Team name input
-    const [selectedMembers, setSelectedMembers] = useState([]); // Selected team members
-    const [selectedClass, setSelectedClass] = useState(''); // Selected class for team members
-    const [allTeams, setAllTeams] = useState([]); // State to track all teams created
-
-    function handleLogout(event) {
+    const handleLogout = (event) => {
         event.preventDefault();
         navigate('/');
-    }
+    };
 
-    // Function to add a member to the selected team members
     const handleAddMember = (student) => {
-        // Check if the member is already selected
         if (!selectedMembers.includes(student)) {
-            // Allow addition if no members are selected or if the member's class matches the selected class
             if (selectedMembers.length === 0 || student.class === selectedClass) {
-                setSelectedMembers([...selectedMembers, student]); // Add member to the selected list
-                setSelectedClass(student.class); // Set the selected class
+                setSelectedMembers([...selectedMembers, student]);
+                setSelectedClass(student.class);
             } else {
-                alert('All team members must be from the same class.'); // Alert if classes do not match
+                alert('All team members must be from the same class.');
             }
         }
     };
 
-    // Function to remove a member from the selected team members
     const handleRemoveMember = (student) => {
-        setSelectedMembers(selectedMembers.filter(member => member.id !== student.id)); // Remove the member from the list
-        // Clear selected class if the last member is removed
+        setSelectedMembers(selectedMembers.filter(member => member.id !== student.id));
         if (selectedMembers.length === 1) setSelectedClass('');
     };
 
-    // Function to handle form submission
-    const handleSubmit = (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
-        const teamMembersNames = selectedMembers.map(member => member.name); // Get names of selected members
-        console.log("Team Name:", teamName);
-        console.log("Members:", teamMembersNames);
-        alert('Team created successfully!'); // Alert on successful team creation
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const teamMembersNames = selectedMembers.map(member => member.name);
 
-        // Add the new team to the allTeams state
+        // Prepare the data to send to the API
+        const teamData = {
+            team_name: teamName,
+            members: teamMembersNames, // Send the names of the selected members
+        };
+
+        try {
+            const response = await axios.post('http://localhost:8000/teams/create/', teamData);
+            if (response.status === 200 || response.status === 201) {
+                alert('Team created successfully!');
+                // Optionally navigate to another page or clear the form
+                navigate('/teams'); // Example: redirect to the teams page
+            } else {
+                alert('Failed to create team: ' + response.data.detail);
+            }
+        } catch (error) {
+            console.error('An error occurred: ', error);
+            alert('There was an issue creating your team');
+        }
+
         setAllTeams([...allTeams, { teamName, members: selectedMembers }]);
-
-        // Reset the team name and selected members after team creation
         setTeamName('');
         setSelectedMembers([]);
         setSelectedClass('');
@@ -81,17 +86,16 @@ export default function CreateTeams() {
     // Group students by class for display
     const groupedStudents = students.reduce((acc, student) => {
         if (!acc[student.class]) {
-            acc[student.class] = []; // Create a new array for each class
+            acc[student.class] = [];
         }
-        acc[student.class].push(student); // Push student into their respective class array
+        acc[student.class].push(student);
         return acc;
     }, {});
 
-    // Create a new list of available members by filtering out selected members and those in all teams
     const availableMembers = Object.keys(groupedStudents).reduce((acc, className) => {
         acc[className] = groupedStudents[className].filter(student => 
-            !selectedMembers.some(selected => selected.id === student.id) && // Filter out already selected members
-            !allTeams.some(team => team.members.some(member => member.id === student.id)) // Check if student is in any team
+            !selectedMembers.some(selected => selected.id === student.id) &&
+            !allTeams.some(team => team.members.some(member => member.id === student.id))
         );
         return acc;
     }, {});
@@ -105,8 +109,7 @@ export default function CreateTeams() {
                 </div>
                 <div className="flex space-x-10">
                     <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-                    <span className="text-white hover:text-red-950 cursor-pointer"></span>
-                    <button type='button' onClick={handleLogout} class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Log Out</button>
+                    <button type='button' onClick={handleLogout} className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Log Out</button>
                 </div>
             </nav>
 
@@ -119,9 +122,9 @@ export default function CreateTeams() {
                             type="text"
                             id="teamName"
                             value={teamName}
-                            onChange={(e) => setTeamName(e.target.value)} // Update team name state on input change
+                            onChange={(e) => setTeamName(e.target.value)}
                             className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                            required // Make this field required
+                            required
                         />
                     </div>
                     <div>
@@ -135,7 +138,7 @@ export default function CreateTeams() {
                                     {member.name} - {member.class}
                                     <button
                                         className="text-red-500"
-                                        onClick={() => handleRemoveMember(member)} // Remove member on button click
+                                        onClick={() => handleRemoveMember(member)}
                                     >
                                         Remove
                                     </button>
@@ -157,7 +160,7 @@ export default function CreateTeams() {
                                             <li
                                                 key={student.id}
                                                 className="cursor-pointer p-2 bg-gray-100 rounded-md hover:bg-gray-200"
-                                                onClick={() => handleAddMember(student)} // Add member on click
+                                                onClick={() => handleAddMember(student)}
                                             >
                                                 {student.name}
                                             </li>
