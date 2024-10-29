@@ -26,3 +26,11 @@ class Instructor(AbstractBaseUser):
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
+class Team(models.Model):
+    team_name = models.CharField(max_length=100)  # Team name input
+    selected_members = models.JSONField()  # Store selected team members
+    selected_class = models.CharField(max_length=100)  # Class for team members
+    created_at = models.DateTimeField(auto_now_add=True)  # Track when the team was created
+
+    def __str__(self):
+        return self.team_name

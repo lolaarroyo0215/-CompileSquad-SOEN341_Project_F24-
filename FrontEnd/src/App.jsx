@@ -23,6 +23,7 @@ function App() {
             <Routes>
                  <Route path="/" element={<Register />} />
                  <Route path="/create-account" element={<CreateAccount />} />
+                 <Route path="/create-teams" element={<ProtectedRoute element={CreateTeams} />} />
                  <Route path="assessment-results" element={<ProtectedRoute element ={AssessmentResultsPage} />} />
                  <Route path="/student" element={<ProtectedRoute element ={MainStudentPage} />} />
                  <Route path="/teacher" element={<ProtectedRoute element={MainTeacherPage} />} />
