@@ -1,44 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 
 export default function CurrentTeamsPage() {
-
   const navigate = useNavigate();
-
-  // Sample data for teams before linking with database
-  const classes = [
-    {
-      className: 'SOEN 341',
-      teams: [
-        {
-          teamName: 'Team Alpha',
-          members: ['Alice', 'Bob', 'Charlie'],
-        },
-        {
-          teamName: 'Team Beta',
-          members: ['Dave', 'Eve', 'Frank'],
-        },
-      ],
-    },
-    {
-      className: 'SOEN 342',
-      teams: [
-        {
-          teamName: 'Team Gamma',
-          members: ['Grace', 'Hank', 'Isaac'],
-        },
-        {
-          teamName: 'Team Delta',
-          members: ['John', 'Kara', 'Liam'],
-        },
-      ],
-    },
-
-  ];
-
-  // State to manage which class is expandef
-  const [openClass, setOpenClass] = useState(null);
+  const [classes, setClasses] = useState([]); // State for storing teams by class
+  const [openClass, setOpenClass] = useState(null); // State to manage which class is expanded
 
   // Function to toggle a class's dropdown
   const toggleClass = (className) => {
@@ -50,6 +17,35 @@ export default function CurrentTeamsPage() {
     navigate('/');
   }
 
+  // Fetch teams data from the backend
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/userRegApi/get_teams/');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+
+        // Organizing teams by class
+        const organizedClasses = data.reduce((acc, team) => {
+          const { selected_class, team_name, selected_members } = team;
+          if (!acc[selected_class]) {
+            acc[selected_class] = { className: selected_class, teams: [] };
+          }
+          acc[selected_class].teams.push({ teamName: team_name, members: selected_members.split(', ') });
+          return acc;
+        }, {});
+
+        setClasses(Object.values(organizedClasses));
+      } catch (error) {
+        console.error('Error fetching teams:', error);
+      }
+    };
+
+    fetchTeams();
+  }, []);
+
   return (
     <div className="bg-slate-200 min-h-screen flex flex-col">
       {/* Header */}
@@ -59,8 +55,7 @@ export default function CurrentTeamsPage() {
         </div>
         <div className="flex space-x-10">
           <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-          <span className="text-white hover:text-red-950 cursor-pointer"><button onClick={handleLogout()}>Log Out</button></span>
-          <button type='button' onClick={handleLogout} class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Log Out</button>
+          <button onClick={handleLogout} className="text-white hover:text-red-950 cursor-pointer">Log Out</button>
         </div>
       </nav>
 
@@ -74,10 +69,10 @@ export default function CurrentTeamsPage() {
               onClick={() => toggleClass(classItem.className)}
               className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
             >
-              {classItem.className}
+              {classItem.className}          
             </button>
 
-            {/* Teams dropdown content  */}
+            {/* Teams dropdown content */}
             {openClass === classItem.className && (
               <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
                 {classItem.teams.map((team, idx) => (
