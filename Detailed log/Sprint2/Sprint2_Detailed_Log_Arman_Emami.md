@@ -15,4 +15,7 @@
 | 10/25  | Writing the acceptance tests                         | 1 hour  |
 | 10/26  | Learning about continuous integration pipeline and how to implement it on github           | 2 hours  |
 | 10/26  | Following the insturctions on how to run our project (database + frontend) in my own pc locally in order to continue with coding         | 3 hours  |
-|TOTAL: |                                                       | 16 hours |
+| 10/27  | Builing functionality for intructors to create teams from the list of students in the database    | 3 hours |
+| 10/27  | Builidng functionality for intructors to view current teams     | 2 hours |
+| 10/27  | Implementing functionality for instructors to be able to upload a csv file and be able to create teams from students in that file  | 3 hours|
+|TOTAL: |                                                       | 24 hours |
