@@ -8,7 +8,7 @@
 
 ## Installation:
 	Clone the repository:
-		- git clone https://github.com/your-username/-CompileSquad-SOEN341_Project_F24-.git
+		- git clone https://github.com/lolaarroyo0215/-CompileSquad-SOEN341_Project_F24-.git
 
 		- navigate into the project directory:
 			cd -CompileSquad-SOEN341_Project_F24-
