@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; 
+import axios from 'axios';
 import './index.css';
 
 function CreateTeams() {
@@ -10,6 +10,7 @@ function CreateTeams() {
     const [teamName, setTeamName] = useState('');
     const [selectedMembers, setSelectedMembers] = useState([]);
     const [selectedClass, setSelectedClass] = useState('');
+    const [csvFile, setCsvFile] = useState(null);
 
     const handleLogout = (event) => {
         event.preventDefault();
@@ -59,28 +60,55 @@ function CreateTeams() {
             alert('There was an issue registering your team');
         }
     
-        // Clear team state after creation attempt
         setTeamName('');
         setSelectedMembers([]);
         setSelectedClass('');
     };
 
-    useEffect(() => {
-        const fetchStudents = async () => {
-            try {
-                const response = await axios.get('http://localhost:8000/userRegApi/get_students/');
-                setStudents(response.data);
-            } catch (error) {
-                console.error('Error fetching students:', error);
-            }
-        };
+    const handleCsvChange = (event) => {
+        setCsvFile(event.target.files[0]);
+    };
 
+    const handleCsvSubmit = async (event) => {
+        event.preventDefault();
+        if (!csvFile) {
+            alert('Please select a CSV file');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', csvFile);
+
+        try {
+            const response = await axios.post('http://localhost:8000/userRegApi/import-roster/', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            alert('Roster imported successfully');
+            setCsvFile(null);
+            fetchStudents(); // Refresh student list after import
+        } catch (error) {
+            console.error('Error importing roster:', error);
+            alert('There was an issue importing the roster');
+        }
+    };
+
+    const fetchStudents = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/userRegApi/get_students/');
+            setStudents(response.data);
+        } catch (error) {
+            console.error('Error fetching students:', error);
+        }
+    };
+
+    useEffect(() => {
         fetchStudents();
     }, []);
 
     return (
         <div className="bg-slate-200 min-h-screen flex flex-col">
-            {/* Header */}
             <nav className="bg-red-900 p-4 flex justify-between items-center">
                 <div className="text-white text-lg">
                     <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
@@ -110,7 +138,7 @@ function CreateTeams() {
                         <ul className="space-y-2">
                             {selectedMembers.map(member => (
                                 <li key={member.student_id} className="flex justify-between p-2 bg-blue-100 rounded-md">
-                                    {`${member.first_name} ${member.last_name}`} {/* Display full name */}
+                                    {`${member.first_name} ${member.last_name}`}
                                     <button
                                         className="text-red-500"
                                         onClick={() => handleRemoveMember(member)}
@@ -134,16 +162,29 @@ function CreateTeams() {
                                         className="cursor-pointer p-2 bg-gray-100 rounded-md hover:bg-gray-200"
                                         onClick={() => handleAddMember(student)}
                                     >
-                                        {`${student.first_name} ${student.last_name}`} {/* Display full name */}
+                                        {`${student.first_name} ${student.last_name}`}
                                     </li>
                                 ))}
                             </ul>
                         </div>
                     </div>
                 </form>
+
+                {/* CSV Import Form */}
+                <form onSubmit={handleCsvSubmit} className="mt-8 space-y-4">
+                    <h3 className="text-xl font-bold mb-2">Import Course Roster</h3>
+                    <input
+                        type="file"
+                        accept=".csv"
+                        onChange={handleCsvChange}
+                        className="block w-full text-sm text-gray-500"
+                    />
+                    <button type="submit" className="bg-green-500 text-white p-2 rounded-md">
+                        Upload Roster
+                    </button>
+                </form>
             </div>
 
-            {/* Footer */}
             <footer className="bg-red-900 text-white text-right py-4 px-4">
                 <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
             </footer>
