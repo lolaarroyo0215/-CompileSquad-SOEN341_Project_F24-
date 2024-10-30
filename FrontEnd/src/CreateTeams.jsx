@@ -1,33 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Make sure to import axios
+import axios from 'axios'; 
 import './index.css';
 
 function CreateTeams() {
     const navigate = useNavigate();
 
-    // Sample data for students
-    const students = [
-        { id: 1, name: "Alice Johnson", class: "ENGR 213" },
-        { id: 2, name: "Bob Smith", class: "ENGR 213" },
-        { id: 3, name: "Charlie Brown", class: "ENGR 213" },
-        { id: 4, name: "Dana White", class: "ENGR 213" },
-        { id: 5, name: "Harry Styles", class: "SOEN 341" },
-        { id: 6, name: "Zayn Malik", class: "SOEN 341" },
-        { id: 7, name: "Liam Payne", class: "SOEN 341" },
-        { id: 8, name: "Louis Tomlinson", class: "SOEN 341" },
-        { id: 9, name: "Niall Horan", class: "SOEN 341" },
-        { id: 10, name: "Luke Hemmings", class: "SOEN 331" },
-        { id: 11, name: "Calum Hood", class: "SOEN 331" },
-        { id: 12, name: "Michael Clifford", class: "SOEN 331" },
-        { id: 13, name: "Ashton Irwin", class: "SOEN 331" },
-        { id: 14, name: "Carlos Sainz", class: "ENCS 282" },
-        { id: 15, name: "Lando Norris", class: "ENCS 282" },
-        { id: 16, name: "Lewis Hamilton", class: "ENCS 282" },
-        { id: 17, name: "Charles Leclerc", class: "ENCS 282" },
-        { id: 18, name: "Max Verstappen", class: "ENCS 282" },
-    ];
-
+    const [students, setStudents] = useState([]);
     const [teamName, setTeamName] = useState('');
     const [selectedMembers, setSelectedMembers] = useState([]);
     const [selectedClass, setSelectedClass] = useState('');
@@ -49,14 +28,14 @@ function CreateTeams() {
     };
 
     const handleRemoveMember = (student) => {
-        setSelectedMembers(selectedMembers.filter(member => member.id !== student.id));
+        setSelectedMembers(selectedMembers.filter(member => member.student_id !== student.student_id));
         if (selectedMembers.length === 1) setSelectedClass('');
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
     
-        if (!teamName || selectedMembers.length === 0 || !selectedClass) {
+        if (!teamName || selectedMembers.length === 0) {
             alert('All fields are required');
             return;
         }
@@ -64,7 +43,7 @@ function CreateTeams() {
         try {
             const userData = {
                 team_name: teamName,
-                selected_members: selectedMembers.map(member => member.name).join(', '), // Convert to a comma-separated string
+                selected_members: selectedMembers.map(member => `${member.first_name} ${member.last_name}`).join(', '),
                 selected_class: selectedClass
             };
     
@@ -85,15 +64,19 @@ function CreateTeams() {
         setSelectedMembers([]);
         setSelectedClass('');
     };
-    
 
-    const groupedStudents = students.reduce((acc, student) => {
-        if (!acc[student.class]) {
-            acc[student.class] = [];
-        }
-        acc[student.class].push(student);
-        return acc;
-    }, {});
+    useEffect(() => {
+        const fetchStudents = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/userRegApi/get_students/');
+                setStudents(response.data);
+            } catch (error) {
+                console.error('Error fetching students:', error);
+            }
+        };
+
+        fetchStudents();
+    }, []);
 
     return (
         <div className="bg-slate-200 min-h-screen flex flex-col">
@@ -126,8 +109,8 @@ function CreateTeams() {
                         <label className="block text-sm font-medium">Selected Members</label>
                         <ul className="space-y-2">
                             {selectedMembers.map(member => (
-                                <li key={member.id} className="flex justify-between p-2 bg-blue-100 rounded-md">
-                                    {member.name} - {member.class}
+                                <li key={member.student_id} className="flex justify-between p-2 bg-blue-100 rounded-md">
+                                    {`${member.first_name} ${member.last_name}`} {/* Display full name */}
                                     <button
                                         className="text-red-500"
                                         onClick={() => handleRemoveMember(member)}
@@ -144,22 +127,17 @@ function CreateTeams() {
                     <div>
                         <label className="block text-sm font-medium">Available Members</label>
                         <div className="space-y-4">
-                            {Object.keys(groupedStudents).map(className => (
-                                <div key={className}>
-                                    <h3 className="font-bold">{className}</h3>
-                                    <ul className="space-y-2">
-                                        {groupedStudents[className].map(student => (
-                                            <li
-                                                key={student.id}
-                                                className="cursor-pointer p-2 bg-gray-100 rounded-md hover:bg-gray-200"
-                                                onClick={() => handleAddMember(student)}
-                                            >
-                                                {student.name}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
+                            <ul className="space-y-2">
+                                {students.map(student => (
+                                    <li
+                                        key={student.student_id}
+                                        className="cursor-pointer p-2 bg-gray-100 rounded-md hover:bg-gray-200"
+                                        onClick={() => handleAddMember(student)}
+                                    >
+                                        {`${student.first_name} ${student.last_name}`} {/* Display full name */}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </form>

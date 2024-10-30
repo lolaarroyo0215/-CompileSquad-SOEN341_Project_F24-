@@ -30,7 +30,7 @@ class Instructor(AbstractBaseUser):
 class Team(models.Model):
     team_name = models.CharField(max_length=255)
     selected_members = models.CharField(max_length=1000)  # Adjust based on your data type
-    selected_class = models.CharField(max_length=255)
+    selected_class = models.CharField(max_length=255, default='soen341')
     
 
 

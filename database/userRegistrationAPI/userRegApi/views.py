@@ -65,3 +65,11 @@ def get_teams(request):
     teams = Team.objects.all()  # Fetch all teams from the database
     serializer = TeamSerializer(teams, many=True)  # Serialize the data
     return Response(serializer.data)  # Return the serialized data as JSON
+
+
+@api_view(['GET'])
+def get_students(request):
+    students = Student.objects.all()
+    serializer = StudentRegistrationSerializer(students, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+

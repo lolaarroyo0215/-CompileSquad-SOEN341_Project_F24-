@@ -73,7 +73,7 @@ class InstructorLoginSerializer(serializers.Serializer):
 class TeamSerializer(serializers.ModelSerializer):
     class Meta:
         model = Team
-        fields = ['team_name', 'selected_members', 'selected_class']
+        fields = ['team_name', 'selected_members']
 
     def create(self, validated_data):
         # Create an instance and return it
