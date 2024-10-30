@@ -35,9 +35,11 @@ export default function Register() {
                     // Save tokens to local storage
                     localStorage.setItem("access_token", access);
                     localStorage.setItem("refresh_token", refresh);
+                    localStorage.setItem("user_role", userType);
 
                     console.log("Login successful");
                     navigate('/student');
+
                 }
                 else {
                     const errorData = response.data;
@@ -56,6 +58,8 @@ export default function Register() {
                     // Save tokens to local storage
                     localStorage.setItem("access_token", access);
                     localStorage.setItem("refresh_token", refresh);
+                    localStorage.setItem("user_role", userType);
+
 
                     console.log("Login successful");
                     navigate('/teacher');
