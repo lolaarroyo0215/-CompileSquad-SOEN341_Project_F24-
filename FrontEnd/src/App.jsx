@@ -11,10 +11,17 @@ import ViewMyGradesPage from './viewMyGradesPage';
 import ViewMyTeamsPage from './viewMyTeamsPage';
 import CreateTeams from './CreateTeams';
 
+
 const ProtectedRoute = ({ element: Component, role, ...rest }) => {
     const token = localStorage.getItem('access_token');
     const userRole = localStorage.getItem('user_role');
-    return token && userRole === role ? <Component {...rest} /> : <Navigate to="/" />;
+
+    if (token && userRole === role) {
+        return <Component {...rest} />;
+    } else {
+        alert("You don’t have permission to access this page, please try login in.")
+        return <Navigate to="/" />;
+    }
 };
 
 
