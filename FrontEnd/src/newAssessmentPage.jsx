@@ -12,7 +12,7 @@ export default function NewAssessmentPage() {
 
     // Function to handle star click
     const handleStarClick = (setRating) => (rating) => {
-        setRating(rating); // Set the clicked star as the rating
+        setRating(rating);
     };
 
     function handleLogout(event) {
@@ -43,6 +43,12 @@ export default function NewAssessmentPage() {
                     <h2 className="text-xl font-semibold">Cooperation</h2>
                     <p className="mb-2">Actively participating in meetings, Communicating within the group, Assisting teammates when needed, Volunteering for tasks.</p>
                     <StarRating rating={cooperationRating} setRating={setCooperationRating} />
+                    <textarea
+                        value={cooperationComment}
+                        onChange={(e) => setCooperationComment(e.target.value)}
+                        placeholder="Add your comments on cooperation..."
+                        className="mt-2 w-11/12 p-2 border rounded-lg"
+                    ></textarea>
                 </div>
 
                 {/* Conceptual Contribution Section */}
@@ -50,6 +56,12 @@ export default function NewAssessmentPage() {
                     <h2 className="text-xl font-semibold">Conceptual Contribution</h2>
                     <p className="mb-2">Researching and gathering information, Quality of individual contribution, Suggesting ideas, Tying ideas together, Identifying difficulties, Identifying effective approaches.</p>
                     <StarRating rating={conceptualRating} setRating={setConceptualRating} />
+                    <textarea
+                        value={conceptualComment}
+                        onChange={(e) => setConceptualComment(e.target.value)}
+                        placeholder="Add your comments on conceptual contribution..."
+                        className="mt-2 w-11/12 p-2 border rounded-lg"
+                    ></textarea>
                 </div>
 
                 {/* Practical Contribution Section */}
@@ -57,6 +69,12 @@ export default function NewAssessmentPage() {
                     <h2 className="text-xl font-semibold">Practical Contribution</h2>
                     <p className="mb-2">Writing of the report(s), Reviewing others’ report(s) or section(s), Providing constructive feedback on the report(s) or the presentation, Contributing to the organization of the work, Contributing to the preparation of presentation(s) (if appropriate).</p>
                     <StarRating rating={practicalRating} setRating={setPracticalRating} />
+                    <textarea
+                        value={practicalComment}
+                        onChange={(e) => setPracticalComment(e.target.value)}
+                        placeholder="Add your comments on practical contribution..."
+                        className="mt-2 w-11/12 p-2 border rounded-lg"
+                    ></textarea>
                 </div>
 
                 {/* Work Ethic Section */}
@@ -64,6 +82,12 @@ export default function NewAssessmentPage() {
                     <h2 className="text-xl font-semibold">Work Ethic</h2>
                     <p className="mb-2">Displaying a positive attitude, Respecting team-mates and their ideas, Respecting commitments, Respecting deadlines, Respecting team-mates’ ideas.</p>
                     <StarRating rating={workEthicRating} setRating={setWorkEthicRating} />
+                    <textarea
+                        value={workEthicComment}
+                        onChange={(e) => setWorkEthicComment(e.target.value)}
+                        placeholder="Add your comments on work ethic..."
+                        className="mt-2 w-11/12 p-2 border rounded-lg"
+                    ></textarea>
                 </div>
             </main>
 
@@ -94,8 +118,8 @@ function StarRating({ rating, setRating }) {
             {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                     key={star}
-                    filled={star <= rating} // Determine if the star should be filled
-                    onClick={() => setRating(star)} // Set the clicked star as the rating
+                    filled={star <= rating}
+                    onClick={() => setRating(star)}
                 />
             ))}
         </div>
