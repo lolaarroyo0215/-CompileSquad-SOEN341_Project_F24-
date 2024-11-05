@@ -1,7 +1,7 @@
 import React from 'react';
 import Register from './Register';
 import CreateAccount from './CreateAccount';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import MainTeacherPage from './mainTeacherPage';
 import CurrentTeamsPage from './currentTeamsPage';
 import AssessmentResultsPage from './assessmentResultsPage';
@@ -12,28 +12,37 @@ import ViewMyTeamsPage from './viewMyTeamsPage';
 import CreateTeams from './CreateTeams';
 
 
+const ProtectedRoute = ({ element: Component, role, ...rest }) => {
+    const token = localStorage.getItem('access_token');
+    const userRole = localStorage.getItem('user_role');
+
+    if (token && userRole === role) {
+        return <Component {...rest} />;
+    } else {
+        alert("You don’t have permission to access this page, please try login in.")
+        return <Navigate to="/" />;
+    }
+};
+
+
 
 function App() {
     return (
-        <Router>
+        <BrowserRouter>
             <Routes>
-                 <Route path="/" element={<AssessmentResultsPage />} />
-                 {/*<Route path="/create-account" element={<CreateAccount />} />*/}
-                 {/*<Route path="/student" element={<MainStudentPage />} />*/}
-                 {/*<Route path="/teacher" element={<MainTeacherPage />} />*/}
-                 {/*<Route path="/new-assessment" element={<NewAssessmentPage />} />*/}
-                 {/*<Route path="/view-my-grades" element={<ViewMyGradesPage />} />*/}
-                 {/*<Route path="/view-my-teams" element={<ViewMyTeamsPage />} />*/}
-
-                
-                
-
-                
-
+                 <Route path="/" element={<Register />} />
+                 <Route path="/create-account" element={<CreateAccount />} />
+                 <Route path="/create-teams" element={<ProtectedRoute element={CreateTeams} role="teacher"/>} />
+                 <Route path="/current-teams" element={<ProtectedRoute element={CurrentTeamsPage} role="teacher"/>} />
+                 <Route path="/assessment-results" element={<ProtectedRoute element ={AssessmentResultsPage} role="teacher"/>} />
+                 <Route path="/student" element={<ProtectedRoute element={MainStudentPage} role="student" />} />
+                 <Route path="/teacher" element={<ProtectedRoute element={MainTeacherPage} role="teacher" />} />
+                 <Route path="/new-assessment" element={<ProtectedRoute element={NewAssessmentPage} role="student"/>} />
+                 <Route path="/view-my-grades" element={<ProtectedRoute element ={ViewMyGradesPage} role="student"/>} />
+                 <Route path="/view-my-teams" element={<ProtectedRoute element ={ViewMyTeamsPage} role="student"/>} />
             </Routes>
-        </Router>
+        </BrowserRouter>
     );
 
 }
 export default App;
-
