@@ -1,0 +1,16 @@
+| Date   | Task                                                             | Time Spent |
+|--------|----------------------------------------------------------------- |------------|
+| 10-24  | Database environment documentation                               | 0.5 hours  |
+| 10-26  | User session token implementation                                | 2 hours    |
+| 10-27  | Designed and created a diagram for the database design           | 0.5 hours  |
+| 10-30  | Fixed bug with user token by implementing roles for stduents &   | 1 hour     |
+|        | teachers                                                         |            |
+| 10-31  | Made it so that if user enters url they don't have persmission   | 0.5 hours  |
+|        | for they get an alert and redirected to login page               |            |
+|        |                                                                  |            |
+|        |                                                                  |            |
+|        |                                                                  |            |
+|        |                                                                  |            |
+|        |                                                                  |            |
+------------------------------------------------------------------------------------------
+| Total                                                                     | 4.5 hours  |

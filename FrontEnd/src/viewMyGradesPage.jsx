@@ -2,13 +2,9 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 
-function handleLogout(){
-  const navigate = useNavigate();
-  // Redirect to login page
-  navigate('/');
-};
-
 export default function MainStudentPage() {
+
+  const navigate = useNavigate();
 
   // Sample data for grades
   const classes = [
@@ -36,6 +32,11 @@ export default function MainStudentPage() {
   // State to manage which class is expanded
   const [openClass, setOpenClass] = useState(null);
 
+  function handleLogout(event) {
+    event.preventDefault();
+    navigate('/');
+  }
+
   // Function to toggle a class's dropdown
   const toggleClass = (className) => {
     setOpenClass(openClass === className ? null : className);
@@ -50,7 +51,8 @@ export default function MainStudentPage() {
         </div>
         <div className="flex space-x-10">
           <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-          <span className="text-white hover:text-red-950 cursor-pointer"><button onClick={handleLogout()}>Log Out</button></span>
+          <span className="text-white hover:text-red-950 cursor-pointer"></span>
+          <button type='button' onClick={handleLogout} class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Log Out</button>
         </div>
       </nav>
 

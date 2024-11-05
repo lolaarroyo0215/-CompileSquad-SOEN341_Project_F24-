@@ -1,8 +1,7 @@
 from rest_framework import serializers
-from .models import Student, Instructor
+from .models import Student, Instructor, Team  # Import Team model
 from django.contrib.auth import authenticate
 from django.contrib.auth.backends import ModelBackend
-
 
 class StudentRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -28,15 +27,13 @@ class InstructorRegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         instructor = Instructor.objects.create(
             first_name=validated_data.get('first_name', ''),
-                last_name=validated_data.get('last_name', ''),
-                email=validated_data.get('email'),
-                instructor_id=validated_data.get('instructor_id')
+            last_name=validated_data.get('last_name', ''),
+            email=validated_data.get('email'),
+            instructor_id=validated_data.get('instructor_id')
         )
-
         instructor.set_password(validated_data['password'])
         instructor.save()
         return instructor
-    
 
 class StudentLoginSerializer(serializers.Serializer):
     student_id = serializers.IntegerField()
@@ -54,7 +51,6 @@ class StudentLoginSerializer(serializers.Serializer):
         if student.check_password(password):
             return student
         raise serializers.ValidationError("Wrong password")
-    
 
 class InstructorLoginSerializer(serializers.Serializer):
     instructor_id = serializers.IntegerField()
@@ -72,6 +68,21 @@ class InstructorLoginSerializer(serializers.Serializer):
         if instructor.check_password(password):
             return instructor
         raise serializers.ValidationError("Wrong password")
+    
 
+class TeamSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Team
+        fields = ['team_name', 'selected_members']
+
+    def create(self, validated_data):
+        # Create an instance and return it
+        team = Team.objects.create(**validated_data)
+        return team  # Ensure the created team instance is returned
+
+
+
+        
+    
 
     
