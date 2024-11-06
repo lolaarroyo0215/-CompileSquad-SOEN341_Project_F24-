@@ -12,6 +12,7 @@ import ViewMyTeamsPage from './viewMyTeamsPage';
 import CreateTeams from './CreateTeams';
 import ConfirmationPage from './confirmationPage';
 import Profile from './Profile';
+import DetailedResults from './detailedResults';
 
 
 
@@ -46,7 +47,7 @@ function App() {
                  <Route path="/confirmation" element={<ProtectedRoute element ={ConfirmationPage} role="student" />} />
                  <Route path="/mainStudentPage" element={<ProtectedRoute element ={MainStudentPage} role="student" />} />
                  <Route path="/profile" element={<ProtectedRoute element ={Profile} role="student" />} />
-
+                 <Route path="/detailedResults" element={<ProtectedRoute element ={DetailedResults} role="teacher" />} />
 
 
             </Routes>
