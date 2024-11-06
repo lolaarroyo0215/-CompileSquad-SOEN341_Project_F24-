@@ -14,6 +14,7 @@ import ConfirmationPage from './confirmationPage';
 import Profile from './Profile';
 
 
+
 const ProtectedRoute = ({ element: Component, role, ...rest }) => {
     const token = localStorage.getItem('access_token');
     const userRole = localStorage.getItem('user_role');
@@ -45,6 +46,7 @@ function App() {
                  <Route path="/confirmation" element={<ProtectedRoute element ={ConfirmationPage} role="student" />} />
                  <Route path="/mainStudentPage" element={<ProtectedRoute element ={MainStudentPage} role="student" />} />
                  <Route path="/profile" element={<ProtectedRoute element ={Profile} role="student" />} />
+
 
 
             </Routes>
