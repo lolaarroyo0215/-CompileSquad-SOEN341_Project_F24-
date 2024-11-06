@@ -21,6 +21,11 @@ export default function NewAssessmentPage() {
         setRating(rating);
     };
 
+    function checkoutProfile(event){
+        event.preventDefault();
+        navigate('/profile');
+    }
+
     function handleLogout(event) {
         event.preventDefault();
         navigate('/');
@@ -34,7 +39,12 @@ export default function NewAssessmentPage() {
                     <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
                 </div>
                 <div className="flex items-center space-x-6">
-                    <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
+                    <button 
+                        type='button' 
+                        onClick={checkoutProfile} 
+                        className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
+                        Profile
+                    </button>
                     <button 
                         type='button' 
                         onClick={handleLogout} 
