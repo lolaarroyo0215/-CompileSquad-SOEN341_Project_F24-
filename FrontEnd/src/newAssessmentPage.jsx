@@ -28,21 +28,21 @@ export default function NewAssessmentPage() {
 
     return (
         <div className="bg-slate-200 min-h-screen flex flex-col">
-    <nav className="bg-red-900 p-4 flex justify-between items-center">
-        <div className="text-white text-lg flex items-center">
-            {/* Logo image */}
-            <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
-        </div>
-        <div className="flex items-center space-x-6">
-            <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-            <button 
-                type='button' 
-                onClick={handleLogout} 
-                className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-            >
-                Log Out
-            </button>
-        </div>
+            <nav className="bg-red-900 p-4 flex justify-between items-center">
+                <div className="text-white text-lg flex items-center">
+                    {/* Logo image */}
+                    <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
+                </div>
+                <div className="flex items-center space-x-6">
+                    <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
+                    <button 
+                        type='button' 
+                        onClick={handleLogout} 
+                        className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
+                    >
+                        Log Out
+                    </button>
+                </div>
             </nav>
 
             {/* Main Content */}
@@ -106,8 +106,8 @@ export default function NewAssessmentPage() {
                 <button
                     className="bg-red-900 text-white py-4 px-8 rounded hover:bg-red-950 transition duration-200 text-xl"
                     onClick={() => {
-                        // Handle form submission logic here
-                        alert('Assessment submitted!');
+                        // Navigate to the confirmation page instead of showing an alert
+                        navigate('/confirmation');
                     }}
                 >
                     Submit Assessment
