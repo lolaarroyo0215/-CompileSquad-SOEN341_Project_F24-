@@ -19,7 +19,7 @@ export default function AssessmentResultsPage() {
             teamName: 'Team Beta',
             members: [
                 { studentId: '40746548', lastName: 'Johnson', firstName: 'Alice', cooperation: '5', contribution: '5', practical: '5', workEthic: '5' },
-                { studentId: '40685616', lastName: 'Brown', firstName: 'Bob', cooperation: '4', contribution: '4', practical: '5', workEthic: '4' },
+                { studentId: '40596861', lastName: 'Brown', firstName: 'Bob', cooperation: '4', contribution: '4', practical: '5', workEthic: '4' },
             ],
         },
     ];

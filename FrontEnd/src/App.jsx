@@ -10,6 +10,7 @@ import NewAssessmentPage from './newAssessmentPage';
 import ViewMyGradesPage from './viewMyGradesPage';
 import ViewMyTeamsPage from './viewMyTeamsPage';
 import CreateTeams from './CreateTeams';
+import ConfirmationPage from './confirmationPage';
 
 
 const ProtectedRoute = ({ element: Component, role, ...rest }) => {
@@ -40,6 +41,10 @@ function App() {
                  <Route path="/new-assessment" element={<ProtectedRoute element={NewAssessmentPage} role="student"/>} />
                  <Route path="/view-my-grades" element={<ProtectedRoute element ={ViewMyGradesPage} role="student"/>} />
                  <Route path="/view-my-teams" element={<ProtectedRoute element ={ViewMyTeamsPage} role="student"/>} />
+                 <Route path="/confirmation" element={<ProtectedRoute element ={ConfirmationPage} role="student" />} />
+                 <Route path="/mainStudentPage" element={<ProtectedRoute element ={MainStudentPage} role="student" />} />
+
+
             </Routes>
         </BrowserRouter>
     );
