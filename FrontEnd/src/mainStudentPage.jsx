@@ -13,6 +13,10 @@ export default function MainStudentPage() {
     navigate('/');
   }
 
+  function checkoutProfile(event) {
+    navigate('/profile');
+  }
+
   return (
     <div className="bg-slate-200 min-h-screen flex flex-col">
     <nav className="bg-red-900 p-4 flex justify-between items-center">
@@ -21,12 +25,16 @@ export default function MainStudentPage() {
             <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
         </div>
         <div className="flex items-center space-x-6">
-            <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
+            <button 
+                type='button' 
+                onClick={checkoutProfile} 
+                className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
+                Profile
+            </button>
             <button 
                 type='button' 
                 onClick={handleLogout} 
-                className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-            >
+                className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
                 Log Out
             </button>
         </div>
