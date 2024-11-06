@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import './index.css';
 
 export default function AssessmentResultsPage() {
-
     const navigate = useNavigate();
 
-    // Sample data for teams and assessment results before database link 
+    // Sample data for teams and assessment results before database link
     const teams = [
         {
             teamName: 'Team Alpha',
@@ -74,30 +73,28 @@ export default function AssessmentResultsPage() {
 
     return (
         <div className="bg-slate-200 min-h-screen flex flex-col">
-    <nav className="bg-red-900 p-4 flex justify-between items-center">
-        <div className="text-white text-lg flex items-center">
-            {/* Logo image */}
-            <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
-        </div>
-        <div className="flex items-center space-x-6">
-            <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-            <button 
-                type='button' 
-                onClick={handleLogout} 
-                className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-            >
-                Log Out
-            </button>
-        </div>
-    </nav>
+            <nav className="bg-red-900 p-4 flex justify-between items-center">
+                <div className="text-white text-lg flex items-center">
+                    <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
+                </div>
+                <div className="flex items-center space-x-6">
+                    <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
+                    <button 
+                        type='button' 
+                        onClick={handleLogout} 
+                        className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
+                    >
+                        Log Out
+                    </button>
+                </div>
+            </nav>
 
             {/* Main content */}
             <div className="flex-grow p-8">
-                <h1 className="text-3xl font-bold text-black mb-6 text-center">Summary of assessment Results</h1>
+                <h1 className="text-3xl font-bold text-black mb-6 text-center">Summary of Assessment Results</h1>
 
                 {teams.map((team, index) => (
                     <div key={index} className="mb-6">
-                        {/* Dropdown toggle button for each team */}
                         <button
                             onClick={() => toggleTeam(team.teamName)}
                             className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
@@ -105,39 +102,34 @@ export default function AssessmentResultsPage() {
                             {team.teamName}
                         </button>
 
-                        {/* Team member assessment results dropdown */}
                         {openTeam === team.teamName && (
                             <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
-                                <table className="table-auto w-full text-left">
-                                    <thead>
-                                        <tr className="bg-gray-200">
-                                            <th className="px-4 py-2">Student ID</th>
-                                            <th className="px-4 py-2">Last Name</th>
-                                            <th className="px-4 py-2">First Name</th>
-                                            <th className="px-4 py-2">Team</th>
-                                            <th className="px-4 py-2 text-center">Cooperation</th>
-                                            <th className="px-4 py-2 text-center">Conceptual Contribution</th>
-                                            <th className="px-4 py-2 text-center">Practical Contribution</th>
-                                            <th className="px-4 py-2 text-center">Work Ethic</th>
-                                            <th className="px-4 py-2 text-center">Average</th>
-                                            <th className="px-4 py-2 text-center">Peers who Responded</th>
+                                <table className="table-auto w-full text-left border-collapse">
+                                    <thead className="bg-red-900 text-white">
+                                        <tr>
+                                            <th className="px-4 py-2 border">Student ID</th>
+                                            <th className="px-4 py-2 border">Last Name</th>
+                                            <th className="px-4 py-2 border">First Name</th>
+                                            <th className="px-4 py-2 border text-center">Cooperation</th>
+                                            <th className="px-4 py-2 border text-center">Conceptual Contribution</th>
+                                            <th className="px-4 py-2 border text-center">Practical Contribution</th>
+                                            <th className="px-4 py-2 border text-center">Work Ethic</th>
+                                            <th className="px-4 py-2 border text-center">Average</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {team.members.map((member, idx) => (
-                                            <tr key={idx} className="border-b">
-                                                <td className="px-4 py-2">{member.studentId}</td>
-                                                <td className="px-4 py-2">{member.lastName}</td>
-                                                <td className="px-4 py-2">{member.firstName}</td>
-                                                <td className="px-4 py-2">{team.teamName}</td>
-                                                <td className="px-4 py-2 text-center">{member.cooperation}</td>
-                                                <td className="px-4 py-2 text-center">{member.contribution}</td>
-                                                <td className="px-4 py-2 text-center">{member.practical}</td>
-                                                <td className="px-4 py-2 text-center">{member.workEthic}</td>
-                                                <td className="px-4 py-2 text-center">{(
+                                            <tr key={idx} className="border-b hover:bg-slate-100">
+                                                <td className="px-4 py-2 border">{member.studentId}</td>
+                                                <td className="px-4 py-2 border">{member.lastName}</td>
+                                                <td className="px-4 py-2 border">{member.firstName}</td>
+                                                <td className="px-4 py-2 border text-center">{member.cooperation}</td>
+                                                <td className="px-4 py-2 border text-center">{member.contribution}</td>
+                                                <td className="px-4 py-2 border text-center">{member.practical}</td>
+                                                <td className="px-4 py-2 border text-center">{member.workEthic}</td>
+                                                <td className="px-4 py-2 border text-center">{(
                                                     (parseFloat(member.cooperation) + parseFloat(member.contribution) + parseFloat(member.practical) + parseFloat(member.workEthic)) / 4
                                                 ).toFixed(2)}</td>
-                                                <td className="px-4 py-2 text-center">N/A</td>
                                             </tr>
                                         ))}
                                     </tbody>
