@@ -17,6 +17,11 @@ export default function CurrentTeamsPage() {
     navigate('/');
   }
 
+  function checkoutProfile(event) {
+    event.preventDefault();
+    navigate('/profile');
+  }
+
   // Fetch teams data from the backend
   useEffect(() => {
     const fetchTeams = async () => {
@@ -54,8 +59,18 @@ export default function CurrentTeamsPage() {
           <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
         </div>
         <div className="flex space-x-10">
-          <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-          <button onClick={handleLogout} className="text-white hover:text-red-950 cursor-pointer">Log Out</button>
+        <button 
+          type='button' 
+          onClick={checkoutProfile} 
+          className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
+            Profile
+        </button>
+        <button 
+          type='button' 
+          onClick={handleLogout} 
+          className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
+            Log Out
+        </button>
         </div>
       </nav>
 

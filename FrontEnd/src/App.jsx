@@ -11,7 +11,8 @@ import ViewMyGradesPage from './viewMyGradesPage';
 import ViewMyTeamsPage from './viewMyTeamsPage';
 import CreateTeams from './CreateTeams';
 import ConfirmationPage from './confirmationPage';
-import DetailedResults from './detailedResults';
+import Profile from './Profile';
+
 
 
 const ProtectedRoute = ({ element: Component, role, ...rest }) => {
@@ -44,7 +45,9 @@ function App() {
                  <Route path="/view-my-teams" element={<ProtectedRoute element ={ViewMyTeamsPage} role="student"/>} />
                  <Route path="/confirmation" element={<ProtectedRoute element ={ConfirmationPage} role="student" />} />
                  <Route path="/mainStudentPage" element={<ProtectedRoute element ={MainStudentPage} role="student" />} />
-                 <Route path="/detailedResults" element={<ProtectedRoute element ={DetailedResults} role="teacher" />} />
+                 <Route path="/profile" element={<ProtectedRoute element ={Profile} role="student" />} />
+
+
 
             </Routes>
         </BrowserRouter>
