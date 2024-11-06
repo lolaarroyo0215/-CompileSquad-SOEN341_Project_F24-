@@ -212,7 +212,7 @@ export default function DetailedResults() {
                         </table>
 
                         {/* General Comments for Teammates */}
-                        <h3 className="mt-6 text-lg font-semibold">General Comments:</h3>
+                        <h3 className="mt-6 text-lg font-semibold">Comments:</h3>
                         <div className="mt-4">
                             {teams
                                 .find(t => t.teamName === openTeam)

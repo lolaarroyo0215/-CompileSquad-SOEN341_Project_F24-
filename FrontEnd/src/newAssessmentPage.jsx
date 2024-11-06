@@ -9,12 +9,7 @@ export default function NewAssessmentPage() {
     const [conceptualRating, setConceptualRating] = useState(0); // Conceptual Contribution rating
     const [practicalRating, setPracticalRating] = useState(0); // Practical Contribution rating
     const [workEthicRating, setWorkEthicRating] = useState(0); // Work Ethic rating
-
-    // State for the comments
-    const [cooperationComment, setCooperationComment] = useState('');
-    const [conceptualComment, setConceptualComment] = useState('');
-    const [practicalComment, setPracticalComment] = useState('');
-    const [workEthicComment, setWorkEthicComment] = useState('');
+    const [generalComments, setGeneralComments] = useState('');  // Comments
 
     // Function to handle star click
     const handleStarClick = (setRating) => (rating) => {
@@ -28,21 +23,26 @@ export default function NewAssessmentPage() {
 
     return (
         <div className="bg-slate-200 min-h-screen flex flex-col">
-            <nav className="bg-red-900 p-4 flex justify-between items-center">
-                <div className="text-white text-lg flex items-center">
-                    {/* Logo image */}
-                    <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
-                </div>
-                <div className="flex items-center space-x-6">
-                    <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-                    <button 
-                        type='button' 
-                        onClick={handleLogout} 
-                        className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-                    >
-                        Log Out
-                    </button>
-                </div>
+        <nav className="bg-red-900 p-4 flex justify-between items-center">
+            <div className="text-white text-lg flex items-center">
+                <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
+            </div>
+            <div className="flex items-center space-x-6">
+                <button 
+                    type='button' 
+                    onClick={() => navigate('/profile')} 
+                    className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
+                >
+                    Profile
+                </button>
+                <button 
+                    type='button' 
+                    onClick={handleLogout} 
+                    className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
+                >
+                    Log Out
+                </button>
+            </div>
             </nav>
 
             {/* Main Content */}
@@ -54,12 +54,6 @@ export default function NewAssessmentPage() {
                     <h2 className="text-xl font-semibold">Cooperation</h2>
                     <p className="mb-2">Actively participating in meetings, Communicating within the group, Assisting teammates when needed, Volunteering for tasks.</p>
                     <StarRating rating={cooperationRating} setRating={setCooperationRating} />
-                    <textarea
-                        value={cooperationComment}
-                        onChange={(e) => setCooperationComment(e.target.value)}
-                        placeholder="Add your comments on cooperation..."
-                        className="mt-2 w-11/12 p-2 border rounded-lg"
-                    ></textarea>
                 </div>
 
                 {/* Conceptual Contribution Section */}
@@ -67,12 +61,6 @@ export default function NewAssessmentPage() {
                     <h2 className="text-xl font-semibold">Conceptual Contribution</h2>
                     <p className="mb-2">Researching and gathering information, Quality of individual contribution, Suggesting ideas, Tying ideas together, Identifying difficulties, Identifying effective approaches.</p>
                     <StarRating rating={conceptualRating} setRating={setConceptualRating} />
-                    <textarea
-                        value={conceptualComment}
-                        onChange={(e) => setConceptualComment(e.target.value)}
-                        placeholder="Add your comments on conceptual contribution..."
-                        className="mt-2 w-11/12 p-2 border rounded-lg"
-                    ></textarea>
                 </div>
 
                 {/* Practical Contribution Section */}
@@ -80,12 +68,6 @@ export default function NewAssessmentPage() {
                     <h2 className="text-xl font-semibold">Practical Contribution</h2>
                     <p className="mb-2">Writing of the report(s), Reviewing others’ report(s) or section(s), Providing constructive feedback on the report(s) or the presentation, Contributing to the organization of the work, Contributing to the preparation of presentation(s) (if appropriate).</p>
                     <StarRating rating={practicalRating} setRating={setPracticalRating} />
-                    <textarea
-                        value={practicalComment}
-                        onChange={(e) => setPracticalComment(e.target.value)}
-                        placeholder="Add your comments on practical contribution..."
-                        className="mt-2 w-11/12 p-2 border rounded-lg"
-                    ></textarea>
                 </div>
 
                 {/* Work Ethic Section */}
@@ -93,11 +75,16 @@ export default function NewAssessmentPage() {
                     <h2 className="text-xl font-semibold">Work Ethic</h2>
                     <p className="mb-2">Displaying a positive attitude, Respecting team-mates and their ideas, Respecting commitments, Respecting deadlines, Respecting team-mates’ ideas.</p>
                     <StarRating rating={workEthicRating} setRating={setWorkEthicRating} />
+                </div>
+
+                {/* General Comments Section */}
+                <div className="mb-6">
+                    <h2 className="text-xl font-semibold">Comments</h2>
                     <textarea
-                        value={workEthicComment}
-                        onChange={(e) => setWorkEthicComment(e.target.value)}
-                        placeholder="Add your comments on work ethic..."
-                        className="mt-2 w-11/12 p-2 border rounded-lg"
+                        value={generalComments}
+                        onChange={(e) => setGeneralComments(e.target.value)}
+                        placeholder="Add your general comments here..."
+                        className="mt-2 w-full p-2 border rounded-lg"
                     ></textarea>
                 </div>
             </main>
@@ -106,7 +93,7 @@ export default function NewAssessmentPage() {
                 <button
                     className="bg-red-900 text-white py-4 px-8 rounded hover:bg-red-950 transition duration-200 text-xl"
                     onClick={() => {
-                        // Navigate to the confirmation page instead of showing an alert
+                        // Navigate to the confirmation page 
                         navigate('/confirmation');
                     }}
                 >
