@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Student, Instructor, Team  # Import Team model
+from .models import Student, Instructor, Team, Courses, Groups, GroupMembers, Evaluation  # Import Team model
 from django.contrib.auth import authenticate
 from django.contrib.auth.backends import ModelBackend
 
@@ -80,8 +80,43 @@ class TeamSerializer(serializers.ModelSerializer):
         team = Team.objects.create(**validated_data)
         return team  # Ensure the created team instance is returned
 
+class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Courses
+        fields = ['course_name', 'teacher', 'course_code']
 
+    def create(self, validated_data):
+        course = Courses.objects.create(**validated_data)
+        return course
+    
+class GroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Groups
+        fields = ['group_name', 'course', 'group_code']
 
+    def create(seld, validated_data):
+        group = Groups.objects.create(**validated_data)
+        return group
+    
+class GroupMemberSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GroupMembers
+        fields = ['group', 'student']
+
+    def create(self, validated_data):
+        groupMember = GroupMembers.objects.create(**validated_data)
+        return groupMember
+    
+class EvaluationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Evaluation
+        fields = ['evaluator', 'evaluatee', 'group', 'feedback', 'cooperation_rating', 'conceptualContribution_rating', 'practicalContribution_rating', 'workEthic_rating' ]
+
+    def create(self, validated_data):
+        evaluation = Evaluation.objects.create(**validated_data)
+        return evaluation
+    
+    
         
     
 
