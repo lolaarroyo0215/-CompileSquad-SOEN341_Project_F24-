@@ -1,14 +1,12 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Student, Instructor, Team  # Import Team model
-from .serializers import StudentRegistrationSerializer, InstructorRegistrationSerializer, StudentLoginSerializer, InstructorLoginSerializer, TeamSerializer  # Import TeamSerializer
+from .models import Student, Instructor, Team, Courses, Groups, GroupMembers, Evaluation  # Import Team model
+from .serializers import StudentRegistrationSerializer, InstructorRegistrationSerializer, StudentLoginSerializer, InstructorLoginSerializer, TeamSerializer, CourseSerializer, GroupSerializer, GroupMemberSerializer, EvaluationSerializer  # Import TeamSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.http import JsonResponse
 import csv
 from rest_framework.parsers import MultiPartParser
-
-
 
 @api_view(['POST'])
 def create_student(request):
@@ -97,3 +95,60 @@ def import_roster(request):
         )
 
     return JsonResponse({'status': 'success'}, status=201)
+
+@api_view(['POST'])
+def create_course(request):
+    serializer = CourseSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_courses(request, teacher_id):
+    courses = Courses.objects.filter(teacher_id=teacher_id)
+    serializer = CourseSerializer(courses, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def create_group(request):
+    serializer = GroupSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_groups(request, course_id):
+    groups = Groups.objects.filter(course_id=course_id)
+    serilaizer = GroupSerializer(groups, many=True)
+    return Response(serilaizer.data)
+
+@api_view(['POST'])
+def create_groupMember(request):
+    serializer = GroupMemberSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def get_groupMembers(request, group_id):
+    members = GroupMembers.objects.filter(group_id=group_id)
+    serializer = GroupMemberSerializer(members, many=True)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def create_evaluation(request):
+    serializer = EvaluationSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def get_evaluations(request, evaluatee):
+    evaluations = Evaluation.objects.filter(evaluatee=evaluatee)
+    serilaizer = EvaluationSerializer(evaluations, many=True)
+    return Response(serilaizer.data)
