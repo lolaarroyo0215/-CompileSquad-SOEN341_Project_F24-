@@ -79,7 +79,7 @@ export default function AssessmentResultsPage() {
         <div className="flex min-h-screen bg-slate-200">
             {/* Sidebar */}
             <div className="w-64 bg-gray-200 text-black p-6 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
-                <ul className="mt-28"> {/* Increased margin-top to make it lower */}
+                <ul className="mt-28"> 
                     <li className="mb-4">
                         <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a>
                     </li>

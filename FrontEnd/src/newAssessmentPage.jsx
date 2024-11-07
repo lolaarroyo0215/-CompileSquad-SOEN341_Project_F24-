@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function NewAssessmentPage() {
-
     const navigate = useNavigate();
 
     const [cooperationRating, setCooperationRating] = useState(0); // Cooperation rating
@@ -22,32 +21,53 @@ export default function NewAssessmentPage() {
     }
 
     return (
-        <div className="bg-slate-200 min-h-screen flex flex-col">
-        <nav className="bg-red-900 p-4 flex justify-between items-center">
-            <div className="text-white text-lg flex items-center">
-                <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
+        <div className="flex min-h-screen bg-slate-200">
+            {/* Sidebar */}
+            <div className="w-64 bg-gray-200 text-black p-6 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900 z-10">
+                <ul className="mt-28">
+                    <li className="mb-4">
+                        <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a>
+                    </li>
+                    <li className="mb-4">
+                        <a href="/student" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">My Dashboard</a>
+                    </li>
+                    <li className="mb-4">
+                        <a href="/new-assessment" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">New Assessment</a>
+                    </li>
+                    <li className="mb-4">
+                        <a href="/view-my-grades" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">View My Grades</a>
+                    </li>
+                    <li className="mb-4">
+                        <a href="/view-my-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">View My Teams</a>
+                    </li>
+                </ul>
+                <ul className='p-3 mt-8'>
+                    <img src='/img/concordialogo.png' alt='concordia-logo' />
+                </ul>
             </div>
-            <div className="flex items-center space-x-6">
-                <button 
-                    type='button' 
-                    onClick={() => navigate('/profile')} 
-                    className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-                >
-                    Profile
-                </button>
-                <button 
-                    type='button' 
-                    onClick={handleLogout} 
-                    className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-                >
-                    Log Out
-                </button>
-            </div>
-            </nav>
 
-            {/* Main Content */}
-            <main className="flex-grow p-6">
-                <h1 className="text-2xl font-bold mb-4">Peer Assessment</h1>
+            {/* Main content */}
+            <div className="flex-grow ml-64 p-8 pt-20 pb-32"> 
+                
+                <nav className="bg-red-900 p-4 flex justify-between items-center fixed w-full top-0 left-0 z-40">
+                    <div className="text-white text-lg flex items-center">
+                        <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
+                    </div>
+                    <div className="flex items-center space-x-6">
+                        <span className="text-white hover:text-red-950 cursor-pointer py-2 px-4 text-sm font-medium bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
+                            Profile
+                        </span>
+                        <button
+                            type='button'
+                            onClick={handleLogout}
+                            className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
+                        >
+                            Log Out
+                        </button>
+                    </div>
+                </nav>
+
+                <h1 className="text-3xl font-bold text-black mt-12 mb-20 text-center">Peer Assessment</h1>
 
                 {/* Cooperation Section */}
                 <div className="mb-6">
@@ -87,29 +107,29 @@ export default function NewAssessmentPage() {
                         className="mt-2 w-full p-2 border rounded-lg"
                     ></textarea>
                 </div>
-            </main>
 
-            <div className="flex justify-center mt-5">
-                <button
-                    className="bg-red-900 text-white py-4 px-8 rounded hover:bg-red-950 transition duration-200 text-xl"
-                    onClick={() => {
-                        // Navigate to the confirmation page 
-                        navigate('/confirmation');
-                    }}
-                >
-                    Submit Assessment
-                </button>
+                <div className="flex justify-center mt-5">
+                    <button
+                        className="bg-red-900 text-white py-4 px-8 rounded hover:bg-red-950 transition duration-200 text-xl"
+                        onClick={() => {
+                            // Navigate to the confirmation page
+                            navigate('/confirmation');
+                        }}
+                    >
+                        Submit Assessment
+                    </button>
+                </div>
             </div>
 
-            {/* Footer */}
-            <footer className="bg-red-900 text-white text-right py-4 px-4 mt-10">
+            {/* Footer*/}
+            <footer className="bg-red-900 text-white text-center py-4 fixed bottom-0 left-0 w-full z-30">
                 <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
             </footer>
         </div>
     );
 }
 
-// Star Rating 
+// Star Rating
 function StarRating({ rating, setRating }) {
     return (
         <div className="flex space-x-2">
