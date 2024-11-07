@@ -108,19 +108,53 @@ function CreateTeams() {
     }, []);
 
     return (
-        <div className="bg-slate-200 min-h-screen flex flex-col">
-            <nav className="bg-red-900 p-4 flex justify-between items-center">
-                <div className="text-white text-lg">
-                    <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
-                </div>
-                <div className="flex space-x-10">
-                    <span className="text-white hover:text-red-950 cursor-pointer">Profile</span>
-                    <button type='button' onClick={handleLogout} className="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700">Log Out</button>
-                </div>
-            </nav>
+        <div className="flex min-h-screen bg-slate-200">
+            {/* Sidebar */}
+            <div className="w-64 bg-gray-200 text-black p-6 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
+                <ul className="mt-28"> 
+                    <li className="mb-4">
+                        <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a>
+                    </li>
+                    <li className="mb-4">
+                        <a href="/teacher" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">My Dashboard</a>
+                    </li>
+                    <li className="mb-4">
+                        <a href="/create-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create Teams</a>
+                    </li>
+                    <li className="mb-4">
+                        <a href="/current-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Current Teams</a>
+                    </li>
+                    <li className="mb-4">
+                        <a href="/assessment-results" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Assessment Results</a>
+                    </li>
+                </ul>
+                <ul className='p-3 mt-8'> 
+                    <img src='/img/concordialogo.png' alt='concordia-logo' />
+                </ul>
+            </div>
 
-            <div className="flex-grow p-8">
-                <h2 className="text-2xl font-bold mb-4">Create a New Team</h2>
+            {/* Main content */}
+            <div className="flex-grow ml-64 p-8 pt-20">
+                {/* Fixed header */}
+                <nav className="bg-red-900 p-4 flex justify-between items-center fixed w-full top-0 left-0 z-10">
+                    <div className="text-white text-lg flex items-center">
+                        <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
+                    </div>
+                    <div className="flex items-center space-x-6">
+                        <span className="text-white hover:text-red-950 cursor-pointer py-2 px-4 text-sm font-medium bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
+                            Profile
+                        </span>
+                        <button 
+                            type='button' 
+                            onClick={handleLogout} 
+                            className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
+                        >
+                            Log Out
+                        </button>
+                    </div>
+                </nav>
+
+                <h1 className="text-3xl font-bold text-black mt-12 mb-14 text-center">Create A New Team</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
                     <div>
                         <label htmlFor="teamName" className="block text-sm font-medium">Team Name</label>
@@ -185,7 +219,8 @@ function CreateTeams() {
                 </form>
             </div>
 
-            <footer className="bg-red-900 text-white text-right py-4 px-4">
+            {/* Footer */}
+            <footer className="bg-red-900 text-white text-right py-4 px-4 w-full fixed bottom-0">
                 <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
             </footer>
         </div>

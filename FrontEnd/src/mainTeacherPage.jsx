@@ -33,7 +33,7 @@ export default function MainTeacherPage() {
         </div>
       </nav>
 
-      {/* Main content flex-grow to push the footer down */}
+      
       <div className="p-8 mt-16 flex-grow">
         <h1 className="text-4xl font-bold text-black text-center">
           Welcome To the GCS Peer Assessment Tool

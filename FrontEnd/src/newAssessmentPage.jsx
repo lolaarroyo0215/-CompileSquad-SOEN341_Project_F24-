@@ -47,8 +47,8 @@ export default function NewAssessmentPage() {
             </div>
 
             {/* Main content */}
-            <div className="flex-grow ml-64 p-8 pt-20 pb-32"> {/* Added padding-bottom here */}
-                {/* Fixed header with z-index for layering */}
+            <div className="flex-grow ml-64 p-8 pt-20 pb-32"> 
+                
                 <nav className="bg-red-900 p-4 flex justify-between items-center fixed w-full top-0 left-0 z-40">
                     <div className="text-white text-lg flex items-center">
                         <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
@@ -121,7 +121,7 @@ export default function NewAssessmentPage() {
                 </div>
             </div>
 
-            {/* Footer - Fixed at bottom, stays visible */}
+            {/* Footer*/}
             <footer className="bg-red-900 text-white text-center py-4 fixed bottom-0 left-0 w-full z-30">
                 <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
             </footer>

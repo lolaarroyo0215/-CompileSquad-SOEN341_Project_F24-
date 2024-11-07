@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom'; // Import Link
+import { Link } from 'react-router-dom'; 
 import { useNavigate } from 'react-router-dom';
 import './index.css';
 
@@ -40,7 +40,7 @@ export default function MainStudentPage() {
         </div>
       </nav>
 
-      {/* Main content with flex-grow to push the footer down */}
+      
       <div className="p-8 mt-4 flex-grow">
         <h1 className="text-4xl font-bold text-black text-center">
           Welcome To the GCS Peer Assessment Tool
