@@ -121,25 +121,28 @@ const DetailedResults = () => {
     return (
         <div className="flex min-h-screen bg-slate-200">
             {/* Sidebar */}
-            <div className="w-64 bg-gray-200 text-black p-6 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
-                <ul className="mt-28">
+            <div className="w-64 bg-gray-200 text-black p-5 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
+                <ul className="mt-20">
                     <li className="mb-4">
                         <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a>
                     </li>
                     <li className="mb-4">
-                    <a href="/teacher" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">My Dashboard</a>
-        </li>
-        <li className="mb-4">
-            <a href="/create-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create Teams</a>
-        </li>
-        <li className="mb-4">
-            <a href="/current-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Current Teams</a>
-        </li>
-        <li className="mb-4">
-            <a href="/assessment-results" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Assessment Results</a>
+                        <a href="/teacher" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">My Dashboard</a>
+                    </li>
+                    <li className="mb-4">
+                        <a href="/create-classes" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create class</a>
+                    </li>
+
+                    <li className="mb-4">
+                        <a href="/create-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create Teams</a>
+                    </li>
+                    <li className="mb-4">
+                        <a href="/current-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Current Teams</a>
+                    </li>
+                    <li className="mb-4">
+                        <a href="/assessment-results" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Assessment Results</a>
                     </li>
                 </ul>
-
                 <ul className='p-3 mt-8'>
                     <img src='/img/concordialogo.png' alt='concordia-logo' />
                 </ul>
