@@ -24,7 +24,7 @@ export default function Register() {
         try {
             if (userType == 'student') {
                 const userData = {
-                    student_id: studentId,
+                    user_id: studentId,
                     password: password
                 };
                 const response = await axios.post('http://localhost:8000/userRegApi/student-login/', userData);
@@ -48,7 +48,7 @@ export default function Register() {
             }
             else {
                 const userData = {
-                    instructor_id: studentId,
+                    user_id: studentId,
                     password: password
                 };
                 const response = await axios.post('http://localhost:8000/userRegApi/instructor-login/', userData);

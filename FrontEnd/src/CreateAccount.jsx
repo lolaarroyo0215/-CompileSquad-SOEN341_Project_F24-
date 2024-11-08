@@ -28,7 +28,7 @@ export default function CreateAccount() {
             // Make a POST request to the registration API
             if(userType === 'student') {
                 const userData = {
-                    student_id: studentId,
+                    user_id: studentId,
                     first_name: firstName,
                     last_name: lastName,
                     email: email,
@@ -38,7 +38,7 @@ export default function CreateAccount() {
                 response = await axios.post('http://localhost:8000/userRegApi/create-student/', userData);
             } else {
                 const userData = {
-                    instructor_id: studentId,
+                    user_id: studentId,
                     first_name: firstName,
                     last_name: lastName,
                     email: email,
