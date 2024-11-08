@@ -158,3 +158,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+from rest_framework_simplejwt.settings import api_settings
+
+# Set USER_ID_FIELD to 'student_id' so that it references the correct primary key field
+api_settings.USER_ID_FIELD = 'user_id'
+

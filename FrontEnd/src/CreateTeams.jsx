@@ -29,7 +29,7 @@ function CreateTeams() {
     };
 
     const handleRemoveMember = (student) => {
-        setSelectedMembers(selectedMembers.filter(member => member.student_id !== student.student_id));
+        setSelectedMembers(selectedMembers.filter(member => member.user_id !== student.user_id));
         if (selectedMembers.length === 1) setSelectedClass('');
     };
 
@@ -171,7 +171,7 @@ function CreateTeams() {
                         <label className="block text-sm font-medium">Selected Members</label>
                         <ul className="space-y-2">
                             {selectedMembers.map(member => (
-                                <li key={member.student_id} className="flex justify-between p-2 bg-blue-100 rounded-md">
+                                <li key={member.user_id} className="flex justify-between p-2 bg-blue-100 rounded-md">
                                     {`${member.first_name} ${member.last_name}`}
                                     <button
                                         className="text-red-500"
@@ -192,7 +192,7 @@ function CreateTeams() {
                             <ul className="space-y-2">
                                 {students.map(student => (
                                     <li
-                                        key={student.student_id}
+                                        key={student.user_id}
                                         className="cursor-pointer p-2 bg-gray-100 rounded-md hover:bg-gray-200"
                                         onClick={() => handleAddMember(student)}
                                     >
