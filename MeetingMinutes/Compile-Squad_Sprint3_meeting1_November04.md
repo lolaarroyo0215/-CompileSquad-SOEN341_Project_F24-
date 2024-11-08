@@ -2,7 +2,7 @@
 
 ## Sprint 3
 
-**Date:** October 04, 2024  
+**Date:** November 04, 2024  
 
 **Start Time:** 2:00 PM  
 
