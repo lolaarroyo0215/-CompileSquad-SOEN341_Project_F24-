@@ -52,31 +52,59 @@ export default function CurrentTeamsPage() {
   }, []);
 
   return (
-    <div className="bg-slate-200 min-h-screen flex flex-col">
-      {/* Header */}
-      <nav className="bg-red-900 p-4 flex justify-between items-center">
-        <div className="text-white text-lg">
-          <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
-        </div>
-        <div className="flex space-x-10">
-        <button 
-          type='button' 
-          onClick={checkoutProfile} 
-          className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
-            Profile
-        </button>
-        <button 
-          type='button' 
-          onClick={handleLogout} 
-          className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
-            Log Out
-        </button>
-        </div>
-      </nav>
+    <div className="bg-slate-200 min-h-screen flex">
+      {/* Sidebar */}
+      <div className="w-64 bg-gray-200 text-black p-5 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
+        <ul className="mt-20">
+          <li className="mb-4">
+            <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a>
+          </li>
+          <li className="mb-4">
+            <a href="/teacher" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">My Dashboard</a>
+          </li>
+          <li className="mb-4">
+            <a href="/create-classes" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create class</a>
+          </li>
+          <li className="mb-4">
+            <a href="/create-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create Teams</a>
+          </li>
+          <li className="mb-4">
+            <a href="/current-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Current Teams</a>
+          </li>
+          <li className="mb-4">
+            <a href="/assessment-results" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Assessment Results</a>
+          </li>
+        </ul>
+        <ul className='p-3 mt-8'>
+          <img src='/img/concordialogo.png' alt='concordia-logo' />
+        </ul>
+      </div>
 
-      {/* Teams Section */}
-      <div className="flex-grow p-8">
-        <h1 className="text-3xl font-bold text-black mb-6 text-center">Teams by Class</h1>
+      {/* Main Content */}
+      <div className="flex-grow ml-64 p-8">
+        {/* Header */}
+        <nav className="bg-red-900 p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-10">
+          <div className="text-white text-lg">
+            <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
+          </div>
+          <div className="flex space-x-10">
+            <button 
+              type='button' 
+              onClick={checkoutProfile} 
+              className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
+              Profile
+            </button>
+            <button 
+              type='button' 
+              onClick={handleLogout} 
+              className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
+              Log Out
+            </button>
+          </div>
+        </nav>
+
+        {/* Teams Section */}
+        <h1 className="text-3xl font-bold text-black mb-6 text-center mt-20">Teams by Class</h1>
         {classes.map((classItem, index) => (
           <div key={index} className="mb-6">
             {/* Dropdown toggle button */}
@@ -107,7 +135,7 @@ export default function CurrentTeamsPage() {
       </div>
 
       {/* Footer */}
-      <footer className="bg-red-900 text-white text-right py-4 px-4">
+      <footer className="bg-red-900 text-white text-center py-4 px-4 w-full mt-auto fixed bottom-0 left-0">
         <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
       </footer>
     </div>

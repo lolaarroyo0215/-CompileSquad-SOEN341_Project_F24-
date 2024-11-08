@@ -26,14 +26,12 @@ export default function MainTeacherPage() {
           <button 
             type='button' 
             onClick={handleLogout} 
-            className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-          >
+            className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
             Log Out
           </button>
         </div>
       </nav>
 
-      
       <div className="p-8 mt-16 flex-grow">
         <h1 className="text-4xl font-bold text-black text-center">
           Welcome To the GCS Peer Assessment Tool
@@ -44,6 +42,15 @@ export default function MainTeacherPage() {
 
         {/* Button List */}
         <div className="mt-8 flex justify-center gap-4 flex-wrap">
+          {/* Create Classes Button */}
+          <Link to="/create-classes">
+            <button className="bg-red-900 text-white font-bold py-5 w-80 h-80 flex flex-col items-center justify-start rounded hover:bg-red-950">
+              <img src="/img/CreateClasses.jpg" alt="Create Class" className="h-40 w-45 object-cover rounded-lg mb-2" />
+              <span className="text-xl mt-9">Create Classes</span>
+            </button>
+          </Link>
+
+          {/* Create Teams Button */}
           <Link to="/create-teams">
             <button className="bg-red-900 text-white font-bold py-5 w-80 h-80 flex flex-col items-center justify-start rounded hover:bg-red-950">
               <img src="/img/CreateTeams.jpg" alt="Create Teams" className="h-40 w-45 object-cover rounded-lg mb-2" />
@@ -51,6 +58,7 @@ export default function MainTeacherPage() {
             </button>
           </Link>
 
+          {/* Current Teams Button */}
           <Link to="/current-teams">
             <button className="bg-red-900 text-white font-bold py-5 w-80 h-80 flex flex-col items-center justify-start rounded hover:bg-red-950">
               <img src="/img/CurrentTeams.jpg" alt="Current Teams" className="h-40 w-45 object-cover rounded-lg mb-2" />
@@ -58,6 +66,7 @@ export default function MainTeacherPage() {
             </button>
           </Link>
 
+          {/* Assessment Results Button */}
           <Link to="/assessment-results">
             <button className="bg-red-900 text-white font-bold py-5 w-80 h-80 flex flex-col items-center justify-start rounded hover:bg-red-950">
               <img src="/img/Results.jpg" alt="Assessment Results" className="h-40 w-45 object-cover rounded-lg mb-2" />
