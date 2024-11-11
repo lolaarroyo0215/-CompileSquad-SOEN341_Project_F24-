@@ -43,5 +43,9 @@ We are following an adapted Agile methodology with 4 iterations (sprints) of 3 t
 - Allow students to rate teammates on the "Cooperation" dimension using a 5-point scale. Implement a submission confirmation step to finalize their assessments.
 - Begin work on adding additional assessment dimensions (e.g., Conceptual Contribution, Practical Contribution, Work Ethic), with optional comment boxes. This setup will be completed in Sprint 3.
 
-## How to Contribute
-Each team member is responsible for pushing their code to the repository regularly. All contributions should be documented in the individual contribution logs, and pull requests must be reviewed by at least one other team member before merging.
+### Sprint 3 Goals:
+- Add the remaining assessment dimensions: **Conceptual Contribution**, **Practical Contribution**, and **Work Ethic**.
+- Include optional comment boxes for each dimension to allow students to provide qualitative feedback.
+- Develop a dashboard that allows instructors to view assessment results in two formats: **summary view** and **detailed view**
+- Incorporate additional features that enhance the instructor dashboard and improve system usability.
+
