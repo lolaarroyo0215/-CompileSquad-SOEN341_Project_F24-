@@ -1,4 +1,4 @@
-# Maria-Christine Catiche – Detailed Log of Sprint 1
+# Maria-Christine Catiche – Detailed Log of Sprint 2
 
 | DATE   | TASK                                                 | TIME     |
 |--------|------------------------------------------------------|----------|
