@@ -8,7 +8,7 @@
 | 10/30  | Working on the tasks breakdown                       | 30 mins   |
 | 11/01  | Organization of the repository folders               |  30 min   |
 | 11/01  | Second meeting minute                                  | 30 mins   |
-| 11/02  |         | 2 hours  |
+| 11/02  | Bug fixes for team creation     | 1 hour  |
 | 11/03  | Third meeting                                        | 30 mins  |
 | 11/03  |                  | 1 hour  |
 | 11/04  |     | 1 hours  |
