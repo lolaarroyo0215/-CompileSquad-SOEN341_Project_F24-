@@ -38,6 +38,11 @@ export default function MainTeammatesPage() {
     navigate('/');
   }
 
+  function checkoutProfile(event) {
+    event.preventDefault();
+    navigate('/profile');
+  }
+
   // Function to toggle a class's dropdown
   const toggleClass = (className) => {
     setOpenClass(openClass === className ? null : className);

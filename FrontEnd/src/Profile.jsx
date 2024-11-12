@@ -6,71 +6,40 @@ import './index.css';
 
 export default function Profile(){
 
-    const navigate = useNavigate();
-
-    const student = {
-        name: "John Doe",
-        studentNumber: "123456",
-        classes: [
-            {
-                name: "Software Engineering",
-                groups: [
-                    {
-                        groupName: "Group A",
-                        peerRating: 4.5,
-                    },
-                    {
-                    groupName: "Group B",
-                    peerRating: 4.2,
-                    },
-                ],
-            },
-            {
-                name: "Data Structures",
-                groups: [
-                    {
-                        groupName: "Group C",
-                        peerRating: 4.8,
-                    },
-                ],
-            },
-        ],
-};
-
-
-    // Initialize state for student data
-    //const [student, setStudent] = useState(null);
-    //const [loading, setLoading] = useState(true);
-    //const [error, setError] = useState(null);
-
     function handleLogout(event) {
         event.preventDefault();
         navigate('/');
     }
 
-    // Fetch student data from student API
-    // useEffect(() => {
-    //     axios.get('http://localhost:8000/userRegApi/userregapi_student', {
-    //         withCredentials: true //for session based authorization
-    //     }).then(response => {
-    //         setStudent(response.data);
-    //         setLoading(false);
+    const navigate = useNavigate();
+    const [student, setStudent] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-    //     }).catch(err => {
-    //         setError('Error fetching student data');
-    //         setLoading(false);
-    //     });
-    // }, []);
+    useEffect(() => {
+        //fetch student data from the API
+        axios.get('http://localhost:8000/userRegApi/userregapi_student', {
+            withCredentials: true // session-based authorization
+        })
+        .then(response => {
+            setStudent(response.data);
+            setLoading(false);
+        })
+        .catch(err => {
+            setError('Error fetching student data');
+            setLoading(false);
+        });
+    }, []);
 
-    // if(loading) {
-    //     return <div>Loading...</div>;
-    // }
+    if(loading) {
+        return <div>Loading...</div>
+    }
+    
+    if(error) {
+        return <div>{error}</div>
+    }
 
-    // if(error) {
-    //     return <div>{error}</div>;
-    // }
-
-
+   
     return (
     <div className="bg-red-900 min-h-screen flex items-center">
 
