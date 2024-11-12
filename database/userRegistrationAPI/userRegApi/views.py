@@ -70,33 +70,33 @@ def instructor_login(request):
 #     return Response(serializer.data)  # Return the serialized data as JSON
 
 
-# @api_view(['GET'])
-# def get_students(request):
-#     students = Student.objects.all()
-#     serializer = StudentRegistrationSerializer(students, many=True)
-#     return Response(serializer.data, status=status.HTTP_200_OK)
+@api_view(['GET'])
+def get_students(request):
+    students = Student.objects.all()
+    serializer = StudentRegistrationSerializer(students, many=True)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 
-# @api_view(['POST'])
-# def import_roster(request):
-#     if 'file' not in request.FILES:
-#         return JsonResponse({'error': 'No file uploaded'}, status=400)
+@api_view(['POST'])
+def import_roster(request):
+    if 'file' not in request.FILES:
+        return JsonResponse({'error': 'No file uploaded'}, status=400)
 
-#     csv_file = request.FILES['file']
-#     data = csv.reader(csv_file.read().decode('utf-8').splitlines())
-#     next(data)  # Skip header row if there is one
+    csv_file = request.FILES['file']
+    data = csv.reader(csv_file.read().decode('utf-8').splitlines())
+    next(data)  # Skip header row if there is one
 
-#     for row in data:
-#         first_name, last_name, email, student_id = row
-#         Student.objects.create(
-#             first_name=first_name,
-#             last_name=last_name,
-#             email=email,
-#             student_id=student_id
-#         )
+    for row in data:
+        first_name, last_name, email, student_id = row
+        Student.objects.create(
+            first_name=first_name,
+            last_name=last_name,
+            email=email,
+            student_id=student_id
+        )
 
-#     return JsonResponse({'status': 'success'}, status=201)
+    return JsonResponse({'status': 'success'}, status=201)
 
 @api_view(['POST'])
 def create_course(request):
