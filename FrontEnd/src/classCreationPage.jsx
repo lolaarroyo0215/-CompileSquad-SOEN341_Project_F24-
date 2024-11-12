@@ -19,18 +19,23 @@ function ClassCreationPage() {
             alert('Class name and class code are required');
             return;
         }
-        try {
-            const response = await axios.post('http://localhost:8000/class/create/', {
-                class_name: className,
-                classe_code: classCode
-            });
+        const instructorId = localStorage.getItem("instructor_id");
+            const postData = {
+                course_name: className,
+                course_code: classCode,
+                teacher: instructorId
+            };
+        try{
+            const response = await axios.post('http://localhost:8000/userRegApi/create-course/', postData);
             if (response.status === 200 || response.status === 201) {
                 alert('Class created successfully');
             } else {
+                console.log(postData);
                 alert('Failed to create class: ' + response.data.detail);
             }
         } catch (error) {
             console.error('Error creating class:', error);
+            console.log(postData);
             alert('There was an issue creating the class');
         }
         setClassName('');
