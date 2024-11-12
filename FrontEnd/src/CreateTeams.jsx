@@ -7,9 +7,11 @@ function CreateTeams() {
     const navigate = useNavigate();
 
     const [students, setStudents] = useState([]);
+    const [teamID, setTeamID] = useState(null);
     const [teamName, setTeamName] = useState('');
     const [selectedMembers, setSelectedMembers] = useState([]);
     const [selectedClass, setSelectedClass] = useState('');
+    const [classes, setClasses] = useState([]);
     const [csvFile, setCsvFile] = useState(null);
 
     const handleLogout = (event) => {
@@ -107,6 +109,20 @@ function CreateTeams() {
         fetchStudents();
     }, []);
 
+    useEffect(() => {
+        axios.get('http://localhost:8000/userRegApi/get_courses/', {
+            withCredentials: true
+        })
+        .then(response => {
+            setClasses(response.data);
+
+        })
+        .catch(err => {
+            console.error("error fetching instructor classes:", err);
+        });
+        
+    }, []);
+
     return (
         <div className="flex min-h-screen bg-slate-200">
             {/* Sidebar */}
@@ -158,8 +174,37 @@ function CreateTeams() {
                     </div>
                 </nav>
 
+
                 <h1 className="text-3xl font-bold text-black mt-12 mb-14 text-center">Create A New Team</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
+                    <div> 
+                        <label htmlFor='selectedClass' className="block text-sm font-medium">Select a course</label>
+                           <select
+                            id="classes"
+                            value={classes}
+                            onChange={(e) => selectedClass(e.target.value)}
+                            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                            required
+                           >
+                           <option value=""></option>
+                           {classes.map((course) => (
+                            <option key={course.class_id} value={course.class_id}>
+                                {course.class_name}
+                            </option>
+                           ))}
+                           </select>
+                    </div>
+                    <div>
+                    <label htmlFor='teamID' className="block text-sm font-medium">Team ID</label>
+                    <input
+                            type="text"
+                            id="teamID"
+                            value={teamID}
+                            onChange={(e) => setTeamID(e.target.value)}
+                            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                            required
+                        />
+                    </div>
                     <div>
                         <label htmlFor="teamName" className="block text-sm font-medium">Team Name</label>
                         <input
