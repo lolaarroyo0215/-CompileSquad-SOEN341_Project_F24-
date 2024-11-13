@@ -148,7 +148,7 @@ function CreateTeams() {
   
 
     return (
-        <div className="flex min-h-screen bg-slate-200">
+        <div className="flex flex-col min-h-screen bg-slate-200">
             {/* Sidebar */}
             <div className="w-64 bg-gray-200 text-black p-5 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
                 <ul className="mt-20">
@@ -299,7 +299,7 @@ function CreateTeams() {
             </div>
 
             {/* Footer */}
-            <footer className="bg-red-900 text-white text-right py-4 px-4 w-full fixed bottom-0">
+            <footer className="bg-red-900 text-white text-right py-4 px-4 w-full relative">
                 <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
             </footer>
         </div>
