@@ -77,6 +77,10 @@ export default function MainTeammatesPage() {
     setOpenClass(openClass === className ? null : className);
   };
 
+  const handleEvaluate = (studentId) => {
+    navigate(`/new-assessment`);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -126,13 +130,20 @@ export default function MainTeammatesPage() {
                   <table className="table-auto w-full text-left">
                     <thead>
                       <tr className="bg-gray-200">
-                        <th className="px-4 py-2">Teammate ID</th>
+                        <th colSpan="2" className="px-4 py-2">Teammate ID</th>
                       </tr>
                     </thead>
                     <tbody>
                       {classItem.teammates.map((teammate, idx) => (
                         <tr key={idx} className="border-b">
                           <td className="px-4 py-2">{teammate}</td> {/* Display student_id */}
+                          <td className='px-4 py-2 flex justify-end'>
+                            <button
+                            onClick={() => handleEvaluate(teammate)}
+                            className='bg-red-900 text-white py-1 px-3 rounded hover:bg-gray-500'>
+                              Evaluate
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
