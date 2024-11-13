@@ -19,5 +19,5 @@ urlpatterns = [
     path('create-groupMember/', create_groupMember),
     path('get-groupMembers/<str:group_id>/', get_groupMembers),
     path('create-evaluation/', create_evaluation),
-    path('get-evaluations/<int:evaluatee>/', get_evaluations),
+    path('get-evaluations/<int:evaluatee>/<str:group>/', get_evaluations),
 ]

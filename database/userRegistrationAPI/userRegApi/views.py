@@ -155,7 +155,7 @@ def create_evaluation(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['GET'])
-def get_evaluations(request, evaluatee):
-    evaluations = Evaluation.objects.filter(evaluatee=evaluatee)
+def get_evaluations(request, evaluatee, group):
+    evaluations = Evaluation.objects.filter(evaluatee=evaluatee, group=group)
     serilaizer = EvaluationSerializer(evaluations, many=True)
     return Response(serilaizer.data)
