@@ -126,6 +126,12 @@ def get_groups(request, course_id):
     serilaizer = GroupSerializer(groups, many=True)
     return Response(serilaizer.data)
 
+@api_view(['GET'])
+def get_studentsGroups(request, student_id):
+    groups = GroupMembers.objects.filter(student_id=student_id)
+    serializer = GroupMemberSerializer(groups, many=True)
+    return Response(serializer.data)
+
 @api_view(['POST'])
 def create_groupMember(request):
     serializer = GroupMemberSerializer(data=request.data)
@@ -147,7 +153,6 @@ def create_evaluation(request):
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 @api_view(['GET'])
 def get_evaluations(request, evaluatee):
