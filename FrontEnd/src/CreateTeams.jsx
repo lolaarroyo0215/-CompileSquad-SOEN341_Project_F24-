@@ -7,7 +7,7 @@ function CreateTeams() {
     const navigate = useNavigate();
 
     const [students, setStudents] = useState([]);
-    const [teamID, setTeamID] = useState(null);
+    const [teamID, setTeamID] = useState("");
     const [teamName, setTeamName] = useState('');
     const [selectedMembers, setSelectedMembers] = useState([]);
     const [selectedClass, setSelectedClass] = useState('');
@@ -18,17 +18,16 @@ function CreateTeams() {
         event.preventDefault();
         navigate('/');
     };
+    const instructorId = localStorage.getItem("instructor_id");
 
     const handleAddMember = (student) => {
-        if (!selectedMembers.includes(student)) {
-            if (selectedMembers.length === 0 || student.class === selectedClass) {
-                setSelectedMembers([...selectedMembers, student]);
-                setSelectedClass(student.class);
-            } else {
-                alert('All team members must be from the same class.');
-            }
+        if (!selectedMembers.some(member => member.user_id === student.user_id)) {
+            setSelectedMembers([...selectedMembers, student]);
+        } else {
+            alert('This member has already been added to the team.');
         }
     };
+    
 
     const handleRemoveMember = (student) => {
         setSelectedMembers(selectedMembers.filter(member => member.user_id !== student.user_id));
@@ -42,26 +41,48 @@ function CreateTeams() {
             alert('All fields are required');
             return;
         }
-    
         try {
-            const userData = {
-                team_name: teamName,
-                selected_members: selectedMembers.map(member => `${member.first_name} ${member.last_name}`).join(', '),
-                selected_class: selectedClass
+        
+            const groupData = {
+                group_code: teamID,
+                group_name: teamName,
+                course: selectedClass
             };
-    
-            const response = await axios.post('http://localhost:8000/userRegApi/create-team/', userData);
+
+            console.log(groupData);
+            const response = await axios.post('http://localhost:8000/userRegApi/create-group/', groupData);
     
             if (response.status === 200 || response.status === 201) {
                 alert('Successful team creation');
             } else {
                 alert('Registration failed: ' + response.data.detail);
+            }} catch (error) {
+                console.error('An error occurred: ', error);
+                alert('There was an issue registering your team');
             }
-        } catch (error) {
-            console.error('An error occurred: ', error);
-            alert('There was an issue registering your team');
-        }
-    
+        try {
+
+            const requests = selectedMembers.map(member => {
+                const groupMemberData = {
+                    group: teamID,
+                    student: member.user_id
+                };
+                
+                return axios.post('http://localhost:8000/userRegApi/create-groupMember/', groupMemberData)
+                    .then(response => {
+                        console.log('Successfully added student to group:', member.first_name, member.last_name);
+                    })
+                    .catch(error => {
+                        console.error('Failed to add student to group:', member.first_name, member.last_name, error);
+                    });
+
+                });
+            } catch (error) {
+                console.error('An error occurred: ', error);
+                alert('There was an issue registering your team');
+            }
+
+        setTeamID('');
         setTeamName('');
         setSelectedMembers([]);
         setSelectedClass('');
@@ -110,11 +131,12 @@ function CreateTeams() {
     }, []);
 
     useEffect(() => {
-        axios.get('http://localhost:8000/userRegApi/get_courses/', {
+        axios.get(`http://localhost:8000/userRegApi/get-courses/${instructorId}/`, {
             withCredentials: true
         })
         .then(response => {
-            setClasses(response.data);
+            const classCodes = response.data.map(course => course.course_code);
+            setClasses(classCodes);     
 
         })
         .catch(err => {
@@ -122,6 +144,7 @@ function CreateTeams() {
         });
         
     }, []);
+  
 
     return (
         <div className="flex min-h-screen bg-slate-200">
@@ -177,23 +200,29 @@ function CreateTeams() {
 
                 <h1 className="text-3xl font-bold text-black mt-12 mb-14 text-center">Create A New Team</h1>
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div> 
-                        <label htmlFor='selectedClass' className="block text-sm font-medium">Select a course</label>
-                           <select
-                            id="classes"
-                            value={classes}
-                            onChange={(e) => selectedClass(e.target.value)}
-                            className="mt-1 block w-full border border-gray-300 rounded-md p-2"
-                            required
-                           >
-                           <option value=""></option>
-                           {classes.map((course) => (
-                            <option key={course.class_id} value={course.class_id}>
-                                {course.class_name}
+                <div> 
+                    <label htmlFor='selectedClass' className="block text-sm font-medium">Select a course</label>
+                    <select
+                        id="selectedClass"
+                        value={selectedClass} // Bind the value to selectedClass
+                        onChange={(e) => 
+                            {
+                                console.log('Chosen value:', e.target.value);
+                                setSelectedClass(e.target.value) // Update selectedClass when the user selects a new option
+                                console.log('Selected class:', e.target.value);
+                            }
+                        }
+                        className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                    >
+                        <option value="">Select a class</option>
+                        {classes.map((classCode, index) => (
+                            <option key={classCode || index} value={classCode}>
+                                {classCode}
                             </option>
-                           ))}
-                           </select>
-                    </div>
+                        ))}
+                    </select>
+                </div>
+
                     <div>
                     <label htmlFor='teamID' className="block text-sm font-medium">Team ID</label>
                     <input
