@@ -11,53 +11,69 @@ export default function ViewMyGrades() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Define the mapping between internal category names and display names
+  const categoryDisplayNames = {
+    cooperation_rating: "Cooperation",
+    conceptualContribution_rating: "Conceptual Contribution",
+    workEthic_rating: "Work Ethic",
+    practicalContribution_rating: "Practical Contribution",
+  };
+
   useEffect(() => {
     if (!studentId) {
       setError("Student ID is not available.");
       setLoading(false);
       return;
     }
-    axios.get(`http://localhost:8000/userRegApi/get-studentsGroups/${studentId}/`, {
-      withCredentials: true
-    })
+
+    axios.get(`http://localhost:8000/userRegApi/get-studentsGroups/${studentId}/`, { withCredentials: true })
       .then(response => {
         const groups = response.data.map(item => item.group);
-        console.log(groups);
 
         const groupRequests = groups.map(group =>
-          axios.get(`http://localhost:8000/userRegApi/get-evaluations/${studentId}/${group}/`, {
-            withCredentials: true
-          }).then(evaluationsResponse => {
-            const evaluations = evaluationsResponse.data;
-            console.log(evaluations);
+          axios.get(`http://localhost:8000/userRegApi/get-evaluations/${studentId}/${group}/`, { withCredentials: true })
+            .then(evaluationsResponse => {
+              const evaluations = evaluationsResponse.data;
+              const ratingCategories = Object.keys(categoryDisplayNames);  // Use the internal keys
+              const ratingAverages = ratingCategories.reduce((acc, category) => ({ ...acc, [category]: 0 }), {});
+              const feedback = [];
 
-            // // Calculate averages and collect feedback
-            // const ratingCategories = ['cooperation', 'contribution', 'workEthic', 'practicalContribution', 'conceptualContribution'];
-            // const ratingAverages = ratingCategories.reduce((acc, category) => ({ ...acc, [category]: 0 }), {});
-            // const feedback = [];
+              let evaluationCount = 0;
 
-            // evaluations.forEach(evaluation => {
-            //   ratingCategories.forEach(category => {
-            //     ratingAverages[category] += evaluation[category];
-            //   });
-            //   feedback.push(evaluation.feedback);
-            // });
+              evaluations.forEach(evaluation => {
+                console.log("Evaluation:", evaluation);
 
-            // const evaluationCount = evaluations.length;
-            // ratingCategories.forEach(category => {
-            //   ratingAverages[category] = evaluationCount > 0 ? (ratingAverages[category] / evaluationCount).toFixed(2) : 'N/A';
-            // });
+                // Ensure each category has a valid numeric value
+                ratingCategories.forEach(category => {
+                  const rating = evaluation[category];
+                  console.log(`Rating for ${category}:`, rating);
+                  if (typeof rating === 'number' && !isNaN(rating)) {
+                    ratingAverages[category] += rating;
+                  }
+                });
 
-            return {
-              group,
-              evaluations
-              // ratingAverages,
-              // feedback
-            };
-          })
+                feedback.push(evaluation.feedback);
+                evaluationCount++;
+              });
+
+              console.log("Rating Averages:", ratingAverages);
+
+              // Calculate averages if there are evaluations
+              if (evaluationCount > 0) {
+                ratingCategories.forEach(category => {
+                  ratingAverages[category] = (ratingAverages[category] / evaluationCount).toFixed(2);
+                });
+              } else {
+                // If no evaluations, set averages to 'N/A'
+                ratingCategories.forEach(category => {
+                  ratingAverages[category] = 'N/A';
+                });
+              }
+
+              return { group, averages: ratingAverages, feedback };
+            })
         );
 
-        // Step 3: Process all group evaluation requests
         Promise.all(groupRequests)
           .then(updatedClasses => {
             setClassesData(updatedClasses);
@@ -78,6 +94,7 @@ export default function ViewMyGrades() {
 
   function handleLogout(event) {
     event.preventDefault();
+    localStorage.removeItem("instructor_id");
     navigate('/');
   }
 
@@ -95,42 +112,12 @@ export default function ViewMyGrades() {
 
   return (
     <div className="flex min-h-screen bg-slate-200">
-      <div className="w-64 bg-gray-200 text-black p-6 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900 z-10">
-        <ul className="mt-28">
-          <li className="mb-4"><a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a></li>
-          <li className="mb-4"><a href="/student" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">My Dashboard</a></li>
-          <li className="mb-4"><a href="/new-assessment" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">New Assessment</a></li>
-          <li className="mb-4"><a href="/view-my-grades" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">View My Grades</a></li>
-          <li className="mb-4"><a href="/view-my-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">View My Teams</a></li>
-        </ul>
-        <ul className='p-3 mt-8'><img src='/img/concordialogo.png' alt='concordia-logo' /></ul>
-      </div>
-
+      {/* Sidebar and Header code */}
+      
       <div className="flex-grow ml-64 p-8 pt-20 pb-32">
-        <nav className="bg-red-900 p-4 flex justify-between items-center fixed w-full top-0 left-0 z-40">
-          <div className="text-white text-lg flex items-center">
-            <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
-          </div>
-          <div className="flex items-center space-x-6">
-            <span
-              className="text-white hover:text-red-950 cursor-pointer py-2 px-4 text-sm font-medium bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-              onClick={checkoutProfile}
-            >
-              Profile
-            </span>
-            <button
-              type='button'
-              onClick={handleLogout}
-              className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-            >
-              Log Out
-            </button>
-          </div>
-        </nav>
-
         <h1 className="text-3xl font-bold text-black mt-12 mb-20 text-center">Your Grades by Class</h1>
 
-        {classData.map((classItem, index) => (
+        {classesData.map((classItem, index) => (
           <div key={index} className="mb-6">
             <button
               onClick={() => toggleClass(classItem.group)}
@@ -151,8 +138,8 @@ export default function ViewMyGrades() {
                   <tbody>
                     {Object.entries(classItem.averages).map(([category, average], idx) => (
                       <tr key={idx} className="border-b">
-                        <td className="px-4 py-2">{category}</td>
-                        <td className="px-4 py-2 text-center">{average.toFixed(2)}</td>
+                        <td className="px-4 py-2">{categoryDisplayNames[category] || category}</td> {/* Display the user-friendly name */}
+                        <td className="px-4 py-2 text-center">{average}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -167,9 +154,7 @@ export default function ViewMyGrades() {
         ))}
       </div>
 
-      <footer className="bg-red-900 text-white text-right py-4 fixed bottom-0 left-0 w-full z-30">
-        <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
-      </footer>
+      {/* Footer code */}
     </div>
   );
 }

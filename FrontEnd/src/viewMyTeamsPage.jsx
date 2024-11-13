@@ -62,6 +62,7 @@ export default function MainTeammatesPage() {
 
   function handleLogout(event) {
     event.preventDefault();
+    localStorage.removeItem("instructor_id");
     navigate('/');
   }
 
