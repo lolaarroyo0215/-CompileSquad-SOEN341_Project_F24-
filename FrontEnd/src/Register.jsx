@@ -36,6 +36,7 @@ export default function Register() {
                     localStorage.setItem("access_token", access);
                     localStorage.setItem("refresh_token", refresh);
                     localStorage.setItem("user_role", userType);
+                    localStorage.setItem("student_id", studentId);
 
                     console.log("Login successful");
                     navigate('/student');

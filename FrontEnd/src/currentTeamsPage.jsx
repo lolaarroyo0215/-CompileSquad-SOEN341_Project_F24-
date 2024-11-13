@@ -14,6 +14,7 @@ export default function CurrentTeamsPage() {
 
   function handleLogout(event) {
     event.preventDefault();
+    localStorage.removeItem("instructor_id");
     navigate('/');
   }
 

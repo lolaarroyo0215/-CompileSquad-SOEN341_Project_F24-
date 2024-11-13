@@ -8,6 +8,7 @@ export default function Profile(){
 
     function handleLogout(event) {
         event.preventDefault();
+        localStorage.removeItem("student_id");
         navigate('/');
     }
 

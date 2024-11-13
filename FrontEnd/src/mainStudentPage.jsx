@@ -10,6 +10,7 @@ export default function MainStudentPage() {
   function handleLogout(event) {
     localStorage.removeItem('access_token');
     localStorage.removeItem('refresh_token');
+    localStorage.removeItem("student_id");
     navigate('/');
   }
 
