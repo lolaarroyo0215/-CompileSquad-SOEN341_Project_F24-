@@ -16,6 +16,7 @@ function CreateTeams() {
 
     const handleLogout = (event) => {
         event.preventDefault();
+        localStorage.removeItem("instructor_id");
         navigate('/');
     };
     const instructorId = localStorage.getItem("instructor_id");

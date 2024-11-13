@@ -17,7 +17,6 @@ export default function MainTeammatesPage() {
       setLoading(false);
       return;
     }
-
     axios.get(`http://localhost:8000/userRegApi/get-studentsGroups/${studentId}/`, {
       withCredentials: true
     })
@@ -32,7 +31,7 @@ export default function MainTeammatesPage() {
         }).then(teammatesResponse => {
           // Extract only the student_id values from each element
           const studentIds = teammatesResponse.data.map(item => item.student);
-          console.log(studentIds);  // Logs the array of student IDs
+          console.log(studentIds);  
 
           // Add the group and student_ids data to the response
           return {
