@@ -10,6 +10,7 @@ function ClassCreationPage() {
 
     const handleLogout = (event) => {
         event.preventDefault();
+        localStorage.removeItem("instructor_id");
         navigate('/');
     };
 

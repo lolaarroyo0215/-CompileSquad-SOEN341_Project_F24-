@@ -6,6 +6,7 @@ export default function ConfirmationPage() {
 
     function handleLogout(event) {
         event.preventDefault();
+        localStorage.removeItem("student_id");
         navigate('/');
     }
 

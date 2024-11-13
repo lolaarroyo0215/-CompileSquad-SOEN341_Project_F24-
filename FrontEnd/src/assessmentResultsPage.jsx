@@ -26,6 +26,7 @@ export default function AssessmentResultsPage() {
 
     function handleLogout(event) {
         event.preventDefault();
+        localStorage.removeItem("student_id");
         navigate('/');
     }
 

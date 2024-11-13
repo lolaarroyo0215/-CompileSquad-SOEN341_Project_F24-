@@ -17,6 +17,7 @@ export default function NewAssessmentPage() {
 
     function handleLogout(event) {
         event.preventDefault();
+        localStorage.removeItem("student_id");
         navigate('/');
     }
 

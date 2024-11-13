@@ -70,3 +70,13 @@ class Evaluation(models.Model):
     def __str__(self):
         return f"{self.evaluatee} {self.group} {self.feedback} {self.rating}"
 
+# {
+#     evaluator: ,
+#     evaluatee: ,
+#     group: ,
+#     feedback: ,
+#     cooperation_rating: ,
+#     conceptualContribution_rating: ,
+#     practicalContribution_rating: ,
+#     workEthic_rating: 
+# }
