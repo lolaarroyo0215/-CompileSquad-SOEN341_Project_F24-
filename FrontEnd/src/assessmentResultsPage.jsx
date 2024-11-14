@@ -128,6 +128,12 @@ export default function AssessmentResultsPage() {
         setOpenTeam(openTeam === teamName ? null : teamName);
     };
 
+
+    // Navigate to detailed results page
+    const goToDetailedResults = () => {
+        navigate('/detailedResults');
+    };
+
     return (
         <div className="flex min-h-screen bg-slate-200">
             <div className="w-64 bg-gray-200 text-black p-5 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
@@ -196,7 +202,18 @@ export default function AssessmentResultsPage() {
                         </table>
                     </div>
                 )}
+
+                {/* Export button and View Detailed Results button */}
+                <div className="flex justify-center mt-4 space-x-4">
+                    <button 
+                        onClick={goToDetailedResults} 
+                        className="mt-4 bg-red-900 text-white p-2 rounded-md hover:bg-red-950">
+                        View Detailed Results
+                    </button>
+                </div>
+
             </div>
+            
         </div>
     );
 }
