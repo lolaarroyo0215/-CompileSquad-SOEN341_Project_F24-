@@ -31,13 +31,32 @@ export default function MainTeammatesPage() {
         }).then(teammatesResponse => {
           // Extract only the student_id values from each element
           const studentIds = teammatesResponse.data.map(item => item.student);
-          console.log(studentIds);  
+          console.log(studentIds); 
+
+          const studentNameRequests = studentIds.map(studentId =>
+            axios.get(`http://localhost:8000/userRegApi/get-studentData/${studentId}/`, {
+              withCredentials: true
+            }).then(studentResponse => {
+              console.log(studentResponse.data);
+              const first_name = studentResponse.data.first_name;
+              const last_name = studentResponse.data.last_name;
+              console.log(first_name);
+              console.log(last_name);
+              return {
+                studentId,
+                studentName: `${first_name} ${last_name}`
+              };
+            })
+          );
+
 
           // Add the group and student_ids data to the response
-          return {
-            group,  // Add the group name to the response
-            teammates: studentIds // Store the student IDs here
-          };
+          return Promise.all(studentNameRequests).then(teammateNames => {
+            return {
+              group,  
+              teammates: teammateNames
+            };
+          });
         })
       );
       
@@ -80,7 +99,7 @@ export default function MainTeammatesPage() {
   const handleEvaluate = (studentId) => {
     localStorage.setItem("evaluatee", studentId);
     localStorage.setItem("group", openClass);
-    console.log(studentId);
+    console.log("This hsould be a student ID: ", studentId);
     console.log(openClass);
     navigate(`/new-assessment`);
   };
@@ -116,6 +135,7 @@ export default function MainTeammatesPage() {
           </button>
         </div>
       </nav>
+<<<<<<< HEAD
   
       <div className="flex flex-grow">
         {/* Sidebar */}
@@ -162,6 +182,40 @@ export default function MainTeammatesPage() {
                       <thead>
                         <tr className="bg-gray-200">
                           <th colSpan="2" className="px-4 py-2">Teammate ID</th>
+=======
+
+      <div className="flex-grow p-8">
+        <h1 className="text-3xl font-bold text-black mb-6 text-center">Your Teammates by Class</h1>
+        {classesData.length > 0 ? (
+          classesData.map((classItem, index) => (
+            <div key={index} className="mb-6">
+              <button
+                onClick={() => toggleClass(classItem.group)} // Toggle based on group
+                className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
+              >
+                {classItem.group} {/* Display group name */}
+              </button>
+
+              {openClass === classItem.group && (
+                <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
+                  <table className="table-auto w-full text-left">
+                    <thead>
+                      <tr className="bg-gray-200">
+                        <th colSpan="2" className="px-4 py-2">Teammate ID</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {classItem.teammates.map((teammate, idx) => (
+                        <tr key={idx} className="border-b">
+                          <td className="px-4 py-2">{teammate.studentName}</td> {/* Display student_id */}
+                          <td className='px-4 py-2 flex justify-end'>
+                            <button
+                            onClick={() => handleEvaluate(teammate.studentId)}
+                            className='bg-red-900 text-white py-1 px-3 rounded hover:bg-gray-500'>
+                              Evaluate
+                            </button>
+                          </td>
+>>>>>>> 5afed7264a9048ea4f6bdd523ecd368e79891371
                         </tr>
                       </thead>
                       <tbody>
