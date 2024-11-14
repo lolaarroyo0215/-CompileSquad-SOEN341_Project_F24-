@@ -20,5 +20,14 @@ urlpatterns = [
     path('get-groupMembers/<str:group_id>/', get_groupMembers),
     #path('get-team/<str:student_id>/', get_team),    
     path('create-evaluation/', create_evaluation),
-    path('get-evaluations/<int:evaluatee>/', get_evaluations),
+    path('get-evaluations/<int:evaluatee>/<str:group>/', get_evaluations),
 ]
+
+# Things left to do 
+# - Student: link new assesment page to your groups to be able to evaluate each student
+# link evaluation submission to database once this is done
+# - Teacher: under create class we should have a list of the classes the teacher has already created, should be quick to implement
+# - Teacher: implement current teams page and add functionality to be able to add members to existing teams 
+# - Teacher: do summary of results page
+# - Teacher: do detailed results page with all the details of each evaluation, including who said what about each student
+# - Implement all the profile page for both stduent and teacher

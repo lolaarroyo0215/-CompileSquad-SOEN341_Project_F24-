@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './index.css';
 
 export default function CurrentTeamsPage() {
   const navigate = useNavigate();
+  const { courseId } = useParams();
   const [classes, setClasses] = useState([]); // State for storing teams by class
   const [openClass, setOpenClass] = useState(null); // State to manage which class is expanded
 
@@ -27,7 +28,8 @@ export default function CurrentTeamsPage() {
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const response = await fetch('http://localhost:8000/userRegApi/get_teams/');
+        const courseId = 'your_course_id';
+        const response = await fetch(`http://localhost:8000/userRegApi/get-groups/${courseId}/`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -49,8 +51,9 @@ export default function CurrentTeamsPage() {
       }
     };
 
-    fetchTeams();
-  }, []);
+    if(courseId) fetchTeams();
+    
+  }, [courseId]);
 
   return (
     <div className="bg-slate-200 min-h-screen flex">

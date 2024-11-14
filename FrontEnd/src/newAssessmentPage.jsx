@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import axios from 'axios';
 export default function NewAssessmentPage() {
     const navigate = useNavigate();
-
     const [cooperationRating, setCooperationRating] = useState(0); // Cooperation rating
     const [conceptualRating, setConceptualRating] = useState(0); // Conceptual Contribution rating
     const [practicalRating, setPracticalRating] = useState(0); // Practical Contribution rating
     const [workEthicRating, setWorkEthicRating] = useState(0); // Work Ethic rating
     const [generalComments, setGeneralComments] = useState('');  // Comments
+    const evaluatee = localStorage.getItem("evaluatee");
+    const evaluator = localStorage.getItem("student_id");
+    const group = localStorage.getItem("group");
 
     // Function to handle star click
     const handleStarClick = (setRating) => (rating) => {
@@ -18,8 +20,35 @@ export default function NewAssessmentPage() {
     function handleLogout(event) {
         event.preventDefault();
         localStorage.removeItem("student_id");
+        localStorage.removeItem("evaluatee");
         navigate('/');
     }
+
+    function handleSubmit() {
+        const evaluation = {
+            evaluator: evaluator,
+            evaluatee: evaluatee, 
+            cooperation_rating: cooperationRating,
+            conceptualContribution_rating: conceptualRating,
+            practicalContribution_rating: practicalRating,
+            workEthic_rating: workEthicRating,
+            feedback: generalComments,
+            group: group
+        };
+
+        axios.post('http://localhost:8000/userRegApi/create-evaluation/', evaluation)
+            .then((response) => {
+                console.log("Assessment submitted successfully:", response.data);
+                navigate('/confirmation');
+                localStorage.removeItem("evaluatee");
+            })
+            .catch((error) => {
+                console.error("Error submitting assessment:", error);
+            
+            });
+            
+    }
+
 
     return (
         <div className="flex min-h-screen bg-slate-200">
@@ -113,7 +142,7 @@ export default function NewAssessmentPage() {
                     <button
                         className="bg-red-900 text-white py-4 px-8 rounded hover:bg-red-950 transition duration-200 text-xl"
                         onClick={() => {
-                            // Navigate to the confirmation page
+                            handleSubmit();
                             navigate('/confirmation');
                         }}
                     >

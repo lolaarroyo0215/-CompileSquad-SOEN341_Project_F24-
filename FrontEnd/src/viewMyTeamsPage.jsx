@@ -62,6 +62,7 @@ export default function MainTeammatesPage() {
 
   function handleLogout(event) {
     event.preventDefault();
+    localStorage.removeItem("instructor_id");
     navigate('/');
   }
 
@@ -74,6 +75,14 @@ export default function MainTeammatesPage() {
   const toggleClass = (className) => {
     // Use className to open and close specific classes
     setOpenClass(openClass === className ? null : className);
+  };
+
+  const handleEvaluate = (studentId) => {
+    localStorage.setItem("evaluatee", studentId);
+    localStorage.setItem("group", openClass);
+    console.log(studentId);
+    console.log(openClass);
+    navigate(`/new-assessment`);
   };
 
   if (loading) {
@@ -125,13 +134,20 @@ export default function MainTeammatesPage() {
                   <table className="table-auto w-full text-left">
                     <thead>
                       <tr className="bg-gray-200">
-                        <th className="px-4 py-2">Teammate ID</th>
+                        <th colSpan="2" className="px-4 py-2">Teammate ID</th>
                       </tr>
                     </thead>
                     <tbody>
                       {classItem.teammates.map((teammate, idx) => (
                         <tr key={idx} className="border-b">
                           <td className="px-4 py-2">{teammate}</td> {/* Display student_id */}
+                          <td className='px-4 py-2 flex justify-end'>
+                            <button
+                            onClick={() => handleEvaluate(teammate)}
+                            className='bg-red-900 text-white py-1 px-3 rounded hover:bg-gray-500'>
+                              Evaluate
+                            </button>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
