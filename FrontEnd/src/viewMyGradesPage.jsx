@@ -111,50 +111,78 @@ export default function ViewMyGrades() {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="flex min-h-screen bg-slate-200">
-      {/* Sidebar and Header code */}
-      
-      <div className="flex-grow ml-64 p-8 pt-20 pb-32">
-        <h1 className="text-3xl font-bold text-black mt-12 mb-20 text-center">Your Grades by Class</h1>
-
-        {classesData.map((classItem, index) => (
-          <div key={index} className="mb-6">
-            <button
-              onClick={() => toggleClass(classItem.group)}
-              className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
-            >
-              {classItem.group}
-            </button>
-
-            {openClass === classItem.group && (
-              <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
-                <table className="table-auto w-full text-left mb-4">
-                  <thead>
-                    <tr className="bg-gray-200">
-                      <th className="px-4 py-2">Category</th>
-                      <th className="px-4 py-2 text-center">Average Grade</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {Object.entries(classItem.averages).map(([category, average], idx) => (
-                      <tr key={idx} className="border-b">
-                        <td className="px-4 py-2">{categoryDisplayNames[category] || category}</td> {/* Display the user-friendly name */}
-                        <td className="px-4 py-2 text-center">{average}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <h3 className="text-lg font-bold mb-2">Feedback</h3>
-                {classItem.feedback.map((fb, fbIdx) => (
-                  <p key={fbIdx} className="mb-2 border-b border-gray-300 pb-2">{fb}</p>
-                ))}
-              </div>
-            )}
+    <div className="flex flex-col min-h-screen bg-slate-200">
+      <div className="flex flex-1">
+        {/* Sidebar (Nav Bar) */}
+        <div className="w-64 bg-gray-200 border-r-4 border-red-900 text-black p-6 fixed top-0 left-0 h-full md:block hidden">
+            <h2 className="bg-gray-300 text-2xl font-bold mb-3 p-5">Student Dashboard</h2>
+            <ul>
+              <li className="mb-4 hover:bg-gray-700 rounded-lg">
+                <a href="/profile" className="block p-2">Profile</a>
+              </li>
+              <li className="mb-4 hover:bg-gray-700 rounded-lg">
+                <a href="/student" className="block p-2">My Dashboard</a>
+              </li>
+              <li className="mb-4 hover:bg-gray-700 rounded-lg">
+                <a href="/view-my-teams" className="block p-2">View My Teams</a>
+              </li>
+              <li className="mb-4 hover:bg-gray-700 rounded-lg">
+                <a href="/new-assessment" className="block p-2">New Assessment</a>
+              </li>
+              <li className="mb-4 hover:bg-gray-700 rounded-lg">
+                <a href="/view-my-grades" className="block p-2">View My Grades</a>
+              </li>
+            </ul>
+            <ul className='p-3'> 
+            <img src='\public\img\concordialogo.png' alt='concordia-logo'></img>
+            </ul>
           </div>
-        ))}
-      </div>
 
-      {/* Footer code */}
+          
+        {/* Main content */}
+        <div className="flex-grow ml-0 md:ml-64 p-6 pt-20 pb-32 flex flex-col items-center justify-">
+          <h1 className="text-3xl font-bold text-black mt-12 mb-20 text-center">Your Grades by Class</h1>
+          {classesData.map((classItem, index) => (
+            <div key={index} className="mb-6 w-full md:w-2/3 lg:w-1/2">
+              <button
+                onClick={() => toggleClass(classItem.group)}
+                className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
+              >
+                {classItem.group}
+              </button>
+              {openClass === classItem.group && (
+                <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
+                  <table className="table-auto w-full text-left mb-4">
+                    <thead>
+                      <tr className="bg-gray-200">
+                        <th className="px-4 py-2">Category</th>
+                        <th className="px-4 py-2 text-center">Average Grade</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.entries(classItem.averages).map(([category, average], idx) => (
+                        <tr key={idx} className="border-b">
+                          <td className="px-4 py-2">{categoryDisplayNames[category] || category}</td>
+                          <td className="px-4 py-2 text-center">{average}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                  <h3 className="text-lg font-bold mb-2">Feedback</h3>
+                  {classItem.feedback.map((fb, fbIdx) => (
+                    <p key={fbIdx} className="mb-2 border-b border-gray-300 pb-2">{fb}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+  
+      {/* Footer */}
+      <footer className="bg-red-900 text-white py-4 px-4 text-center">
+        <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
+      </footer>
     </div>
-  );
+  );  
 }

@@ -43,7 +43,7 @@ function App() {
                  <Route path="/detailedResults" element={<ProtectedRoute element ={DetailedResults} role="teacher" />} />
                  <Route path="/create-classes" element={<ProtectedRoute element ={ClassCreationPage} role="teacher" />} />
                  <Route path="/student" element={<ProtectedRoute element={MainStudentPage} role="student" />} />
-                 <Route path="/new-assessment" element={<ProtectedRoute element={NewAssessmentPage} role="student"/>} />
+                 <Route path="/new-assessment/" element={<NewAssessmentPage />} />
                  <Route path="/view-my-grades" element={<ProtectedRoute element ={ViewMyGradesPage} role="student"/>} />
                  <Route path="/view-my-teams" element={<ProtectedRoute element ={ViewMyTeamsPage} role="student"/>} />
                  <Route path="/confirmation" element={<ProtectedRoute element ={ConfirmationPage} role="student" />} />
