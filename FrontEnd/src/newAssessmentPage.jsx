@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 export default function NewAssessmentPage() {
 
@@ -7,17 +8,14 @@ export default function NewAssessmentPage() {
 
     const location = useLocation();
     const studentId = location.state?.studentId;
-
     const [cooperationRating, setCooperationRating] = useState(0); // Cooperation rating
     const [conceptualRating, setConceptualRating] = useState(0); // Conceptual Contribution rating
     const [practicalRating, setPracticalRating] = useState(0); // Practical Contribution rating
     const [workEthicRating, setWorkEthicRating] = useState(0); // Work Ethic rating
-
-    // State for the comments
-    const [cooperationComment, setCooperationComment] = useState('');
-    const [conceptualComment, setConceptualComment] = useState('');
-    const [practicalComment, setPracticalComment] = useState('');
-    const [workEthicComment, setWorkEthicComment] = useState('');
+    const [generalComments, setGeneralComments] = useState('');  // Comments
+    const evaluatee = localStorage.getItem("evaluatee");
+    const evaluator = localStorage.getItem("student_id");
+    const group = localStorage.getItem("group");
 
     // Function to handle star click
     const handleStarClick = (setRating) => (rating) => {
@@ -31,8 +29,36 @@ export default function NewAssessmentPage() {
 
     function handleLogout(event) {
         event.preventDefault();
+        localStorage.removeItem("student_id");
+        localStorage.removeItem("evaluatee");
         navigate('/');
     }
+
+    function handleSubmit() {
+        const evaluation = {
+            evaluator: evaluator,
+            evaluatee: evaluatee, 
+            cooperation_rating: cooperationRating,
+            conceptualContribution_rating: conceptualRating,
+            practicalContribution_rating: practicalRating,
+            workEthic_rating: workEthicRating,
+            feedback: generalComments,
+            group: group
+        };
+
+        axios.post('http://localhost:8000/userRegApi/create-evaluation/', evaluation)
+            .then((response) => {
+                console.log("Assessment submitted successfully:", response.data);
+                navigate('/confirmation');
+                localStorage.removeItem("evaluatee");
+            })
+            .catch((error) => {
+                console.error("Error submitting assessment:", error);
+            
+            });
+            
+    }
+
 
     return (
         <div className="bg-slate-200 min-h-screen flex flex-col">

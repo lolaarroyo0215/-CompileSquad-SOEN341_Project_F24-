@@ -78,7 +78,11 @@ export default function MainTeammatesPage() {
   };
 
   const handleEvaluate = (studentId) => {
-    navigate(`/new-assessment`, { state: { studentId: studentId} });
+    localStorage.setItem("evaluatee", studentId);
+    localStorage.setItem("group", openClass);
+    console.log(studentId);
+    console.log(openClass);
+    navigate(`/new-assessment`);
   };
 
   if (loading) {
