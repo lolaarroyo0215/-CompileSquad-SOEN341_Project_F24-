@@ -124,7 +124,7 @@ def create_group(request):
 def get_groups(request, course_id):
     groups = Groups.objects.filter(course_id=course_id)
     serilaizer = GroupSerializer(groups, many=True)
-    return Response(serilaizer.data)
+    return Response(serilaizer.data) 
 
 @api_view(['GET'])
 def get_studentsGroups(request, student_id):

@@ -18,6 +18,7 @@ urlpatterns = [
     path('get-studentsGroups/<int:student_id>/', get_studentsGroups),
     path('create-groupMember/', create_groupMember),
     path('get-groupMembers/<str:group_id>/', get_groupMembers),
+    #path('get-team/<str:student_id>/', get_team),    
     path('create-evaluation/', create_evaluation),
     path('get-evaluations/<int:evaluatee>/', get_evaluations),
 ]
