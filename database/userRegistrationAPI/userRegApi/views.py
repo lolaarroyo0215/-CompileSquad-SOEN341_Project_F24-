@@ -157,6 +157,11 @@ def create_evaluation(request):
 @api_view(['GET'])
 def get_evaluations(request, evaluatee, group):
     evaluations = Evaluation.objects.filter(evaluatee=evaluatee, group=group)
-    serilaizer = EvaluationSerializer(evaluations, many=True)
-    return Response(serilaizer.data)
+    serializer = EvaluationSerializer(evaluations, many=True)
+    return Response(serializer.data)
 
+@api_view(['GET'])
+def get_studentData(request, user_id):
+    student = Student.objects.get(user_id=user_id)
+    serializer = StudentRegistrationSerializer(student, many=False)
+    return Response(serializer.data, status=status.HTTP_200_OK)

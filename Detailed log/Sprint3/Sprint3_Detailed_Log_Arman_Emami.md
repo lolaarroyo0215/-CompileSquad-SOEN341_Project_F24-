@@ -10,10 +10,10 @@
 | 11/01  | Second meeting minute                                  | 30 mins   |
 | 11/02  | Bug fixes for team creation     | 1 hour  |
 | 11/03  | Third meeting                                        | 30 mins  |
-| 11/03  |                  | 1 hour  |
-| 11/04  |     | 1 hours  |
-| 11/05  |                         | 1 hour  |
-| 11/06  |           | 2 hours  |
-| 11/07  |         | 3 hours  |
-| 11/09  |     | 3 hours |
-|TOTAL: |                                                       | 24 hours |
+| 11/03  | Running the backend APIs to make sure of the inputs and outputs                | 1 hour  |
+| 11/04  | Building functions to store students information | 1 hours  |
+| 11/05  | Building functions to store students group info  | 1 hour  |
+| 11/06  | Builing the functions to store students evaluations       | 1 hour  |
+| 11/07  | Putting all the functions together       | 2 hours  |
+| 11/09  | Debugging the backend to display student info in assessmentResultsPage  | 3 hours |
+|TOTAL: |                                                       | 13 hours |

@@ -206,6 +206,14 @@ export default function AssessmentResultsPage() {
                 {/* Export button and View Detailed Results button */}
                 <div className="flex justify-center mt-4 space-x-4">
                     <button 
+<<<<<<< HEAD
+=======
+                        //onClick={exportToCSV} 
+                        className="mt-4 bg-red-900 text-white p-2 rounded-md hover:bg-red-950">
+                        Export Results
+                    </button>
+                    <button 
+>>>>>>> 5afed7264a9048ea4f6bdd523ecd368e79891371
                         onClick={goToDetailedResults} 
                         className="mt-4 bg-red-900 text-white p-2 rounded-md hover:bg-red-950">
                         View Detailed Results
