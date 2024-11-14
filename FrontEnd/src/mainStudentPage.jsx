@@ -51,14 +51,13 @@ export default function MainStudentPage() {
         </h2>
 
         <div className="mt-8 flex justify-center gap-4 flex-wrap">
-          <Link to="/new-assessment">
+          {/* <Link to="/new-assessment">
             <button className="bg-red-900 text-white font-bold py-5 w-80 h-80 flex flex-col items-center justify-start rounded hover:bg-red-950">
               <img src="/img/NewAssessment.jpg" alt="Create Teams" className="h-40 w-45 object-cover rounded-lg mb-2" />
               <span className="text-xl mt-9">New Assessment</span>
             </button>
-          </Link>
-          
-
+          </Link> */}
+        
 
           <Link to="/view-my-grades">
           <button className="bg-red-900 text-white font-bold py-5 w-80 h-80 flex flex-col items-center justify-start rounded hover:bg-red-950">
