@@ -19,18 +19,25 @@ export default function Profile(){
 
     useEffect(() => {
         //fetch student data from the API
-        axios.get('http://localhost:8000/userRegApi/userregapi_student', {
-            withCredentials: true // session-based authorization
-        })
-        .then(response => {
-            setStudent(response.data);
+        const studentId = localStorage.getItem("student_id");
+
+        if(studentId) {
+            axios.get(`http://localhost:8000/get-student/${studentId}/`, { withCredentials: true })
+            .then(response => {
+                setStudent(response.data);
+                setLoading(false);
+            })
+            .catch(err => {
+                setError('Error fetching student data');
+                setLoading(false);
+            });
+        } else {
+            setError('No student id found');
             setLoading(false);
-        })
-        .catch(err => {
-            setError('Error fetching student data');
-            setLoading(false);
-        });
+        }
     }, []);
+
+       
 
     if(loading) {
         return <div>Loading...</div>

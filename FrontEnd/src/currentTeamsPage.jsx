@@ -4,6 +4,7 @@ import './index.css';
 
 export default function CurrentTeamsPage() {
   const navigate = useNavigate();
+  const teacherId = 1;
   const { courseId } = useParams();
   const [classes, setClasses] = useState([]); // State for storing teams by class
   const [openClass, setOpenClass] = useState(null); // State to manage which class is expanded
@@ -56,92 +57,76 @@ export default function CurrentTeamsPage() {
   }, [courseId]);
 
   return (
-    <div className="bg-slate-200 min-h-screen flex">
-      {/* Sidebar */}
-      <div className="w-64 bg-gray-200 text-black p-5 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
-        <ul className="mt-20">
-          <li className="mb-4">
-            <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a>
-          </li>
-          <li className="mb-4">
-            <a href="/teacher" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">My Dashboard</a>
-          </li>
-          <li className="mb-4">
-            <a href="/create-classes" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create class</a>
-          </li>
-          <li className="mb-4">
-            <a href="/create-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create Teams</a>
-          </li>
-          <li className="mb-4">
-            <a href="/current-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Current Teams</a>
-          </li>
-          <li className="mb-4">
-            <a href="/assessment-results" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Assessment Results</a>
-          </li>
-        </ul>
-        <ul className='p-3 mt-8'>
-          <img src='/img/concordialogo.png' alt='concordia-logo' />
-        </ul>
-      </div>
-
-      {/* Main Content */}
-      <div className="flex-grow ml-64 p-8">
-        {/* Header */}
-        <nav className="bg-red-900 p-4 flex justify-between items-center fixed top-0 left-0 right-0 z-10">
-          <div className="text-white text-lg">
-            <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
-          </div>
-          <div className="flex space-x-10">
-            <button 
-              type='button' 
-              onClick={checkoutProfile} 
-              className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
-              Profile
-            </button>
-            <button 
-              type='button' 
-              onClick={handleLogout} 
-              className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
-              Log Out
-            </button>
-          </div>
-        </nav>
-
-        {/* Teams Section */}
-        <h1 className="text-3xl font-bold text-black mb-6 text-center mt-20">Teams by Class</h1>
-        {classes.map((classItem, index) => (
-          <div key={index} className="mb-6">
-            {/* Dropdown toggle button */}
-            <button
-              onClick={() => toggleClass(classItem.className)}
-              className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
-            >
-              {classItem.className}          
-            </button>
-
-            {/* Teams dropdown content */}
-            {openClass === classItem.className && (
-              <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
-                {classItem.teams.map((team, idx) => (
-                  <div key={idx} className="mb-4">
-                    <h2 className="text-xl font-semibold text-black">{team.teamName}</h2>
-                    <ul className="list-disc pl-6">
-                      {team.members.map((member, memberIdx) => (
-                        <li key={memberIdx} className="text-black">{member}</li>
+    <div className="flex flex-col min-h-screen bg-slate-200">
+      <div className="flex flex-1">
+        {/* Sidebar */}
+        <div className="w-64 bg-gray-200 text-black p-6 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900 z-10">
+          <ul className="mt-28">
+            <li className="mb-4">
+              <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a>
+            </li>
+            <li className="mb-4">
+              <a href="/student" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">My Dashboard</a>
+            </li>
+            <li className="mb-4">
+              <a href="/new-assessment" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">New Assessment</a>
+            </li>
+            <li className="mb-4">
+              <a href="/view-my-grades" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">View My Grades</a>
+            </li>
+            <li className="mb-4">
+              <a href="/view-my-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">View My Teams</a>
+            </li>
+          </ul>
+          <ul className='p-3 mt-8'>
+            <img src='/img/concordialogo.png' alt='concordia-logo' />
+          </ul>
+        </div>
+  
+        {/* Main content */}
+        <div className="flex-grow ml-0 md:ml-64 p-8 pt-20 pb-32 flex flex-col items-center justify-center">
+          <h1 className="text-3xl font-bold text-black mt-12 mb-20 text-center">Your Grades by Class</h1>
+          {classesData.map((classItem, index) => (
+            <div key={index} className="mb-6 w-full md:w-2/3 lg:w-1/2">
+              <button
+                onClick={() => toggleClass(classItem.group)}
+                className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
+              >
+                {classItem.group}
+              </button>
+              {openClass === classItem.group && (
+                <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
+                  <table className="table-auto w-full text-left mb-4">
+                    <thead>
+                      <tr className="bg-gray-200">
+                        <th className="px-4 py-2">Category</th>
+                        <th className="px-4 py-2 text-center">Average Grade</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {Object.entries(classItem.averages).map(([category, average], idx) => (
+                        <tr key={idx} className="border-b">
+                          <td className="px-4 py-2">{categoryDisplayNames[category] || category}</td>
+                          <td className="px-4 py-2 text-center">{average}</td>
+                        </tr>
                       ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+                    </tbody>
+                  </table>
+                  <h3 className="text-lg font-bold mb-2">Feedback</h3>
+                  {classItem.feedback.map((fb, fbIdx) => (
+                    <p key={fbIdx} className="mb-2 border-b border-gray-300 pb-2">{fb}</p>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
       </div>
-
+  
       {/* Footer */}
-      <footer className="bg-red-900 text-white text-center py-4 px-4 w-full mt-auto fixed bottom-0 left-0">
+      <footer className="bg-red-900 text-white py-4 px-4 text-center">
         <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
       </footer>
     </div>
-  );
+  );  
 }
