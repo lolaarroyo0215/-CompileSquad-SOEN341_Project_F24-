@@ -1,74 +1,133 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function AssessmentResultsPage() {
     const navigate = useNavigate();
 
-    // Sample data for teams and assessment results before database link
-    const teams = [
-        {
-            teamName: 'Team Alpha',
-            members: [
-                { studentId: '40258963', lastName: 'Doe', firstName: 'John', cooperation: '5', contribution: '4', practical: '5', workEthic: '5' },
-                { studentId: '40259313', lastName: 'Smith', firstName: 'Jane', cooperation: '4', contribution: '5', practical: '4', workEthic: '4' },
-            ],
-        },
-        {
-            teamName: 'Team Beta',
-            members: [
-                { studentId: '40746548', lastName: 'Johnson', firstName: 'Alice', cooperation: '5', contribution: '5', practical: '5', workEthic: '5' },
-                { studentId: '40596861', lastName: 'Brown', firstName: 'Bob', cooperation: '4', contribution: '4', practical: '5', workEthic: '4' },
-            ],
-        },
-    ];
+    const [students, setStudents] = useState([]);
+    const [evaluations, setEvaluations] = useState([]);
+    const [groups, setGroups] = useState([]);
+    const [studentData, setStudentData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    const fetchStudents = async () => {
+        try {
+            const response = await axios.get('http://localhost:8000/userRegApi/get_students/');
+            const studentsData = response.data;
+            console.log("Fetched students:", studentsData);
+            setStudents(studentsData);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching students:', error);
+            setError('Failed to load student data');
+        }
+    };
+
+    const fetchEvaluationsForStudents = async () => {
+        try {
+            const evaluationData = [];
+            for (const student of students) {
+                if (student.user_id) {
+                    const response = await axios.get(`http://localhost:8000/userRegApi/get-evaluations/${student.user_id}/1/`, {
+                        withCredentials: true
+                    });
+                    console.log(`Evaluations for student ${student.user_id}:`, response.data);
+                    evaluationData.push({ studentId: student.user_id, evaluations: response.data });
+                }
+            }
+            console.log("All evaluations data:", evaluationData);
+            setEvaluations(evaluationData);
+        } catch (error) {
+            console.error('Error fetching evaluations:', error.response || error.message || error);
+            setError('Failed to load evaluations data');
+        }
+    };
+
+    const fetchGroupsForStudents = async () => {
+        try {
+            const groupData = [];
+            for (const student of students) {
+                if (student.user_id) {
+                    const response = await axios.get(`http://localhost:8000/userRegApi/get-groupMembers/${student.user_id}/`, {
+                        withCredentials: true
+                    });
+                    console.log(`Groups for student ${student.user_id}:`, response.data);
+                    groupData.push({ studentId: student.user_id, groups: response.data });
+                }
+            }
+            console.log("All groups data:", groupData);
+            setGroups(groupData);
+        } catch (error) {
+            console.error('Error fetching groups:', error.response || error.message || error);
+            setError('Failed to load group data');
+        }
+    };
+
+    const calculateAverage = (ratings) => {
+        const validRatings = ratings.filter(rating => rating != null);
+        if (validRatings.length === 0) return 0;
+        const sum = validRatings.reduce((total, rating) => total + rating, 0);
+        return (sum / validRatings.length).toFixed(2);
+    };
+
+    useEffect(() => {
+        if (students.length > 0 && evaluations.length > 0 && groups.length > 0) {
+            const combinedData = students.map(student => {
+                const studentEvaluations = evaluations.find(evaluation => evaluation.studentId === student.user_id);
+                const studentGroups = groups.find(group => group.studentId === student.user_id);
+
+                const cooperationRatings = studentEvaluations ? studentEvaluations.evaluations.map(evaluation => evaluation.cooperation_rating) : [];
+                const conceptualRatings = studentEvaluations ? studentEvaluations.evaluations.map(evaluation => evaluation.conceptualContribution_rating) : [];
+                const practicalRatings = studentEvaluations ? studentEvaluations.evaluations.map(evaluation => evaluation.practicalContribution_rating) : [];
+                const workEthicRatings = studentEvaluations ? studentEvaluations.evaluations.map(evaluation => evaluation.workEthic_rating) : [];
+
+                const averageCooperation = calculateAverage(cooperationRatings);
+                const averageConceptual = calculateAverage(conceptualRatings);
+                const averagePractical = calculateAverage(practicalRatings);
+                const averageWorkEthic = calculateAverage(workEthicRatings);
+
+                return {
+                    studentId: student.user_id,
+                    firstName: student.first_name,
+                    lastName: student.last_name,
+                    groups: studentGroups ? studentGroups.groups : [],
+                    evaluations: studentEvaluations ? studentEvaluations.evaluations : [],
+                    averageCooperation,
+                    averageConceptual,
+                    averagePractical,
+                    averageWorkEthic
+                };
+            });
+            setStudentData(combinedData);
+            setLoading(false);
+        }
+    }, [students, evaluations, groups]);
+
+    useEffect(() => {
+        fetchStudents();
+    }, []);
+
+    useEffect(() => {
+        if (students.length > 0) {
+            fetchEvaluationsForStudents();
+            fetchGroupsForStudents();
+        }
+    }, [students]);
+
+    const handleLogout = (event) => {
+        event.preventDefault();
+        localStorage.removeItem("student_id");
+        navigate('/');
+    };
 
     const [openTeam, setOpenTeam] = useState(null);
 
-    function handleLogout(event) {
-        event.preventDefault();
-        navigate('/');
-    }
-
-    // Function to toggle a team's dropdown
     const toggleTeam = (teamName) => {
         setOpenTeam(openTeam === teamName ? null : teamName);
     };
 
-    // Function to export results as CSV
-    const exportToCSV = () => {
-        const csvRows = [];
-        const headers = ['Student ID', 'Last Name', 'First Name', 'Team', 'Cooperation', 'Conceptual Contribution', 'Practical Contribution', 'Work Ethic', 'Average', 'Peers who Responded'];
-        csvRows.push(headers.join(','));
-
-        teams.forEach(team => {
-            team.members.forEach(member => {
-                const avg = (
-                    (parseFloat(member.cooperation) + parseFloat(member.contribution) + parseFloat(member.practical) + parseFloat(member.workEthic)) / 4
-                ).toFixed(2);
-                const row = [
-                    member.studentId, 
-                    member.lastName, 
-                    member.firstName, 
-                    team.teamName, 
-                    member.cooperation, 
-                    member.contribution, 
-                    member.practical, 
-                    member.workEthic, 
-                    avg, 
-                    'N/A', // Placeholder for "Peers who responded"
-                ];
-                csvRows.push(row.join(','));
-            });
-        });
-
-        const csvString = csvRows.join('\n');
-        const blob = new Blob([csvString], { type: 'text/csv' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.setAttribute('href', url);
-        a.setAttribute('download', 'assessment_results.csv');
-        a.click();
-    };
 
     // Navigate to detailed results page
     const goToDetailedResults = () => {
@@ -77,37 +136,21 @@ export default function AssessmentResultsPage() {
 
     return (
         <div className="flex min-h-screen bg-slate-200">
-            {/* Sidebar */}
             <div className="w-64 bg-gray-200 text-black p-5 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
                 <ul className="mt-20">
-                    <li className="mb-4">
-                        <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a>
-                    </li>
-                    <li className="mb-4">
-                        <a href="/teacher" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">My Dashboard</a>
-                    </li>
-                    <li className="mb-4">
-                        <a href="/create-classes" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create class</a>
-                    </li>
-
-                    <li className="mb-4">
-                        <a href="/create-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create Teams</a>
-                    </li>
-                    <li className="mb-4">
-                        <a href="/current-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Current Teams</a>
-                    </li>
-                    <li className="mb-4">
-                        <a href="/assessment-results" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Assessment Results</a>
-                    </li>
+                    <li className="mb-4"><a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a></li>
+                    <li className="mb-4"><a href="/teacher" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">My Dashboard</a></li>
+                    <li className="mb-4"><a href="/create-classes" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create class</a></li>
+                    <li className="mb-4"><a href="/create-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create Teams</a></li>
+                    <li className="mb-4"><a href="/current-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Current Teams</a></li>
+                    <li className="mb-4"><a href="/assessment-results" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Assessment Results</a></li>
                 </ul>
                 <ul className='p-3 mt-8'>
                     <img src='/img/concordialogo.png' alt='concordia-logo' />
                 </ul>
             </div>
 
-            {/* Main content */}
             <div className="flex-grow ml-64 p-8 pt-20">
-                {/* Fixed header */}
                 <nav className="bg-red-900 p-4 flex justify-between items-center fixed w-full top-0 left-0 z-10">
                     <div className="text-white text-lg flex items-center">
                         <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
@@ -119,65 +162,51 @@ export default function AssessmentResultsPage() {
                         <button 
                             type='button' 
                             onClick={handleLogout} 
-                            className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-                        >
-                            Log Out
+                            className="py-2 px-4 text-sm font-medium text-white bg-red-900 hover:bg-red-950 rounded-lg">
+                            Logout
                         </button>
                     </div>
                 </nav>
 
-                <h1 className="text-3xl font-bold text-black mt-12 mb-20 text-center">Summary of Assessment Results</h1>
+                <h1>Assessment Results</h1>
+                {loading && <p>Loading...</p>}
+                {error && <p>{error}</p>}
+                {!loading && !error && studentData.length === 0 && <p>No data found for students.</p>}
 
-                {teams.map((team, index) => (
-                    <div key={index} className="mb-6">
-                        <button
-                            onClick={() => toggleTeam(team.teamName)}
-                            className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
-                        >
-                            {team.teamName}
-                        </button>
-
-                        {openTeam === team.teamName && (
-                            <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
-                                <table className="table-auto w-full text-left border-collapse">
-                                    <thead className="bg-red-900 text-white">
-                                        <tr>
-                                            <th className="px-4 py-2 border">Student ID</th>
-                                            <th className="px-4 py-2 border">Last Name</th>
-                                            <th className="px-4 py-2 border">First Name</th>
-                                            <th className="px-4 py-2 border text-center">Cooperation</th>
-                                            <th className="px-4 py-2 border text-center">Conceptual Contribution</th>
-                                            <th className="px-4 py-2 border text-center">Practical Contribution</th>
-                                            <th className="px-4 py-2 border text-center">Work Ethic</th>
-                                            <th className="px-4 py-2 border text-center">Average</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {team.members.map((member, idx) => (
-                                            <tr key={idx} className="border-b hover:bg-slate-100">
-                                                <td className="px-4 py-2 border">{member.studentId}</td>
-                                                <td className="px-4 py-2 border">{member.lastName}</td>
-                                                <td className="px-4 py-2 border">{member.firstName}</td>
-                                                <td className="px-4 py-2 border text-center">{member.cooperation}</td>
-                                                <td className="px-4 py-2 border text-center">{member.contribution}</td>
-                                                <td className="px-4 py-2 border text-center">{member.practical}</td>
-                                                <td className="px-4 py-2 border text-center">{member.workEthic}</td>
-                                                <td className="px-4 py-2 border text-center">{(
-                                                    (parseFloat(member.cooperation) + parseFloat(member.contribution) + parseFloat(member.practical) + parseFloat(member.workEthic)) / 4
-                                                ).toFixed(2)}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        )}
+                {/* Display combined data in a tabular format */}
+                {!loading && !error && studentData.length > 0 && (
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full table-auto">
+                            <thead className="bg-gray-300">
+                                <tr>
+                                    <th className="px-4 py-2">Student Name</th>
+                                    <th className="px-4 py-2">Group</th>
+                                    <th className="px-4 py-2">Cooperation Rating</th>
+                                    <th className="px-4 py-2">Conceptual Rating</th>
+                                    <th className="px-4 py-2">Practical Rating</th>
+                                    <th className="px-4 py-2">Work Ethic Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {studentData.map(({ studentId, firstName, lastName, groups, averageCooperation, averageConceptual, averagePractical, averageWorkEthic }) => (
+                                    <tr key={studentId} className="bg-white border-b">
+                                        <td className="px-4 py-2">{firstName} {lastName}</td>
+                                        <td className="px-4 py-2">{groups.join(', ')}</td>
+                                        <td className="px-4 py-2">{averageCooperation}</td>
+                                        <td className="px-4 py-2">{averageConceptual}</td>
+                                        <td className="px-4 py-2">{averagePractical}</td>
+                                        <td className="px-4 py-2">{averageWorkEthic}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
-                ))}
+                )}
 
                 {/* Export button and View Detailed Results button */}
                 <div className="flex justify-center mt-4 space-x-4">
                     <button 
-                        onClick={exportToCSV} 
+                        //onClick={exportToCSV} 
                         className="mt-4 bg-red-900 text-white p-2 rounded-md hover:bg-red-950">
                         Export Results
                     </button>
@@ -187,12 +216,9 @@ export default function AssessmentResultsPage() {
                         View Detailed Results
                     </button>
                 </div>
-            </div>
 
-            {/* Footer */}
-            <footer className="bg-red-900 text-white text-right py-4 px-4 w-full fixed bottom-0">
-                <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
-            </footer>
+            </div>
+            
         </div>
     );
 }

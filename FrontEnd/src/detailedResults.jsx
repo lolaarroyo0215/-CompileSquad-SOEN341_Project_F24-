@@ -104,6 +104,7 @@ const DetailedResults = () => {
 
     function handleLogout(event) {
         event.preventDefault();
+        localStorage.removeItem("student_id");
         navigate('/');
     }
 

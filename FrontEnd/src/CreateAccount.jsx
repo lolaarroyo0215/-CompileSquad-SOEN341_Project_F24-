@@ -50,7 +50,7 @@ export default function CreateAccount() {
             }
 
             if(response.status === 200 || response.status === 201) {
-                navigate('/register'); // Redirect to register/login page once their account is created
+                navigate('/'); // Redirect to register/login page once their account is created
             } else {
                 alert('Registration failed: ' + response.data.detail);
             }

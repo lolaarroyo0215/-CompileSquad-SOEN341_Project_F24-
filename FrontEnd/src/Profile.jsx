@@ -8,6 +8,7 @@ export default function Profile(){
 
     function handleLogout(event) {
         event.preventDefault();
+        localStorage.removeItem("student_id");
         navigate('/');
     }
 
@@ -41,6 +42,7 @@ export default function Profile(){
 
    
     return (
+        
     <div className="bg-red-900 min-h-screen flex items-center">
 
     {/* Sidebar (Nav Bar) */}
