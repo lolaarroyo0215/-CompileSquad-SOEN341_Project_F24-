@@ -159,3 +159,4 @@ def get_evaluations(request, evaluatee, group):
     evaluations = Evaluation.objects.filter(evaluatee=evaluatee, group=group)
     serilaizer = EvaluationSerializer(evaluations, many=True)
     return Response(serilaizer.data)
+
