@@ -3,9 +3,9 @@
 | 10-31  | Acceptance test writing                                          | 0.5 hours  |
 | 11-05  | Building database models and serializers                         | 3.5 hours  |
 | 11-07  | Building and testing APIs for new database models                | 3 hours    |
-| 11-12  | Connecting APIs with frontend components                         | 1 hour     |
-|        |                                                                  |            |
-|        |                                                                  |            |
+| 11-12  | Connecting APIs with frontend components and adjusting front end | 2 hours    |
+| 11-13  | Connecting APIs with frontend components and adjusting front end | 6 hours    |
+| 11-14  | Connecting APIs with frontend                                    | 2 hour     |
 |        |                                                                  |            |
 |        |                                                                  |            |
 |        |                                                                  |            |
@@ -13,4 +13,5 @@
 |        |                                                                  |            |
 |        |                                                                  |            |
 ------------------------------------------------------------------------------------------
-| Total                                                                     | 8 hours    |
+| Total                                                                     | 17 hours   |
+
