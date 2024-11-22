@@ -278,4 +278,7 @@ psd
 thumb
 sketch
 
+# Ignore .DS_Store files (macOS system files)
+.DS_Store
+
 # End of https://www.toptal.com/developers/gitignore/api/react,django,python
