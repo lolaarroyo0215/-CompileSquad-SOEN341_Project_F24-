@@ -135,11 +135,10 @@ export default function MainTeammatesPage() {
           </button>
         </div>
       </nav>
-<<<<<<< HEAD
   
       <div className="flex flex-grow">
         {/* Sidebar */}
-        <div className="w-64 bg-gray-200 border-r-4 border-red-900 text-black p-6 hidden md:block">
+        <div className="w-64 bg-gray-200 border-r-4 border-red-900 text-black p-6 hidden md\\:block">
           <h2 className="bg-gray-300 text-2xl font-bold mb-3 p-5">Student Dashboard</h2>
           <ul>
             <li className="mb-4 hover:bg-gray-700 rounded-lg">
@@ -182,40 +181,6 @@ export default function MainTeammatesPage() {
                       <thead>
                         <tr className="bg-gray-200">
                           <th colSpan="2" className="px-4 py-2">Teammate ID</th>
-=======
-
-      <div className="flex-grow p-8">
-        <h1 className="text-3xl font-bold text-black mb-6 text-center">Your Teammates by Class</h1>
-        {classesData.length > 0 ? (
-          classesData.map((classItem, index) => (
-            <div key={index} className="mb-6">
-              <button
-                onClick={() => toggleClass(classItem.group)} // Toggle based on group
-                className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
-              >
-                {classItem.group} {/* Display group name */}
-              </button>
-
-              {openClass === classItem.group && (
-                <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
-                  <table className="table-auto w-full text-left">
-                    <thead>
-                      <tr className="bg-gray-200">
-                        <th colSpan="2" className="px-4 py-2">Teammate ID</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {classItem.teammates.map((teammate, idx) => (
-                        <tr key={idx} className="border-b">
-                          <td className="px-4 py-2">{teammate.studentName}</td> {/* Display student_id */}
-                          <td className='px-4 py-2 flex justify-end'>
-                            <button
-                            onClick={() => handleEvaluate(teammate.studentId)}
-                            className='bg-red-900 text-white py-1 px-3 rounded hover:bg-gray-500'>
-                              Evaluate
-                            </button>
-                          </td>
->>>>>>> 5afed7264a9048ea4f6bdd523ecd368e79891371
                         </tr>
                       </thead>
                       <tbody>
