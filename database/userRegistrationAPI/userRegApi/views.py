@@ -9,6 +9,16 @@ import csv
 from rest_framework.parsers import MultiPartParser
 from rest_framework_simplejwt.settings import api_settings
 
+@api_view(['GET'])
+def get_student_details(request, user_id):
+    try:
+        student = Student.objects.get(user_id=user_id)
+        serializer = StudentRegistrationSerializer(student)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    except Student.DoesNotExist:
+        return Response({'error': 'Student not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
 @api_view(['POST'])
 def create_student(request):
     serializer = StudentRegistrationSerializer(data=request.data)
@@ -124,7 +134,7 @@ def create_group(request):
 def get_groups(request, course_id):
     groups = Groups.objects.filter(course_id=course_id)
     serilaizer = GroupSerializer(groups, many=True)
-    return Response(serilaizer.data)
+    return Response(serilaizer.data) 
 
 @api_view(['GET'])
 def get_studentsGroups(request, student_id):

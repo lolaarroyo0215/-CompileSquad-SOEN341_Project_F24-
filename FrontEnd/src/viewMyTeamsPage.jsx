@@ -135,54 +135,84 @@ export default function MainTeammatesPage() {
           </button>
         </div>
       </nav>
-
-      <div className="flex-grow p-8">
-        <h1 className="text-3xl font-bold text-black mb-6 text-center">Your Teammates by Class</h1>
-        {classesData.length > 0 ? (
-          classesData.map((classItem, index) => (
-            <div key={index} className="mb-6">
-              <button
-                onClick={() => toggleClass(classItem.group)} // Toggle based on group
-                className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
-              >
-                {classItem.group} {/* Display group name */}
-              </button>
-
-              {openClass === classItem.group && (
-                <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
-                  <table className="table-auto w-full text-left">
-                    <thead>
-                      <tr className="bg-gray-200">
-                        <th colSpan="2" className="px-4 py-2">Teammate ID</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {classItem.teammates.map((teammate, idx) => (
-                        <tr key={idx} className="border-b">
-                          <td className="px-4 py-2">{teammate.studentName}</td> {/* Display student_id */}
-                          <td className='px-4 py-2 flex justify-end'>
-                            <button
-                            onClick={() => handleEvaluate(teammate.studentId)}
-                            className='bg-red-900 text-white py-1 px-3 rounded hover:bg-gray-500'>
-                              Evaluate
-                            </button>
-                          </td>
+  
+      <div className="flex flex-grow">
+        {/* Sidebar */}
+        <div className="w-64 bg-gray-200 border-r-4 border-red-900 text-black p-6 hidden md\\:block">
+          <h2 className="bg-gray-300 text-2xl font-bold mb-3 p-5">Student Dashboard</h2>
+          <ul>
+            <li className="mb-4 hover:bg-gray-700 rounded-lg">
+              <a href="/profile" className="block p-2">Profile</a>
+            </li>
+            <li className="mb-4 hover:bg-gray-700 rounded-lg">
+              <a href="/student" className="block p-2">My Dashboard</a>
+            </li>
+            <li className="mb-4 hover:bg-gray-700 rounded-lg">
+              <a href="/view-my-teams" className="block p-2">View My Teams</a>
+            </li>
+            <li className="mb-4 hover:bg-gray-700 rounded-lg">
+              <a href="/new-assessment" className="block p-2">New Assessment</a>
+            </li>
+            <li className="mb-4 hover:bg-gray-700 rounded-lg">
+              <a href="/view-my-grades" className="block p-2">View My Grades</a>
+            </li>
+          </ul>
+          <div className="p-3">
+            <img src="/img/concordialogo.png" alt="concordia-logo" />
+          </div>
+        </div>
+  
+        {/* Main Content */}
+        <div className="flex-grow p-8 ml-0 md:ml-34">
+          <h1 className="text-3xl font-bold text-black mb-6 text-center">Your Teammates by Class</h1>
+          {classesData.length > 0 ? (
+            classesData.map((classItem, index) => (
+              <div key={index} className="mb-6">
+                <button
+                  onClick={() => toggleClass(classItem.group)}
+                  className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
+                >
+                  {classItem.group}
+                </button>
+  
+                {openClass === classItem.group && (
+                  <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
+                    <table className="table-auto w-full text-left">
+                      <thead>
+                        <tr className="bg-gray-200">
+                          <th colSpan="2" className="px-4 py-2">Teammate ID</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
-          ))
-        ) : (
-          <p>No groups found.</p>
-        )}
+                      </thead>
+                      <tbody>
+                        {classItem.teammates.map((teammate, idx) => (
+                          <tr key={idx} className="border-b">
+                            <td className="px-4 py-2">{teammate}</td>
+                            <td className="px-4 py-2 flex justify-end">
+                              <button
+                                onClick={() => handleEvaluate(teammate)}
+                                className="bg-red-900 text-white py-1 px-3 rounded hover:bg-gray-500"
+                              >
+                                Evaluate
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            ))
+          ) : (
+            <p>No groups found.</p>
+          )}
+        </div>
       </div>
-
+  
       <footer className="bg-red-900 text-white text-right py-4 px-4">
         <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
       </footer>
     </div>
   );
-}
+  
+}  

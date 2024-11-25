@@ -38,3 +38,4 @@
 	TailwindCSS - Utility-first CSS framework
 	Axios - Promise based HTTP client for browser
 	React Router - Declarative routing for React Apps
+

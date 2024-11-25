@@ -49,3 +49,8 @@ We are following an adapted Agile methodology with 4 iterations (sprints) of 3 t
 - Develop a dashboard that allows instructors to view assessment results in two formats: **summary view** and **detailed view**
 - Incorporate additional features that enhance the instructor dashboard and improve system usability.
 
+### Sprint 4 Goals:
+- **Reorganize Repository:** Organize files into logical directories (UI, business logic, tests) 
+- **Code Review:** Conduct peer reviews for new features, document feedback, and address suggestions before merging.  
+- **Bug Fixing:** Use static analysis tools to identify and fix bugs, vulnerabilities, and code smells with detailed commit documentation.  
+- **Testing and Documentation:** Ensure all changes pass tests, and maintain logs of contributions and repository updates.  
