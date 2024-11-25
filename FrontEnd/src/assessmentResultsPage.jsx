@@ -12,19 +12,21 @@ export default function AssessmentResultsPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    // Fetch all students
     const fetchStudents = async () => {
         try {
             const response = await axios.get('http://localhost:8000/userRegApi/get_students/');
             const studentsData = response.data;
             console.log("Fetched students:", studentsData);
             setStudents(studentsData);
-            setLoading(false);
         } catch (error) {
             console.error('Error fetching students:', error);
             setError('Failed to load student data');
+            setLoading(false);
         }
     };
 
+    // Fetch evaluations for each student
     const fetchEvaluationsForStudents = async () => {
         try {
             const evaluationData = [];
@@ -45,12 +47,13 @@ export default function AssessmentResultsPage() {
         }
     };
 
+    // Fetch groups for each student
     const fetchGroupsForStudents = async () => {
         try {
             const groupData = [];
             for (const student of students) {
                 if (student.user_id) {
-                    const response = await axios.get(`http://localhost:8000/userRegApi/get-groupMembers/${student.user_id}/`, {
+                    const response = await axios.get(`http://localhost:8000/userRegApi/get-studentsGroups/${student.user_id}/`, {
                         withCredentials: true
                     });
                     console.log(`Groups for student ${student.user_id}:`, response.data);
@@ -65,6 +68,7 @@ export default function AssessmentResultsPage() {
         }
     };
 
+    // Calculate average ratings
     const calculateAverage = (ratings) => {
         const validRatings = ratings.filter(rating => rating != null);
         if (validRatings.length === 0) return 0;
@@ -72,11 +76,34 @@ export default function AssessmentResultsPage() {
         return (sum / validRatings.length).toFixed(2);
     };
 
+    // Fetch students on component mount
+    useEffect(() => {
+        const fetchData = async () => {
+            await fetchStudents();
+        };
+        fetchData();
+    }, []);
+
+    // Fetch evaluations and groups after students are fetched
+    useEffect(() => {
+        const fetchAdditionalData = async () => {
+            if (students.length > 0) {
+                await fetchEvaluationsForStudents();
+                await fetchGroupsForStudents();
+            }
+        };
+        fetchAdditionalData();
+    }, [students]);
+
+    // Combine all data once students, evaluations, and groups are fetched
     useEffect(() => {
         if (students.length > 0 && evaluations.length > 0 && groups.length > 0) {
             const combinedData = students.map(student => {
                 const studentEvaluations = evaluations.find(evaluation => evaluation.studentId === student.user_id);
-                const studentGroups = groups.find(group => group.studentId === student.user_id);
+                const studentGroupsData = groups.find(group => group.studentId === student.user_id);
+
+                // Extract group names
+                const groupNames = studentGroupsData ? studentGroupsData.groups.map(groupMember => groupMember.group.group_name) : [];
 
                 const cooperationRatings = studentEvaluations ? studentEvaluations.evaluations.map(evaluation => evaluation.cooperation_rating) : [];
                 const conceptualRatings = studentEvaluations ? studentEvaluations.evaluations.map(evaluation => evaluation.conceptualContribution_rating) : [];
@@ -92,7 +119,7 @@ export default function AssessmentResultsPage() {
                     studentId: student.user_id,
                     firstName: student.first_name,
                     lastName: student.last_name,
-                    groups: studentGroups ? studentGroups.groups : [],
+                    groups: groupNames,
                     evaluations: studentEvaluations ? studentEvaluations.evaluations : [],
                     averageCooperation,
                     averageConceptual,
@@ -105,29 +132,11 @@ export default function AssessmentResultsPage() {
         }
     }, [students, evaluations, groups]);
 
-    useEffect(() => {
-        fetchStudents();
-    }, []);
-
-    useEffect(() => {
-        if (students.length > 0) {
-            fetchEvaluationsForStudents();
-            fetchGroupsForStudents();
-        }
-    }, [students]);
-
     const handleLogout = (event) => {
         event.preventDefault();
         localStorage.removeItem("student_id");
         navigate('/');
     };
-
-    const [openTeam, setOpenTeam] = useState(null);
-
-    const toggleTeam = (teamName) => {
-        setOpenTeam(openTeam === teamName ? null : teamName);
-    };
-
 
     // Navigate to detailed results page
     const goToDetailedResults = () => {
@@ -191,7 +200,9 @@ export default function AssessmentResultsPage() {
                                 {studentData.map(({ studentId, firstName, lastName, groups, averageCooperation, averageConceptual, averagePractical, averageWorkEthic }) => (
                                     <tr key={studentId} className="bg-white border-b">
                                         <td className="px-4 py-2">{firstName} {lastName}</td>
-                                        <td className="px-4 py-2">{groups.join(', ')}</td>
+                                        <td className="px-4 py-2">
+                                            {groups.map(groupName => groupName).join(', ')}
+                                        </td>
                                         <td className="px-4 py-2">{averageCooperation}</td>
                                         <td className="px-4 py-2">{averageConceptual}</td>
                                         <td className="px-4 py-2">{averagePractical}</td>
@@ -217,3 +228,4 @@ export default function AssessmentResultsPage() {
         </div>
     );
 }
+
