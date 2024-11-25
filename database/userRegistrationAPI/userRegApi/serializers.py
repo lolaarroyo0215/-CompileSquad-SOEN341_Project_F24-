@@ -99,6 +99,8 @@ class GroupSerializer(serializers.ModelSerializer):
         return group
     
 class GroupMemberSerializer(serializers.ModelSerializer):
+    group = GroupSerializer()
+    
     class Meta:
         model = GroupMembers
         fields = ['group', 'student']
@@ -115,6 +117,13 @@ class EvaluationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         evaluation = Evaluation.objects.create(**validated_data)
         return evaluation
+    
+    
+        
+    
+
+    
+
     
     
         
