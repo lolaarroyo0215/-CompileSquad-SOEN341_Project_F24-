@@ -1,0 +1,16 @@
+| Date   | Task                                                             | Time Spent |
+|--------|----------------------------------------------------------------- |------------|
+| 11-25  | Writing createAccount test & debugging                           | 1 hour     |
+| 11-25  | Writing Register test & debugging                                | 1 hour     |
+| 11-25  | Writing studentPage test & debugging                             | 0.25 hours |
+| 11-25  | Writing teacherPage test & debugging                             | 0.25 hours |
+| 11-25  | Researching how to build a burndown chart and best platforms     | 0.5 hours  |
+| 11-25  | Creating burndown chart and working on presentation              | 1 hour     |
+| 11-26  | Fixing remaining bugs from sprint 3                              | 1 hour     |
+|        |                                                                  |            |
+|        |                                                                  |            |
+|        |                                                                  |            |
+|        |                                                                  |            |
+|        |                                                                  |            |
+------------------------------------------------------------------------------------------
+| Total                                                                     | 8.25 hours |
