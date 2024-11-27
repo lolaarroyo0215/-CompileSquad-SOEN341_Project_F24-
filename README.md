@@ -49,3 +49,9 @@ We are following an adapted Agile methodology with 4 iterations (sprints) of 3 t
 - Develop a dashboard that allows instructors to view assessment results in two formats: **summary view** and **detailed view**
 - Incorporate additional features that enhance the instructor dashboard and improve system usability.
 
+## Sprint 4 Goals: 
+- Finalize user stories, linking them to tasks and acceptance tests.
+- Complete the development and implementation of all team features.
+- Create unit tests for all code and run them via a continuous integration pipeline.
+- Reorganize project files in GitHub into structured directories (e.g., tests, UI, utility classes).
+- Use a linter to identify and fix bugs, documenting maintenance efforts.
