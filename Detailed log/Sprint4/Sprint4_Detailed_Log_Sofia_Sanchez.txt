@@ -2,9 +2,9 @@
 |--------|----------------------------------------------------------------- |------------|
 | 11-24  | Presentation prep                                                | 1.5 hours  |
 | 11-25  | Figuring out how to revert to old version of code                | 3 hours    |
-|        |                                                                  |            |
-|        |                                                                  |            |
+| 11-27  | Summary of results page                                          | 4 hours    |
+| 11-28  | Detailed Summary Page & Fixing front end bugs                    | 4 hours    |
 |        |                                                                  |            |
 |        |                                                                  |            |
 ------------------------------------------------------------------------------------------
-| Total                                                                     | 4.5 hours  |
+| Total                                                                     | 12.5 hours |
