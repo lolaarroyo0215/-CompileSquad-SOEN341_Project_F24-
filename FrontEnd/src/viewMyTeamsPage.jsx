@@ -113,76 +113,112 @@ export default function MainTeammatesPage() {
   }
 
   return (
-    <div className="bg-slate-200 min-h-screen flex flex-col">
-      <nav className="bg-red-900 p-4 flex justify-between items-center">
-        <div className="text-white text-lg">
-          <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
+    <div className="flex min-h-screen bg-slate-200">
+        {/* Sidebar */}
+        <div className="w-64 bg-gray-200 text-black p-5 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
+            <ul className="mt-20">
+                <li className="mb-4">
+                    <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">
+                        Profile
+                    </a>
+                </li>
+                <li className="mb-4">
+                    <a href="/student" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">
+                        My Dashboard
+                    </a>
+                </li>
+                <li className="mb-4">
+                    <a href="/view-my-grades" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">
+                        View My Grades
+                    </a>
+                </li>
+                <li className="mb-4">
+                    <a href="/view-my-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">
+                        View My Teams
+                    </a>
+                </li>
+            </ul>
+            <ul className="p-3 mt-8">
+                <img src="/img/concordialogo.png" alt="concordia-logo" />
+            </ul>
         </div>
-        <div className="flex space-x-10">
-          <button
-            type="button"
-            onClick={checkoutProfile}
-            className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-          >
-            Profile
-          </button>
-          <button
-            type="button"
-            onClick={handleLogout}
-            className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
-          >
-            Log Out
-          </button>
-        </div>
-      </nav>
 
-      <div className="flex-grow p-8">
-        <h1 className="text-3xl font-bold text-black mb-6 text-center">Your Teammates by Class</h1>
-        {classesData.length > 0 ? (
-          classesData.map((classItem, index) => (
-            <div key={index} className="mb-6">
-              <button
-                onClick={() => toggleClass(classItem.group)} // Toggle based on group
-                className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
-              >
-                {classItem.group} {/* Display group name */}
-              </button>
-
-              {openClass === classItem.group && (
-                <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
-                  <table className="table-auto w-full text-left">
-                    <thead>
-                      <tr className="bg-gray-200">
-                        <th colSpan="2" className="px-4 py-2">Teammate ID</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {classItem.teammates.map((teammate, idx) => (
-                        <tr key={idx} className="border-b">
-                          <td className="px-4 py-2">{teammate.studentName}</td> {/* Display student_id */}
-                          <td className='px-4 py-2 flex justify-end'>
-                            <button
-                            onClick={() => handleEvaluate(teammate.studentId)}
-                            className='bg-red-900 text-white py-1 px-3 rounded hover:bg-gray-500'>
-                              Evaluate
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
+        {/* Main Content */}
+        <div className="flex-grow ml-64 p-8 pt-20 pb-32">
+            {/* Header */}
+            <nav className="bg-red-900 p-4 flex justify-between items-center fixed w-full top-0 left-0 z-10">
+                <div className="text-white text-lg flex items-center">
+                    <img src="/img/concordialogo.png" alt="Logo" className="h-8 mr-4" />
+                    <span>Peer Assessment Tool</span>
                 </div>
-              )}
-            </div>
-          ))
-        ) : (
-          <p>No groups found.</p>
-        )}
-      </div>
+                <div className="flex items-center space-x-10">
+                    <button
+                        type="button"
+                        onClick={checkoutProfile}
+                        className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
+                    >
+                        Profile
+                    </button>
+                    <button
+                        type="button"
+                        onClick={handleLogout}
+                        className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none"
+                    >
+                        Log Out
+                    </button>
+                </div>
+            </nav>
 
-      <footer className="bg-red-900 text-white text-right py-4 px-4">
-        <p>© 2024 GCS Peer Assessment Tool. All rights reserved.</p>
-      </footer>
+            {/* Page Title */}
+            <h1 className="text-3xl font-bold text-black mt-20 mb-20 text-center">
+                Your Teammates by Class
+            </h1>
+
+            {/* Main Content Area */}
+            <div className="flex-grow p-8">
+                {classesData.length > 0 ? (
+                    classesData.map((classItem, index) => (
+                        <div key={index} className="mb-6">
+                            <button
+                                onClick={() => toggleClass(classItem.group)} // Toggle based on group
+                                className="w-full bg-red-900 text-white font-bold py-2 px-4 rounded focus:outline-none text-left"
+                            >
+                                {classItem.group} {/* Display group name */}
+                            </button>
+
+                            {openClass === classItem.group && (
+                                <div className="mt-4 bg-white p-4 rounded-lg shadow-md">
+                                    <table className="table-auto w-full text-left">
+                                        <thead>
+                                            <tr className="bg-gray-200">
+                                                <th colSpan="2" className="px-4 py-2">Teammate ID</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {classItem.teammates.map((teammate, idx) => (
+                                                <tr key={idx} className="border-b">
+                                                    <td className="px-4 py-2">{teammate.studentName}</td> {/* Display student_id */}
+                                                    <td className="px-4 py-2 flex justify-end">
+                                                        <button
+                                                            onClick={() => handleEvaluate(teammate.studentId)}
+                                                            className="bg-red-900 text-white py-1 px-3 rounded hover:bg-gray-500"
+                                                        >
+                                                            Evaluate
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )}
+                        </div>
+                    ))
+                ) : (
+                    <p>No groups found.</p>
+                )}
+            </div>
+        </div>
     </div>
-  );
-}
+);
+                }
