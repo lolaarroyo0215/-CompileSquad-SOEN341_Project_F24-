@@ -12,7 +12,7 @@ export default function ConfirmationPage() {
 
     function checkoutProfile(event) {
         event.preventDefault();
-        navigate('/profile');
+        navigate('/student-profile');
     }
 
     return (

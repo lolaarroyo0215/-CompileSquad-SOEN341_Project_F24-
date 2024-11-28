@@ -13,6 +13,9 @@ export default function MainTeacherPage() {
     navigate('/');
   }
 
+  function checkoutProfile(event) {
+    navigate('/teacher-profile');
+  }
   return (
     <div className="bg-slate-200 min-h-screen flex flex-col">
       <nav className="bg-red-900 p-4 flex justify-between items-center fixed w-full top-0 left-0 z-10">
@@ -21,9 +24,12 @@ export default function MainTeacherPage() {
           <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
         </div>
         <div className="flex items-center space-x-6">
-          <span className="text-white hover:text-red-950 cursor-pointer py-2 px-4 text-sm font-medium bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
-            Profile
-          </span>
+          <button 
+              type='button' 
+              onClick={checkoutProfile} 
+              className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
+              Profile
+          </button>
           <button 
             type='button' 
             onClick={handleLogout} 
@@ -59,13 +65,13 @@ export default function MainTeacherPage() {
             </button>
           </Link>
 
-          {/* Current Teams Button */}
+          {/* Current Teams Button
           <Link to="/current-teams">
             <button className="bg-red-900 text-white font-bold py-5 w-80 h-80 flex flex-col items-center justify-start rounded hover:bg-red-950">
               <img src="/img/CurrentTeams.jpg" alt="Current Teams" className="h-40 w-45 object-cover rounded-lg mb-2" />
               <span className="text-xl mt-9">Current Teams</span>
             </button>
-          </Link>
+          </Link> */}
 
           {/* Assessment Results Button */}
           <Link to="/assessment-results">

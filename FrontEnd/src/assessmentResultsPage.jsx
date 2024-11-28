@@ -141,7 +141,7 @@ export default function AssessmentResultsPage() {
         <div className="w-64 bg-gray-200 text-black p-5 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
             <ul className="mt-20">
                 <li className="mb-4">
-                    <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">
+                    <a href="/teacher-profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">
                         Profile
                     </a>
                 </li>
@@ -160,11 +160,11 @@ export default function AssessmentResultsPage() {
                         Create Teams
                     </a>
                 </li>
-                <li className="mb-4">
+                {/* <li className="mb-4">
                     <a href="/current-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">
                         Current Teams
                     </a>
-                </li>
+                </li> */}
                 <li className="mb-4">
                     <a href="/assessment-results" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">
                         Assessment Results
@@ -184,9 +184,12 @@ export default function AssessmentResultsPage() {
                     <img src="/img/concordialogo.png" alt="Logo" className="h-8" />
                 </div>
                 <div className="flex items-center space-x-6">
-                    <span className="text-white hover:text-red-950 cursor-pointer py-2 px-4 text-sm font-medium bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
-                        Profile
-                    </span>
+                <button 
+                    type='button' 
+                    onClick={() => navigate("/teacher-profile")} 
+                    className="py-2 px-4 text-sm font-medium text-white bg-red-900 rounded-lg hover:bg-red-950 focus:outline-none">
+                    Profile
+                </button>
                     <button
                         type="button"
                         onClick={() => navigate("/")}

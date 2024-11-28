@@ -15,7 +15,7 @@ export default function MainStudentPage() {
   }
 
   function checkoutProfile(event) {
-    navigate('/profile');
+    navigate('/student-profile');
   }
 
   return (
