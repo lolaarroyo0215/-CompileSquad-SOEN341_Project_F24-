@@ -5,5 +5,7 @@ export default defineConfig({
   plugins: [react()],
   test: {
     environment: 'jsdom', // Use jsdom for DOM simulation
+    reporters: ['default', 'json'],
+    outputFile: './test-results/results.json',
   },
 })
