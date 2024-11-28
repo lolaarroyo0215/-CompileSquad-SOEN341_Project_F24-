@@ -3,10 +3,10 @@ name: CI Pipeline
 on: 
   push:
     branches: 
-      - main # Run the pipeline when code is pushed to main
+      - dev # Run the pipeline when code is pushed to dev
   pull_request:
     branches:
-      - main # Run the pipeline for pull requests to main
+      - dev # Run the pipeline for pull requests to dev
 
 jobs:
   build-and-test:
