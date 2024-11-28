@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import get_studentData, get_studentsGroups, get_evaluations, create_evaluation, get_groupMembers, create_groupMember, get_groups, create_group, get_courses, create_course, create_student, create_instructor, student_login, instructor_login, get_students #create_team, get_teams, 
+from .views import get_instructorData, get_studentData, get_studentsGroups, get_evaluations, create_evaluation, get_groupMembers, create_groupMember, get_groups, create_group, get_courses, create_course, create_student, create_instructor, student_login, instructor_login, get_students #create_team, get_teams, 
 from . import views
 
 urlpatterns = [
@@ -21,7 +21,8 @@ urlpatterns = [
     #path('get-team/<str:student_id>/', get_team),    
     path('create-evaluation/', create_evaluation),
     path('get-evaluations/<int:evaluatee>/<str:group>/', get_evaluations),
-    path('get-studentData/<int:user_id>/', get_studentData)
+    path('get-studentData/<int:user_id>/', get_studentData),
+    path('get-instructorData/<int:user_id>/', get_instructorData)
 ]
 
 # Things left to do 

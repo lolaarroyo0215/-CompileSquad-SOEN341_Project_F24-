@@ -87,7 +87,7 @@ export default function MainTeammatesPage() {
 
   function checkoutProfile(event) {
     event.preventDefault();
-    navigate('/profile');
+    navigate('/student-profile');
   }
 
   // Function to toggle a class's dropdown
@@ -118,7 +118,7 @@ export default function MainTeammatesPage() {
         <div className="w-64 bg-gray-200 text-black p-5 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
             <ul className="mt-20">
                 <li className="mb-4">
-                    <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">
+                    <a href="/student-profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">
                         Profile
                     </a>
                 </li>

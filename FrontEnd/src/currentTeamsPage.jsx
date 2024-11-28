@@ -21,7 +21,7 @@ export default function CurrentTeamsPage() {
 
   function checkoutProfile(event) {
     event.preventDefault();
-    navigate('/profile');
+    navigate('/teacher-profile');
   }
 
   // Fetch teams data from the backend
@@ -61,7 +61,7 @@ export default function CurrentTeamsPage() {
       <div className="w-64 bg-gray-200 text-black p-5 fixed top-0 left-0 h-full hidden md:block border-r-4 border-red-900">
         <ul className="mt-20">
           <li className="mb-4">
-            <a href="/profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a>
+            <a href="/teacher-profile" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Profile</a>
           </li>
           <li className="mb-4">
             <a href="/teacher" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">My Dashboard</a>
@@ -72,9 +72,9 @@ export default function CurrentTeamsPage() {
           <li className="mb-4">
             <a href="/create-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Create Teams</a>
           </li>
-          <li className="mb-4">
+          {/* <li className="mb-4">
             <a href="/current-teams" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Current Teams</a>
-          </li>
+          </li> */}
           <li className="mb-4">
             <a href="/assessment-results" className="block p-2 text-lg font-bold hover:text-red-950 hover:underline">Assessment Results</a>
           </li>

@@ -165,3 +165,9 @@ def get_studentData(request, user_id):
     student = Student.objects.get(user_id=user_id)
     serializer = StudentRegistrationSerializer(student, many=False)
     return Response(serializer.data, status=status.HTTP_200_OK)
+
+@api_view(['GET'])
+def get_instructorData(request, user_id):
+    teacher = Instructor.objects.get(user_id=user_id)
+    serializer = InstructorRegistrationSerializer(teacher, many=False)
+    return Response(serializer.data, status=status.HTTP_200_OK)
